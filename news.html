@@ -1,0 +1,921 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title data-i18n="news_meta_title">お知らせ | ONPrecision - 精密切削加工</title>
+    <meta name="description" data-i18n="news_meta_description"
+        content="ONPrecisionからのお知らせ・最新情報。新設備導入、工場増設などの最新ニュースをお届けします。">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ========================
+           CSS Variables
+           ======================== */
+        :root {
+            --color-primary: #8b1a1a;
+            --color-primary-dark: #6b1515;
+            --color-text-primary: #333333;
+            --color-text-secondary: #555555;
+            --color-text-muted: #666666;
+            --color-border: #e0e0e0;
+            --color-bg-gray: #f5f5f5;
+            --font-family: 'Noto Sans JP', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* ========================
+           Reset & Base
+           ======================== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            background-color: #ffffff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ========================
+           Header
+           ======================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .lang-btn {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #666;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            color: #333;
+        }
+
+        .lang-btn.active {
+            color: var(--color-primary);
+            background: rgba(139, 26, 26, 0.1);
+        }
+
+        .lang-divider {
+            color: #ccc;
+        }
+
+        .header-contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--color-primary);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-contact-btn:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        /* ========================
+           Page Banner
+           ======================== */
+        .page-banner {
+            background-color: var(--color-primary);
+            padding: 8rem 0 3rem;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .page-banner-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #ffffff;
+        }
+
+        .breadcrumb-current {
+            color: #ffffff;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        /* ========================
+           Container
+           ======================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ========================
+           News List Section
+           ======================== */
+        .news-list-section {
+            padding: 3rem 0 4rem;
+            background-color: #ffffff;
+        }
+
+        .news-article {
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: 2rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--color-border);
+            align-items: start;
+        }
+
+        .news-article:first-child {
+            padding-top: 0;
+        }
+
+        .news-article:last-child {
+            border-bottom: none;
+        }
+
+        .news-article-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .news-date {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .news-article-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            line-height: 1.4;
+            margin: 0.25rem 0;
+        }
+
+        .news-article-excerpt {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin: 0.5rem 0;
+        }
+
+        .news-read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .news-read-more:hover {
+            color: var(--color-primary-dark);
+        }
+
+        .news-read-more svg {
+            transition: transform 0.3s ease;
+        }
+
+        .news-read-more:hover svg {
+            transform: translateX(4px);
+        }
+
+        .news-article-image {
+            width: 200px;
+            height: 140px;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .news-article:hover .news-article-image img {
+            transform: scale(1.05);
+        }
+
+        /* ========================
+           CTA Section
+           ======================== */
+        .cta-section {
+            background-color: var(--color-bg-gray);
+            padding: 2rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .cta-notice {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-company {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .cta-company-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .cta-address {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            font-style: normal;
+            margin-top: 0.5rem;
+        }
+
+        .cta-address p {
+            margin: 0.25rem 0;
+        }
+
+        .cta-contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #ffffff;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            padding: 0.75rem 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-contact-btn:hover {
+            background-color: var(--color-primary);
+            color: #ffffff;
+        }
+
+        .cta-phone {
+            text-align: center;
+        }
+
+        .cta-phone-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: 0.05em;
+        }
+
+        /* ========================
+           Footer Navigation
+           ======================== */
+        .footer-nav {
+            background-color: var(--color-primary);
+            padding: 1rem 0;
+        }
+
+        .footer-nav-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem 2rem;
+        }
+
+        .footer-nav-list a {
+            color: #ffffff;
+            font-size: 0.875rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-nav-list a:hover {
+            opacity: 0.8;
+        }
+
+        /* ========================
+           Footer
+           ======================== */
+        .footer {
+            background-color: #1a1a1a;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+        }
+
+        /* ========================
+           Back to Top
+           ======================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--color-primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--color-primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* ========================
+           Responsive
+           ======================== */
+        @media (max-width: 992px) {
+            .nav-list {
+                display: none;
+            }
+
+            .cta-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .cta-company {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                height: 60px;
+            }
+
+            .page-banner {
+                margin-top: 60px;
+                padding: 6rem 0 2rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .news-article {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .news-article-image {
+                width: 100%;
+                height: 200px;
+                order: -1;
+            }
+
+            .news-article-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .news-article-image {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="./index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" width="40" height="40">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="#8b1a1a" stroke-width="2" />
+                    <path d="M12 20 L28 20 M20 12 L20 28" stroke="#8b1a1a" stroke-width="2" />
+                </svg>
+                <span class="logo-text" data-i18n="company_name">ONPrecision</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="./works.html" class="nav-link" data-i18n="nav_works">事業内容</a></li>
+                    <li><a href="./equipment.html" class="nav-link" data-i18n="nav_equipment">設備一覧</a></li>
+                    <li><a href="./company.html" class="nav-link" data-i18n="nav_about">会社案内</a></li>
+                    <li><a href="./recruit.html" class="nav-link" data-i18n="nav_recruit">採用情報</a></li>
+                </ul>
+            </nav>
+
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ja" aria-label="日本語">JP</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VN</button>
+            </div>
+
+            <a href="./index.html#contact" class="header-contact-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <path d="M22 6l-10 7L2 6" />
+                </svg>
+                <span data-i18n="nav_contact">お問い合わせ</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="page-banner-content">
+            <nav class="breadcrumb">
+                <a href="./index.html" data-i18n="nav_home">HOME</a>
+                <span>›</span>
+                <span class="breadcrumb-current" data-i18n="news_page_title">お知らせ</span>
+            </nav>
+            <h1 class="page-title" data-i18n="news_page_title">お知らせ</h1>
+        </div>
+    </section>
+
+    <!-- News List -->
+    <section class="news-list-section">
+        <div class="container">
+            <!-- News 1 -->
+            <article class="news-article">
+                <div class="news-article-content">
+                    <time class="news-date">2023年03月24日(土)</time>
+                    <h2 class="news-article-title" data-i18n="news_article_1_title">第二工場を増設しました</h2>
+                    <p class="news-article-excerpt" data-i18n="news_article_1_excerpt">
+                        ONPrecisionの本社工場に隣接する形で、第二工場を増設いたしました。設工程報も順次拡張す予定です。
+                    </p>
+                    <a href="#" class="news-read-more">
+                        <span data-i18n="news_read_more">続きを読む</span>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 8l4 4-4 4M8 12h8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="news-article-image">
+                    <img src="./assets/images/company/building-01.png" alt="第二工場">
+                </div>
+            </article>
+
+            <!-- News 2 -->
+            <article class="news-article">
+                <div class="news-article-content">
+                    <time class="news-date">2024年02月03日(金)</time>
+                    <h2 class="news-article-title" data-i18n="news_article_2_title">NC自動旋盤の設備投資を行いました</h2>
+                    <p class="news-article-excerpt" data-i18n="news_article_2_excerpt">
+                        ONPrecisionでは生産力の拡大のため、2024年2月に新たにNC自動旋盤を増設しました。2024年は更なる設備投資も計画しており、技術力・生産力の向上を続けてまいります。
+                    </p>
+                    <a href="#" class="news-read-more">
+                        <span data-i18n="news_read_more">続きを読む</span>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 8l4 4-4 4M8 12h8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="news-article-image">
+                    <img src="./assets/images/equipment/lathe.png" alt="NC自動旋盤">
+                </div>
+            </article>
+
+            <!-- News 3 -->
+            <article class="news-article">
+                <div class="news-article-content">
+                    <time class="news-date">2023年06月20日(火)</time>
+                    <h2 class="news-article-title" data-i18n="news_article_3_title">新型 三次元画像測定器を導入しました</h2>
+                    <p class="news-article-excerpt" data-i18n="news_article_3_excerpt">
+                        ONPrecisionでは新たにキーエンス製の三次元測画像測定器「LM-X」を導入しました。高速・高精度に計測を行うことができ、より測定品質の安定に寄与します。
+                    </p>
+                    <a href="#" class="news-read-more">
+                        <span data-i18n="news_read_more">続きを読む</span>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 8l4 4-4 4M8 12h8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="news-article-image">
+                    <img src="./assets/images/equipment/inspection.png" alt="三次元画像測定器">
+                </div>
+            </article>
+
+            <!-- News 4 -->
+            <article class="news-article">
+                <div class="news-article-content">
+                    <time class="news-date">2022年12月09日(木)</time>
+                    <h2 class="news-article-title" data-i18n="news_article_4_title">NC自動旋盤の設備投資を行いました</h2>
+                    <p class="news-article-excerpt" data-i18n="news_article_4_excerpt">
+                        ONPrecisionでは2022年12月、新たにNC自動旋盤を設備投資しました。生産力を拡大させ、より一層精度等、高品質の精密加工品の生産を追求いたします。【加工能力】※スター精密HPより・加工自封により万…
+                    </p>
+                    <a href="#" class="news-read-more">
+                        <span data-i18n="news_read_more">続きを読む</span>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 8l4 4-4 4M8 12h8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="news-article-image">
+                    <img src="./assets/images/equipment/cnc-floor.png" alt="NC自動旋盤設備">
+                </div>
+            </article>
+
+            <!-- News 5 -->
+            <article class="news-article">
+                <div class="news-article-content">
+                    <time class="news-date">2021年07月23日(火)</time>
+                    <h2 class="news-article-title" data-i18n="news_article_5_title">弊社工場見学動画を制作しました。</h2>
+                    <p class="news-article-excerpt" data-i18n="news_article_5_excerpt">
+                        弊社工場見学動画を制作しましたので、ぜひご覧ください。NC自動旋によ自動車部品・電機部品の精密切削加工は長岡精機をお任せください。
+                    </p>
+                    <a href="#" class="news-read-more">
+                        <span data-i18n="news_read_more">続きを読む</span>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 8l4 4-4 4M8 12h8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="news-article-image">
+                    <img src="./assets/images/works/process-01.png" alt="工場見学動画">
+                </div>
+            </article>
+
+            <!-- News 6 -->
+            <article class="news-article">
+                <div class="news-article-content">
+                    <time class="news-date">2020年04月14日(火)</time>
+                    <h2 class="news-article-title" data-i18n="news_article_6_title">オンライン商談への対応を始めました！</h2>
+                    <p class="news-article-excerpt" data-i18n="news_article_6_excerpt">
+                        ONPrecisionでは、お客様、関係者の皆さまの新型コロナウイルス感染リスクの軽減、業界の衛生などを目的として、ビデオ会議システムを活用したオンライン商談への対応を始めました。Zoomは、ユーザー登録な...
+                    </p>
+                    <a href="#" class="news-read-more">
+                        <span data-i18n="news_read_more">続きを読む</span>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 8l4 4-4 4M8 12h8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="news-article-image">
+                    <img src="./assets/images/works/process-02.png" alt="オンライン商談">
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-grid">
+                <div class="cta-company-info">
+                    <p class="cta-notice" data-i18n="cta_notice">旋盤による精密切削加工のことならお気軽にどうぞ</p>
+                    <div class="cta-company">
+                        <svg viewBox="0 0 40 40" width="40" height="40">
+                            <circle cx="20" cy="20" r="18" fill="none" stroke="#8b1a1a" stroke-width="2" />
+                            <path d="M12 20 L28 20 M20 12 L20 28" stroke="#8b1a1a" stroke-width="2" />
+                        </svg>
+                        <span class="cta-company-name" data-i18n="company_name">ONPrecision</span>
+                    </div>
+                    <address class="cta-address">
+                        <p data-i18n="company_address">〒399-0428 長野県岡谷市川岸前道1105番地8005</p>
+                        <p data-i18n="company_hours">営業時間：08～17時（平日）　FAX：0266-23-2776</p>
+                    </address>
+                </div>
+
+                <a href="./index.html#contact" class="cta-contact-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <path d="M22 6l-10 7L2 6" />
+                    </svg>
+                    <span data-i18n="contact_button">お問い合わせ</span>
+                </a>
+
+                <div class="cta-phone">
+                    <a href="tel:0266-27-3511" class="cta-phone-number">0266-27-3511</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Navigation -->
+    <nav class="footer-nav">
+        <div class="container">
+            <ul class="footer-nav-list">
+                <li><a href="./index.html" data-i18n="nav_home">HOME</a></li>
+                <li><a href="./works.html" data-i18n="nav_works">事業内容</a></li>
+                <li><a href="./equipment.html" data-i18n="nav_equipment">設備一覧</a></li>
+                <li><a href="./company.html" data-i18n="nav_about">会社概要</a></li>
+                <li><a href="#" data-i18n="nav_quality">品質・環境方針</a></li>
+                <li><a href="./recruit.html" data-i18n="nav_recruit">採用情報</a></li>
+                <li><a href="./news.html" data-i18n="nav_news">お知らせ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">COPYRIGHT © ONPrecision CO.,LTD ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="ページトップへ戻る">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6" />
+        </svg>
+    </button>
+
+    <!-- Translation Data (Embedded for standalone use) -->
+    <script>
+        const translations = {
+            ja: {
+                company_name: "ONPrecision",
+                nav_home: "HOME",
+                nav_works: "事業内容",
+                nav_equipment: "設備一覧",
+                nav_about: "会社概要",
+                nav_quality: "品質・環境方針",
+                nav_recruit: "採用情報",
+                nav_contact: "お問い合わせ",
+                nav_news: "お知らせ",
+                news_page_title: "お知らせ",
+                news_read_more: "続きを読む",
+                news_article_1_title: "第二工場を増設しました",
+                news_article_1_excerpt: "ONPrecisionの本社工場に隣接する形で、第二工場を増設いたしました。設工程報も順次拡張す予定です。",
+                news_article_2_title: "NC自動旋盤の設備投資を行いました",
+                news_article_2_excerpt: "ONPrecisionでは生産力の拡大のため、2024年2月に新たにNC自動旋盤を増設しました。2024年は更なる設備投資も計画しており、技術力・生産力の向上を続けてまいります。",
+                news_article_3_title: "新型 三次元画像測定器を導入しました",
+                news_article_3_excerpt: "ONPrecisionでは新たにキーエンス製の三次元測画像測定器「LM-X」を導入しました。高速・高精度に計測を行うことができ、より測定品質の安定に寄与します。",
+                news_article_4_title: "NC自動旋盤の設備投資を行いました",
+                news_article_4_excerpt: "ONPrecisionでは2022年12月、新たにNC自動旋盤を設備投資しました。生産力を拡大させ、より一層精度等、高品質の精密加工品の生産を追求いたします。",
+                news_article_5_title: "弊社工場見学動画を制作しました。",
+                news_article_5_excerpt: "弊社工場見学動画を制作しましたので、ぜひご覧ください。NC自動旋によ自動車部品・電機部品の精密切削加工は長岡精機をお任せください。",
+                news_article_6_title: "オンライン商談への対応を始めました！",
+                news_article_6_excerpt: "ONPrecisionでは、お客様、関係者の皆さまの新型コロナウイルス感染リスクの軽減、業界の衛生などを目的として、ビデオ会議システムを活用したオンライン商談への対応を始めました。",
+                cta_notice: "旋盤による精密切削加工のことならお気軽にどうぞ",
+                company_address: "〒399-0428 長野県岡谷市川岸前道1105番地8005",
+                company_hours: "営業時間：08～17時（平日）　FAX：0266-23-2776",
+                contact_button: "お問い合わせ"
+            },
+            vi: {
+                company_name: "ONPrecision",
+                nav_home: "TRANG CHỦ",
+                nav_works: "Dịch vụ",
+                nav_equipment: "Thiết bị",
+                nav_about: "Về chúng tôi",
+                nav_quality: "Chính sách chất lượng",
+                nav_recruit: "Tuyển dụng",
+                nav_contact: "Liên hệ",
+                nav_news: "Tin tức",
+                news_page_title: "Tin tức",
+                news_read_more: "Xem tiếp",
+                news_article_1_title: "Đã mở rộng nhà máy thứ hai",
+                news_article_1_excerpt: "Chúng tôi đã mở rộng nhà máy thứ hai liền kề với trụ sở chính của ONPrecision. Các quy trình sản xuất cũng sẽ được mở rộng theo.",
+                news_article_2_title: "Đã đầu tư thiết bị máy tiện tự động NC",
+                news_article_2_excerpt: "Để mở rộng năng lực sản xuất, vào tháng 2/2024 ONPrecision đã bổ sung thêm máy tiện tự động NC. Năm 2024 chúng tôi còn lên kế hoạch đầu tư thêm thiết bị.",
+                news_article_3_title: "Đã đưa vào sử dụng máy đo hình ảnh 3D mới",
+                news_article_3_excerpt: "ONPrecision đã đưa vào sử dụng máy đo hình ảnh 3D 'LM-X' của Keyence. Thiết bị có thể đo lường nhanh chóng và chính xác cao.",
+                news_article_4_title: "Đã đầu tư thiết bị máy tiện tự động NC",
+                news_article_4_excerpt: "Vào tháng 12/2022, ONPrecision đã đầu tư máy tiện tự động NC mới. Chúng tôi mở rộng năng lực sản xuất và tiếp tục theo đuổi sản xuất linh kiện chính xác chất lượng cao.",
+                news_article_5_title: "Đã sản xuất video tham quan nhà máy",
+                news_article_5_excerpt: "Chúng tôi đã sản xuất video tham quan nhà máy, mời quý vị xem. Hãy tin tưởng ONPrecision về gia công cắt gọt chính xác linh kiện ô tô và điện tử.",
+                news_article_6_title: "Đã bắt đầu hỗ trợ tư vấn trực tuyến!",
+                news_article_6_excerpt: "Nhằm giảm thiểu rủi ro lây nhiễm COVID-19 cho khách hàng và đối tác, ONPrecision đã bắt đầu hỗ trợ tư vấn trực tuyến thông qua hệ thống họp video.",
+                cta_notice: "Hãy liên hệ với chúng tôi về gia công cắt gọt chính xác bằng máy tiện",
+                company_address: "〒399-0428 1105-8005 Kawagishi Maemichi, Okaya-shi, Nagano",
+                company_hours: "Giờ làm việc: 08~17h (Ngày thường) FAX: 0266-23-2776",
+                contact_button: "Liên hệ"
+            }
+        };
+
+        // Language Switcher
+        let currentLang = localStorage.getItem('preferred_language') || 'ja';
+
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang;
+        }
+
+        function updateLanguageButtons(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            applyTranslations(currentLang);
+            updateLanguageButtons(currentLang);
+
+            // Bind language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const lang = this.getAttribute('data-lang');
+                    if (lang !== currentLang) {
+                        currentLang = lang;
+                        localStorage.setItem('preferred_language', lang);
+                        applyTranslations(lang);
+                        updateLanguageButtons(lang);
+                    }
+                });
+            });
+
+            // Back to top button
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Header scroll effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) {
+                    header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
+                } else {
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

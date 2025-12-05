@@ -1,0 +1,666 @@
+/* ========================
+   Company Page Styles
+   ======================== */
+
+/* Page Banner */
+.page-banner {
+    background: linear-gradient(135deg, #8b1a1a 0%, #a52929 100%);
+    padding: 3rem 0 2rem;
+    margin-top: 80px;
+}
+
+.page-banner-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.breadcrumb a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: #ffffff;
+}
+
+.breadcrumb-separator {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.breadcrumb-current {
+    color: #ffffff;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Section Styles */
+.company-profile-section {
+    padding: 4rem 0;
+    background: #ffffff;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #8b1a1a;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Company Block Title */
+.company-block-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #8b1a1a;
+    position: relative;
+}
+
+.company-block-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100px;
+    height: 2px;
+    background: #8b1a1a;
+}
+
+/* Company Content Grid */
+.company-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 3rem;
+}
+
+/* Company Info Table */
+.company-info-table,
+.company-history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.company-info-table tr,
+.company-history-table tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.company-info-table th,
+.company-history-table th {
+    background: #8b1a1a;
+    color: #ffffff;
+    font-weight: 500;
+    padding: 0.875rem 1rem;
+    text-align: left;
+    width: 120px;
+    vertical-align: top;
+    font-size: 0.9rem;
+}
+
+.company-info-table td,
+.company-history-table td {
+    padding: 0.875rem 1rem;
+    color: #333;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Company Images */
+.company-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.company-image-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.image-caption {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+/* Company Overview & History */
+.company-overview,
+.company-history {
+    margin-bottom: 3rem;
+}
+
+/* ========================
+   CEO Greeting Section
+   ======================== */
+.greeting-section {
+    position: relative;
+    padding: 5rem 0;
+    overflow: hidden;
+}
+
+.greeting-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.greeting-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.greeting-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+            rgba(135, 206, 235, 0.4) 0%,
+            rgba(255, 255, 255, 0.6) 50%,
+            rgba(144, 238, 144, 0.3) 100%);
+}
+
+.greeting-header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.greeting-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #333;
+    display: inline-block;
+    padding: 0.5rem 2rem;
+    border: 2px solid #8b1a1a;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.greeting-content {
+    position: relative;
+    z-index: 1;
+}
+
+.greeting-card {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.greeting-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.greeting-text p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+.greeting-signature {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.signature-title {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.signature-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Noto Serif JP', serif;
+}
+
+/* ========================
+   Access Map Section
+   ======================== */
+.access-section {
+    padding: 4rem 0;
+    background: #ffffff;
+}
+
+.access-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.access-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.access-title-line {
+    width: 60px;
+    height: 2px;
+    background: #8b1a1a;
+    margin: 0 auto;
+}
+
+.access-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.access-map {
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.access-map iframe {
+    display: block;
+}
+
+.access-info {
+    background: #f8f8f8;
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+}
+
+.access-info p {
+    font-size: 0.875rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.access-info p:last-child {
+    margin-bottom: 0;
+}
+
+/* ========================
+   Policy & Recruit Section
+   ======================== */
+.policy-recruit-section {
+    padding: 0;
+}
+
+.policy-recruit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.policy-card,
+.recruit-card {
+    position: relative;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.policy-background,
+.recruit-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.policy-background img,
+.recruit-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.policy-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(30, 30, 50, 0.85);
+}
+
+.recruit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(139, 26, 26, 0.85);
+}
+
+.policy-content,
+.recruit-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #ffffff;
+    padding: 2rem;
+}
+
+.policy-title,
+.recruit-title {
+    margin-bottom: 1rem;
+}
+
+.policy-title-en,
+.recruit-title-en {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+}
+
+.policy-subtitle,
+.recruit-subtitle {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+}
+
+.policy-btn,
+.recruit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.policy-btn:hover,
+.recruit-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+}
+
+/* ========================
+   CTA Section
+   ======================== */
+.company-cta-section {
+    padding: 3rem 0;
+    background: #f5f5f5;
+    border-top: 1px solid #e0e0e0;
+}
+
+.company-cta-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.cta-notice {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.company-cta-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.75rem;
+}
+
+.company-cta-address {
+    font-style: normal;
+    font-size: 0.8rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+.company-cta-address p {
+    margin-bottom: 0.25rem;
+}
+
+.company-contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ffc107;
+    color: #333;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.company-contact-btn:hover {
+    background: #e0a800;
+    transform: translateY(-2px);
+}
+
+.company-phone-link {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.company-phone-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #8b1a1a;
+}
+
+.company-fax-link {
+    display: block;
+}
+
+.fax-image {
+    max-width: 150px;
+    height: auto;
+}
+
+/* ========================
+   Footer Navigation
+   ======================== */
+.company-footer-nav {
+    background: #8b1a1a;
+    padding: 1rem 0;
+}
+
+.company-footer-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.company-footer-list li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: opacity 0.3s ease;
+}
+
+.company-footer-list li a:hover {
+    opacity: 0.8;
+}
+
+/* ========================
+   Responsive Design
+   ======================== */
+@media (max-width: 992px) {
+    .company-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .company-images {
+        order: -1;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .company-image-item {
+        max-width: 300px;
+    }
+
+    .greeting-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .greeting-image {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .greeting-signature {
+        align-items: center;
+    }
+
+    .company-cta-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-banner {
+        padding: 2rem 0 1.5rem;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .policy-recruit-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .policy-card,
+    .recruit-card {
+        min-height: 250px;
+    }
+
+    .company-cta-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .company-cta-logo {
+        justify-content: center;
+    }
+
+    .company-footer-list {
+        gap: 0.5rem 1rem;
+    }
+
+    .company-info-table th,
+    .company-history-table th {
+        width: 100px;
+        font-size: 0.8rem;
+    }
+
+    .company-info-table td,
+    .company-history-table td {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.75rem;
+    }
+
+    .company-info-table,
+    .company-history-table {
+        display: block;
+    }
+
+    .company-info-table tbody,
+    .company-history-table tbody,
+    .company-info-table tr,
+    .company-history-table tr {
+        display: block;
+    }
+
+    .company-info-table th,
+    .company-history-table th,
+    .company-info-table td,
+    .company-history-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .company-info-table th,
+    .company-history-table th {
+        padding: 0.5rem 1rem;
+    }
+
+    .greeting-text p {
+        text-align: left;
+        font-size: 0.85rem;
+    }
+}

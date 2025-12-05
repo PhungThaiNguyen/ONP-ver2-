@@ -1,0 +1,197 @@
+/* ================================================
+   CSS Variables - Design Tokens
+   ================================================
+   Định nghĩa tất cả màu sắc, fonts, spacing
+   để dễ dàng thay đổi và maintain
+   ================================================ */
+
+:root {
+    /* ========================
+       Color Palette
+       ======================== */
+
+    /* Primary Colors - Brand Red */
+    --color-primary: #8b1a1a;
+    --color-primary-light: #a52929;
+    --color-primary-dark: #6d1515;
+    --color-primary-rgb: 139, 26, 26;
+
+    /* Secondary Colors */
+    --color-secondary: #1e3a5f;
+    --color-secondary-light: #2a4a73;
+    --color-secondary-dark: #152a45;
+
+    /* Accent Colors */
+    --color-accent: #ffc107;
+    --color-accent-hover: #e0a800;
+
+    /* Neutral Colors */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray-100: #f8f9fa;
+    --color-gray-200: #e9ecef;
+    --color-gray-300: #dee2e6;
+    --color-gray-400: #ced4da;
+    --color-gray-500: #adb5bd;
+    --color-gray-600: #6c757d;
+    --color-gray-700: #495057;
+    --color-gray-800: #343a40;
+    --color-gray-900: #212529;
+
+    /* Text Colors */
+    --color-text-primary: #333333;
+    --color-text-secondary: #555555;
+    --color-text-muted: #666666;
+    --color-text-light: #888888;
+    --color-text-inverse: #ffffff;
+
+    /* Background Colors */
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f5f5f5;
+    --color-bg-dark: #1a1a1a;
+    --color-bg-overlay: rgba(0, 0, 0, 0.5);
+
+    /* Border Colors */
+    --color-border: #e0e0e0;
+    --color-border-light: #f0f0f0;
+
+    /* Status Colors */
+    --color-success: #28a745;
+    --color-warning: #ffc107;
+    --color-error: #dc3545;
+    --color-info: #17a2b8;
+
+    /* ========================
+       Typography
+       ======================== */
+
+    /* Font Families */
+    --font-family-primary: 'Noto Sans JP', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-family-heading: 'Noto Sans JP', 'Noto Sans', sans-serif;
+    --font-family-mono: 'Consolas', 'Monaco', monospace;
+
+    /* Font Sizes */
+    --font-size-xs: 0.75rem;
+    /* 12px */
+    --font-size-sm: 0.875rem;
+    /* 14px */
+    --font-size-base: 1rem;
+    /* 16px */
+    --font-size-md: 1.125rem;
+    /* 18px */
+    --font-size-lg: 1.25rem;
+    /* 20px */
+    --font-size-xl: 1.5rem;
+    /* 24px */
+    --font-size-2xl: 2rem;
+    /* 32px */
+    --font-size-3xl: 2.5rem;
+    /* 40px */
+    --font-size-4xl: 3rem;
+    /* 48px */
+
+    /* Font Weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Line Heights */
+    --line-height-tight: 1.25;
+    --line-height-base: 1.5;
+    --line-height-relaxed: 1.75;
+    --line-height-loose: 2;
+
+    /* Letter Spacing */
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.05em;
+    --letter-spacing-wider: 0.1em;
+
+    /* ========================
+       Spacing
+       ======================== */
+
+    --spacing-xs: 0.25rem;
+    /* 4px */
+    --spacing-sm: 0.5rem;
+    /* 8px */
+    --spacing-md: 1rem;
+    /* 16px */
+    --spacing-lg: 1.5rem;
+    /* 24px */
+    --spacing-xl: 2rem;
+    /* 32px */
+    --spacing-2xl: 3rem;
+    /* 48px */
+    --spacing-3xl: 4rem;
+    /* 64px */
+    --spacing-4xl: 6rem;
+    /* 96px */
+
+    /* ========================
+       Layout
+       ======================== */
+
+    /* Container */
+    --container-max-width: 1200px;
+    --container-padding: 2rem;
+
+    /* Header */
+    --header-height: 80px;
+    --header-height-mobile: 60px;
+
+    /* ========================
+       Borders & Radius
+       ======================== */
+
+    --border-width: 1px;
+    --border-width-thick: 2px;
+
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    --border-radius-full: 9999px;
+
+    /* ========================
+       Shadows
+       ======================== */
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    /* ========================
+       Transitions
+       ======================== */
+
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
+    --transition-slow: 500ms ease;
+
+    /* ========================
+       Z-Index Scale
+       ======================== */
+
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-fixed: 300;
+    --z-modal-backdrop: 400;
+    --z-modal: 500;
+    --z-tooltip: 600;
+}
+
+/* ========================
+   Dark Mode Variables
+   ======================== */
+[data-theme="dark"] {
+    --color-text-primary: #f0f0f0;
+    --color-text-secondary: #d0d0d0;
+    --color-bg-primary: #1a1a1a;
+    --color-bg-secondary: #2a2a2a;
+    --color-border: #444444;
+}

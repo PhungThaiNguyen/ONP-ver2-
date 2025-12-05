@@ -1,0 +1,343 @@
+/* ================================================
+   Layout Styles
+   ================================================
+   Container, Grid, and common layout utilities
+   ================================================ */
+
+/* ========================
+   Container
+   ======================== */
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.container--narrow {
+    max-width: 900px;
+}
+
+.container--wide {
+    max-width: 1400px;
+}
+
+.container--full {
+    max-width: 100%;
+    padding: 0;
+}
+
+/* ========================
+   Section Spacing
+   ======================== */
+.section {
+    padding: var(--spacing-4xl) 0;
+}
+
+.section--sm {
+    padding: var(--spacing-2xl) 0;
+}
+
+.section--lg {
+    padding: var(--spacing-4xl) 0;
+}
+
+.section--dark {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-inverse);
+}
+
+.section--gray {
+    background-color: var(--color-gray-100);
+}
+
+/* ========================
+   Grid System
+   ======================== */
+.grid {
+    display: grid;
+    gap: var(--spacing-xl);
+}
+
+.grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grid--6 {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+/* Auto-fit Grid */
+.grid--auto {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Asymmetric Grids */
+.grid--2-1 {
+    grid-template-columns: 2fr 1fr;
+}
+
+.grid--1-2 {
+    grid-template-columns: 1fr 2fr;
+}
+
+.grid--3-1 {
+    grid-template-columns: 3fr 1fr;
+}
+
+/* ========================
+   Flexbox Utilities
+   ======================== */
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-between {
+    justify-content: space-between;
+}
+
+.flex-start {
+    justify-content: flex-start;
+}
+
+.flex-end {
+    justify-content: flex-end;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.items-end {
+    align-items: flex-end;
+}
+
+.gap-sm {
+    gap: var(--spacing-sm);
+}
+
+.gap-md {
+    gap: var(--spacing-md);
+}
+
+.gap-lg {
+    gap: var(--spacing-lg);
+}
+
+.gap-xl {
+    gap: var(--spacing-xl);
+}
+
+/* ========================
+   Spacing Utilities
+   ======================== */
+.mt-0 {
+    margin-top: 0;
+}
+
+.mt-sm {
+    margin-top: var(--spacing-sm);
+}
+
+.mt-md {
+    margin-top: var(--spacing-md);
+}
+
+.mt-lg {
+    margin-top: var(--spacing-lg);
+}
+
+.mt-xl {
+    margin-top: var(--spacing-xl);
+}
+
+.mt-2xl {
+    margin-top: var(--spacing-2xl);
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mb-sm {
+    margin-bottom: var(--spacing-sm);
+}
+
+.mb-md {
+    margin-bottom: var(--spacing-md);
+}
+
+.mb-lg {
+    margin-bottom: var(--spacing-lg);
+}
+
+.mb-xl {
+    margin-bottom: var(--spacing-xl);
+}
+
+.mb-2xl {
+    margin-bottom: var(--spacing-2xl);
+}
+
+.pt-0 {
+    padding-top: 0;
+}
+
+.pt-md {
+    padding-top: var(--spacing-md);
+}
+
+.pt-lg {
+    padding-top: var(--spacing-lg);
+}
+
+.pt-xl {
+    padding-top: var(--spacing-xl);
+}
+
+.pb-0 {
+    padding-bottom: 0;
+}
+
+.pb-md {
+    padding-bottom: var(--spacing-md);
+}
+
+.pb-lg {
+    padding-bottom: var(--spacing-lg);
+}
+
+.pb-xl {
+    padding-bottom: var(--spacing-xl);
+}
+
+/* ========================
+   Text Alignment
+   ======================== */
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+/* ========================
+   Visibility
+   ======================== */
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+/* ========================
+   Animations
+   ======================== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ========================
+   Responsive Grid
+   ======================== */
+@media (max-width: 992px) {
+    .grid--4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid--3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid--2-1,
+    .grid--1-2,
+    .grid--3-1 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+
+    .section {
+        padding: var(--spacing-2xl) 0;
+    }
+
+    .grid--2,
+    .grid--3,
+    .grid--4,
+    .grid--6 {
+        grid-template-columns: 1fr;
+    }
+}

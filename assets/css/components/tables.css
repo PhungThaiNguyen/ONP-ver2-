@@ -1,0 +1,206 @@
+/* ================================================
+   Table Component Styles
+   ================================================
+   Reusable table styles
+   ================================================ */
+
+/* ========================
+   Base Table
+   ======================== */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-bg-primary);
+}
+
+.table th,
+.table td {
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.table th {
+    background-color: var(--color-gray-100);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.table td {
+    color: var(--color-text-secondary);
+}
+
+/* Striped Table */
+.table--striped tbody tr:nth-child(even) {
+    background-color: var(--color-gray-100);
+}
+
+/* Hover Effect */
+.table--hover tbody tr:hover {
+    background-color: var(--color-gray-200);
+}
+
+/* ========================
+   Company Info Table
+   ======================== */
+.company-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.company-table tr {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.company-table th {
+    width: 150px;
+    padding: var(--spacing-lg);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-align: left;
+    vertical-align: top;
+}
+
+.company-table td {
+    padding: var(--spacing-lg);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    background-color: var(--color-bg-primary);
+}
+
+/* ========================
+   Equipment Table
+   ======================== */
+.equipment-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--color-border);
+}
+
+.equipment-table th {
+    padding: var(--spacing-md);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-align: center;
+    border: 1px solid var(--color-primary-dark);
+}
+
+.equipment-table td {
+    padding: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    text-align: center;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-primary);
+}
+
+.equipment-table tbody tr:hover {
+    background-color: rgba(139, 26, 26, 0.05);
+}
+
+/* ========================
+   History Table
+   ======================== */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table tr {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.history-table th {
+    width: 150px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-align: left;
+    vertical-align: top;
+}
+
+.history-table td {
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+}
+
+/* ========================
+   Recruit Requirements Table
+   ======================== */
+.recruit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--spacing-lg);
+}
+
+.recruit-table tr {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.recruit-table th {
+    width: 120px;
+    padding: var(--spacing-md);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-align: left;
+    vertical-align: top;
+}
+
+.recruit-table td {
+    padding: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg-primary);
+}
+
+/* ========================
+   Responsive Tables
+   ======================== */
+@media (max-width: 768px) {
+
+    .company-table th,
+    .history-table th,
+    .recruit-table th {
+        width: 100px;
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-sm);
+    }
+
+    .company-table td,
+    .history-table td,
+    .recruit-table td {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-sm);
+    }
+
+    /* Stack on mobile */
+    .recruit-table--stack {
+        display: block;
+    }
+
+    .recruit-table--stack tbody,
+    .recruit-table--stack tr {
+        display: block;
+    }
+
+    .recruit-table--stack th,
+    .recruit-table--stack td {
+        display: block;
+        width: 100%;
+    }
+
+    .recruit-table--stack th {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+}

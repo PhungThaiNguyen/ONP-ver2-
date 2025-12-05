@@ -1,0 +1,556 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- ========================
+         Meta Tags cơ bản cho SEO
+         ======================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Title tối ưu SEO - sẽ được thay đổi bởi JS theo ngôn ngữ -->
+    <title>ONPrecision | 精密切削加工の専門メーカー</title>
+
+    <!-- Meta description - quan trọng cho SEO -->
+    <meta name="description" content="ONPrecisionは精密切削加工の専門メーカーです。高精度・精密加工、真鍮・ステンレス・アルミの加工を得意としています。">
+
+    <!-- Meta keywords -->
+    <meta name="keywords" content="精密加工, 切削加工, CNC加工, ONPrecision, 精密部品, 金属加工, 真鍮加工, ステンレス加工">
+
+    <!-- Author -->
+    <meta name="author" content="ONPrecision">
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://nagaoka-seiki.co.jp/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nagaoka-seiki.co.jp/">
+    <meta property="og:title" content="ONPrecision | 精密切削加工の専門メーカー">
+    <meta property="og:description" content="ONPrecisionは精密切削加工の専門メーカーです。高精度・精密加工を提供しています。">
+    <meta property="og:image" content="https://nagaoka-seiki.co.jp/assets/images/og-image.jpg">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="vi_VN">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ONPrecision | 精密切削加工の専門メーカー">
+    <meta name="twitter:description" content="ONPrecisionは精密切削加工の専門メーカーです。">
+    <meta name="twitter:image" content="https://nagaoka-seiki.co.jp/assets/images/og-image.jpg">
+
+    <!-- Alternate language versions for SEO -->
+    <link rel="alternate" hreflang="ja" href="https://nagaoka-seiki.co.jp/">
+    <link rel="alternate" hreflang="vi" href="https://nagaoka-seiki.co.jp/?lang=vi">
+    <link rel="alternate" hreflang="x-default" href="https://nagaoka-seiki.co.jp/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-touch-icon.png">
+
+    <!-- Google Fonts - Noto Sans cho cả JP và VN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <!-- Structured Data / JSON-LD cho SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ONPrecision",
+        "alternateName": "ONPrecision",
+        "url": "https://nagaoka-seiki.co.jp",
+        "logo": "https://nagaoka-seiki.co.jp/assets/images/logo.png",
+        "description": "精密切削加工の専門メーカー",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "JP",
+            "addressRegion": "長野県"
+        },
+        "sameAs": [
+            "https://www.youtube.com/@nagaokaseiki"
+        ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- ========================
+         Header / Navigation
+         ======================== -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <!-- Logo -->
+            <a href="/" class="logo" aria-label="ONPrecision ホームページ">
+                <span class="logo-text" data-i18n="company_name">ONPrecision</span>
+            </a>
+
+            <!-- Main Navigation -->
+            <nav class="main-nav" id="mainNav" aria-label="メインナビゲーション">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active" data-i18n="nav_home">ホーム</a></li>
+                    <li><a href="./works.html" class="nav-link" data-i18n="nav_works">事業内容</a></li>
+                    <li><a href="#products" class="nav-link" data-i18n="nav_products">加工実績</a></li>
+                    <li><a href="./equipment.html" class="nav-link" data-i18n="nav_equipment">設備一覧</a></li>
+                    <li><a href="./company.html" class="nav-link" data-i18n="nav_about">会社概要</a></li>
+                    <li><a href="#contact" class="nav-link" data-i18n="nav_contact">お問い合わせ</a></li>
+                </ul>
+            </nav>
+
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ja" aria-label="日本語に切り替え">JP</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="vi" aria-label="Chuyển sang tiếng Việt">VN</button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="メニュー" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========================
+         Hero Section
+         ======================== -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <img src="./assets/images/backgrounds/hero-bg.png" alt="長岡市の景色" loading="eager">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <p class="hero-subtitle" data-i18n="hero_subtitle">挑む</p>
+            <h1 class="hero-title" data-i18n="hero_title">ONPrecision</h1>
+        </div>
+    </section>
+
+    <!-- ========================
+         News Section
+         ======================== -->
+    <section class="news-section" id="news">
+        <div class="container">
+            <div class="news-wrapper">
+                <div class="news-header">
+                    <h2 class="news-title" data-i18n="news_title">NEWS</h2>
+                    <span class="news-subtitle" data-i18n="news_subtitle">お知らせ</span>
+                    <a href="./news.html" class="news-all-btn" data-i18n="news_view_all">
+                        すべてのニュース
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="news-list">
+                    <article class="news-item">
+                        <time datetime="2025-05-24" class="news-date">2025.05.24</time>
+                        <a href="./news.html" class="news-link" data-i18n="news_item_1">第二工場が拡張されました</a>
+                    </article>
+                    <article class="news-item">
+                        <time datetime="2024-02-09" class="news-date">2024.02.09</time>
+                        <a href="./news.html" class="news-link" data-i18n="news_item_2">NC自動旋盤に投資しました。</a>
+                    </article>
+                    <article class="news-item">
+                        <time datetime="2023-06-08" class="news-date">2023.06.08</time>
+                        <a href="./news.html" class="news-link" data-i18n="news_item_3">新しい3D画像測定装置を導入しました</a>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================
+         Our Works Section
+         ======================== -->
+    <section class="works-section" id="works">
+        <div class="container">
+            <!-- Section Header -->
+            <header class="section-header">
+                <h2 class="section-title">OUR WORKS</h2>
+                <p class="section-subtitle" data-i18n="works_subtitle">事業内容</p>
+            </header>
+
+            <div class="works-content">
+                <!-- Virtual Factory Tour Card -->
+                <div class="works-video-card">
+                    <div class="video-thumbnail">
+                        <img src="./assets/images/company.png" alt="ONPrecision バーチャル工場見学">
+                        <div class="play-button">
+                            <svg viewBox="0 0 68 48" aria-hidden="true">
+                                <path class="play-bg"
+                                    d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"
+                                    fill="#212121" fill-opacity="0.8" />
+                                <path d="M 45,24 27,14 27,34" fill="#fff" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-label" data-i18n="works_video_label">ONPrecision<br>バーチャル工場見学</span>
+                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="youtube-link">
+                            <img src="https://www.youtube.com/about/static/svgs/icons/brand-resources/YouTube-logo-full_color_light.svg"
+                                alt="YouTube" class="youtube-logo">
+                        </a>
+                    </div>
+                    <p class="video-description" data-i18n="works_video_description">空から見た長岡の夜景です。ぜひご覧ください。</p>
+                </div>
+
+                <!-- Works Description -->
+                <div class="works-description">
+                    <h3 class="works-heading" data-i18n="works_heading">高精度・精密な仕上がりは、発展の可能性に向ければ上ります。</h3>
+                    <p class="works-text" data-i18n="works_text">
+                        ONPrecisionは、多様なニーズに細やかに一台1個から小ロットの精密加工を手掛けています。
+                        真鍮・ステンレス・アルミの加工を得意とし、お客様のご要望に応じた精密部品の製造を行っております。
+                        私たちは、大量・アルミ、真鍮、ステンレスだけではなく、
+                        難切削材、ニッチ材等様々な材質の加工い対応しております。
+                    </p>
+                    <a href="./works.html" class="btn btn-outline" data-i18n="works_read_more">
+                        READ MORE
+                        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================
+         Products Section
+         ======================== -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <!-- Section Header -->
+            <header class="section-header">
+                <h2 class="section-title">PRODUCTS</h2>
+                <p class="section-subtitle" data-i18n="products_subtitle">加工実績</p>
+            </header>
+
+            <!-- Products Grid -->
+            <div class="products-grid">
+                <!-- Product Item 1 -->
+                <article class="product-card">
+                    <a href="#" class="product-link">
+                        <div class="product-image-wrapper">
+                            <img src="./assets/images/products/product-01.png" alt="コネクタ部品・電子部品" loading="lazy"
+                                class="product-image">
+                            <div class="product-hover-overlay">
+                                <span class="zoom-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8" />
+                                        <path d="M21 21l-4.35-4.35" />
+                                        <path d="M11 8v6M8 11h6" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category" data-i18n="product_cat_connector">【コネクタ部品】</span>
+                            <h3 class="product-name" data-i18n="product_1_name">半導体用 電極ネジ込み品</h3>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Product Item 2 -->
+                <article class="product-card">
+                    <a href="#" class="product-link">
+                        <div class="product-image-wrapper">
+                            <img src="./assets/images/products/product-02.png" alt="ターミナルブロック" loading="lazy"
+                                class="product-image">
+                            <div class="product-hover-overlay">
+                                <span class="zoom-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8" />
+                                        <path d="M21 21l-4.35-4.35" />
+                                        <path d="M11 8v6M8 11h6" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category" data-i18n="product_cat_terminal">【ターミナル】</span>
+                            <h3 class="product-name" data-i18n="product_2_name">ステンレスSUS304 端面カットネジ込み</h3>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Product Item 3 -->
+                <article class="product-card">
+                    <a href="#" class="product-link">
+                        <div class="product-image-wrapper">
+                            <img src="./assets/images/products/product-03.png" alt="機械部品" loading="lazy"
+                                class="product-image">
+                            <div class="product-hover-overlay">
+                                <span class="zoom-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8" />
+                                        <path d="M21 21l-4.35-4.35" />
+                                        <path d="M11 8v6M8 11h6" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category" data-i18n="product_cat_machine">【機械部品】</span>
+                            <h3 class="product-name" data-i18n="product_3_name">自動旋盤加工 精密ブッシュ品</h3>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Product Item 4 -->
+                <article class="product-card">
+                    <a href="#" class="product-link">
+                        <div class="product-image-wrapper">
+                            <img src="./assets/images/products/product-04.png" alt="マイクロ部品" loading="lazy"
+                                class="product-image">
+                            <div class="product-hover-overlay">
+                                <span class="zoom-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8" />
+                                        <path d="M21 21l-4.35-4.35" />
+                                        <path d="M11 8v6M8 11h6" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category" data-i18n="product_cat_micro">【マイクロ部品】</span>
+                            <h3 class="product-name" data-i18n="product_4_name">真鍮製 マイクロコネクタピン</h3>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Product Item 5 -->
+                <article class="product-card">
+                    <a href="#" class="product-link">
+                        <div class="product-image-wrapper">
+                            <img src="./assets/images/products/product-05.png" alt="治工具部品" loading="lazy"
+                                class="product-image">
+                            <div class="product-hover-overlay">
+                                <span class="zoom-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8" />
+                                        <path d="M21 21l-4.35-4.35" />
+                                        <path d="M11 8v6M8 11h6" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category" data-i18n="product_cat_jig">【治工具】</span>
+                            <h3 class="product-name" data-i18n="product_5_name">特殊治具 精密位置決めブロック品</h3>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Product Item 6 -->
+                <article class="product-card">
+                    <a href="#" class="product-link">
+                        <div class="product-image-wrapper">
+                            <img src="./assets/images/products/product-06.png" alt="精密小物部品" loading="lazy"
+                                class="product-image">
+                            <div class="product-hover-overlay">
+                                <span class="zoom-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8" />
+                                        <path d="M21 21l-4.35-4.35" />
+                                        <path d="M11 8v6M8 11h6" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category" data-i18n="product_cat_precision">【精密部品】</span>
+                            <h3 class="product-name" data-i18n="product_6_name">時計部品 超小型精密ネジ類</h3>
+                        </div>
+                    </a>
+                </article>
+            </div>
+
+            <!-- Read More Button -->
+            <div class="section-footer">
+                <a href="#" class="btn btn-outline" data-i18n="products_read_more">
+                    READ MORE
+                    <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================
+         Precision Machining Section
+         ======================== -->
+    <section class="precision-section" id="precision">
+        <div class="precision-background">
+            <img src="./assets/images/backgrounds/factory-blue.png" alt="精密切削加工" loading="lazy">
+            <div class="precision-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="precision-content">
+                <h2 class="precision-title" data-i18n="precision_title">精密切削加工への取り組み</h2>
+                <p class="precision-description" data-i18n="precision_description">
+                    当社は、1963年創業以来、精密部品加工一筋。<br>
+                    長年の経験により上製確立された技術と、<br>
+                    常に進化する設備と技術を追及しております。
+                </p>
+
+                <!-- Materials -->
+                <div class="precision-block">
+                    <h3 class="precision-block-title" data-i18n="precision_materials_title">取扱材料実績</h3>
+                    <p class="precision-block-content" data-i18n="precision_materials">
+                        アルミ（A5052、A2017、A6061、A7075 他）、真鍮、ベリリウム銅、リン青銅、タフピッチ銅、無酸素銅、
+                        ステンレス（SUS303、SUS304、SUS316 他）、炭素鋼（S45C、SK5、SKD11 他）、チタン、ニッケル、タングステン、
+                        樹脂（POM、PEEK、PPS、ナイロン 他）
+                    </p>
+                </div>
+
+                <!-- Processing Records -->
+                <div class="precision-block">
+                    <h3 class="precision-block-title" data-i18n="precision_processes_title">加工品目実績</h3>
+                    <p class="precision-block-content" data-i18n="precision_processes">
+                        コネクタ、端子台部品、カメラ部品、医療機器部品、自動車部品、通信機器部品、
+                        半導体関連部品、工作機械部品、計測機器部品、航空宇宙関連部品
+                    </p>
+                </div>
+
+                <!-- Clients -->
+                <div class="precision-block">
+                    <h3 class="precision-block-title" data-i18n="precision_clients_title">納入先</h3>
+                    <p class="precision-block-content" data-i18n="precision_clients">
+                        大手、中小メーカー様に納入しており、国内、海外（アジア、欧米）への輸出実績がございます。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================
+         Company & Recruit Section
+         ======================== -->
+    <section class="cta-section" id="cta">
+        <div class="cta-grid">
+            <!-- Company Card -->
+            <a href="./company.html" class="cta-card cta-company">
+                <div class="cta-background">
+                    <img src="./assets/images/company.png" alt="会社概要" loading="lazy">
+                    <div class="cta-overlay"></div>
+                </div>
+                <div class="cta-content">
+                    <h3 class="cta-title">COMPANY</h3>
+                    <p class="cta-subtitle" data-i18n="cta_company_subtitle">会社概要</p>
+                    <p class="cta-description" data-i18n="cta_company_description">
+                        会社概要、沿革についてはこちらからご覧いただけます。
+                    </p>
+                    <span class="cta-link">
+                        VIEW MORE
+                        <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </span>
+                </div>
+            </a>
+
+            <!-- Recruit Card -->
+            <a href="./recruit.html" class="cta-card cta-recruit">
+                <div class="cta-background">
+                    <img src="./assets/images/backgrounds/factory-blue.png" alt="採用情報" loading="lazy">
+                    <div class="cta-overlay"></div>
+                </div>
+                <div class="cta-content">
+                    <h3 class="cta-title">RECRUIT</h3>
+                    <p class="cta-subtitle" data-i18n="cta_recruit_subtitle">採用情報</p>
+                    <p class="cta-description" data-i18n="cta_recruit_description">
+                        現在、新規スタッフを募集しております。詳細はこちらから。
+                    </p>
+                    <span class="cta-link">
+                        VIEW MORE
+                        <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ========================
+         Footer
+         ======================== -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Company Info -->
+                <div class="footer-company">
+                    <h4 class="footer-logo" data-i18n="company_name">ONPrecision</h4>
+                    <address class="footer-address">
+                        <p data-i18n="footer_address">〒940-0000 新潟県長岡市○○町1-2-3</p>
+                        <p>TEL: <a href="tel:0258-00-0000">0258-00-0000</a></p>
+                        <p>FAX: 0258-00-0001</p>
+                        <p>Email: <a href="mailto:info@nagaoka-seiki.co.jp">info@nagaoka-seiki.co.jp</a></p>
+                    </address>
+                </div>
+
+                <!-- Footer Navigation -->
+                <nav class="footer-nav" aria-label="フッターナビゲーション">
+                    <h5 class="footer-nav-title" data-i18n="footer_menu">メニュー</h5>
+                    <ul class="footer-nav-list">
+                        <li><a href="#home" data-i18n="nav_home">ホーム</a></li>
+                        <li><a href="./works.html" data-i18n="nav_works">事業内容</a></li>
+                        <li><a href="#products" data-i18n="nav_products">加工実績</a></li>
+                        <li><a href="./equipment.html" data-i18n="nav_equipment">設備一覧</a></li>
+                        <li><a href="./company.html" data-i18n="nav_about">会社概要</a></li>
+                        <li><a href="#contact" data-i18n="nav_contact">お問い合わせ</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Social Links -->
+                <div class="footer-social">
+                    <h5 class="footer-social-title" data-i18n="footer_follow">フォローする</h5>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2024 ONPrecision. All Rights Reserved.</p>
+                <nav class="footer-legal">
+                    <a href="#" data-i18n="footer_privacy">プライバシーポリシー</a>
+                    <a href="#" data-i18n="footer_terms">利用規約</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="ページトップへ戻る">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6" />
+        </svg>
+    </button>
+
+    <!-- JavaScript Files -->
+    <script src="./assets/js/translations.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
