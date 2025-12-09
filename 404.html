@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title data-i18n="404_page_title">ページが見つかりません | ONPrecision</title>
+    <meta name="description" content="お探しのページは見つかりませんでした。">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ========================
+           CSS Variables
+           ======================== */
+        :root {
+            --color-primary: #1a365d;
+            --color-primary-dark: #0f2442;
+            --color-accent: #8b1a1a;
+            --color-text-primary: #333333;
+            --color-text-secondary: #555555;
+            --color-text-muted: #666666;
+            --color-border: #e0e0e0;
+            --color-bg-gray: #f5f5f5;
+            --font-family: 'Noto Sans JP', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* ========================
+           Reset & Base
+           ======================== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            background-color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ========================
+           Header
+           ======================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-accent);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .lang-btn {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #666;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            color: #333;
+        }
+
+        .lang-btn.active {
+            color: var(--color-accent);
+            background: rgba(139, 26, 26, 0.1);
+        }
+
+        .lang-divider {
+            color: #ccc;
+        }
+
+        .header-contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--color-accent);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-contact-btn:hover {
+            background-color: #6b1515;
+        }
+
+        /* ========================
+           Main Content
+           ======================== */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Animation */
+        .bg-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .bg-shape {
+            position: absolute;
+            opacity: 0.05;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .bg-shape:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            background: var(--color-accent);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-delay: -5s;
+        }
+
+        .bg-shape:nth-child(3) {
+            bottom: 10%;
+            left: 30%;
+            width: 150px;
+            height: 150px;
+            background: var(--color-primary);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(50px, -30px) rotate(5deg);
+            }
+
+            50% {
+                transform: translate(20px, 20px) rotate(-5deg);
+            }
+
+            75% {
+                transform: translate(-30px, -20px) rotate(3deg);
+            }
+        }
+
+        .error-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.6s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 404 Animation */
+        .error-number {
+            font-size: 8rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            line-height: 1;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .error-number span {
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .error-number span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .error-number span:nth-child(2) {
+            color: var(--color-accent);
+            animation-delay: 0.1s;
+        }
+
+        .error-number span:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Gear Animation */
+        .error-icon {
+            margin: 1rem auto 2rem;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .gear {
+            position: absolute;
+            fill: var(--color-text-muted);
+            opacity: 0.3;
+        }
+
+        .gear-large {
+            width: 60px;
+            height: 60px;
+            top: 10px;
+            left: 0;
+            animation: spin 8s linear infinite;
+        }
+
+        .gear-small {
+            width: 40px;
+            height: 40px;
+            top: 0;
+            right: 0;
+            animation: spin-reverse 6s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin-reverse {
+            from {
+                transform: rotate(360deg);
+            }
+
+            to {
+                transform: rotate(0deg);
+            }
+        }
+
+        .error-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--color-accent) 0%, #a52828 100%);
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 26, 26, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #ffffff;
+            color: var(--color-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: #ffffff;
+        }
+
+        .btn-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Quick Links */
+        .quick-links {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .quick-links-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .quick-links-list {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .quick-link {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .quick-link:hover {
+            color: var(--color-accent);
+        }
+
+        .quick-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ========================
+           Footer
+           ======================== */
+        .footer {
+            background-color: #1a1a1a;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+        }
+
+        /* ========================
+           Responsive
+           ======================== */
+        @media (max-width: 768px) {
+            .header-container {
+                height: 60px;
+            }
+
+            .nav-list {
+                display: none;
+            }
+
+            .main-content {
+                padding: 100px 1rem 2rem;
+            }
+
+            .error-card {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .error-number {
+                font-size: 5rem;
+            }
+
+            .error-title {
+                font-size: 1.25rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+
+            .quick-links-list {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="./index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" width="40" height="40">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="#8b1a1a" stroke-width="2" />
+                    <path d="M12 20 L28 20 M20 12 L20 28" stroke="#8b1a1a" stroke-width="2" />
+                </svg>
+                <span class="logo-text" data-i18n="company_name">ONPrecision</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="./works.html" class="nav-link" data-i18n="nav_works">事業内容</a></li>
+                    <li><a href="./products.html" class="nav-link" data-i18n="nav_products">加工事例</a></li>
+                    <li><a href="./equipment.html" class="nav-link" data-i18n="nav_equipment">設備一覧</a></li>
+                    <li><a href="./company.html" class="nav-link" data-i18n="nav_about">会社案内</a></li>
+                    <li><a href="./recruit.html" class="nav-link" data-i18n="nav_recruit">採用情報</a></li>
+                </ul>
+            </nav>
+
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ja" aria-label="日本語">JP</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VN</button>
+            </div>
+
+            <a href="./contact.html" class="header-contact-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <path d="M22 6l-10 7L2 6" />
+                </svg>
+                <span data-i18n="nav_contact">お問い合わせ</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Background Shapes -->
+        <div class="bg-shapes">
+            <div class="bg-shape"></div>
+            <div class="bg-shape"></div>
+            <div class="bg-shape"></div>
+        </div>
+
+        <div class="error-card">
+            <!-- 404 Number -->
+            <div class="error-number">
+                <span>4</span><span>0</span><span>4</span>
+            </div>
+
+            <!-- Gear Animation -->
+            <div class="error-icon">
+                <svg class="gear gear-large" viewBox="0 0 24 24">
+                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                    <path
+                        d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+                </svg>
+                <svg class="gear gear-small" viewBox="0 0 24 24">
+                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                    <path
+                        d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+                </svg>
+            </div>
+
+            <h1 class="error-title" data-i18n="404_title">ページが見つかりません</h1>
+            <p class="error-message" data-i18n="404_message">
+                お探しのページは移動または削除された可能性があります。<br>
+                URLをご確認いただくか、下記のリンクからお進みください。
+            </p>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <a href="./index.html" class="btn-primary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    <span data-i18n="btn_home">トップページへ</span>
+                </a>
+                <a href="./contact.html" class="btn-secondary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    <span data-i18n="btn_contact">お問い合わせ</span>
+                </a>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="quick-links">
+                <p class="quick-links-title" data-i18n="quick_links_title">おすすめリンク</p>
+                <div class="quick-links-list">
+                    <a href="./products.html" class="quick-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                        <span data-i18n="nav_products">加工事例</span>
+                    </a>
+                    <a href="./works.html" class="quick-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                        <span data-i18n="nav_works">事業内容</span>
+                    </a>
+                    <a href="./company.html" class="quick-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                        <span data-i18n="nav_about">会社概要</span>
+                    </a>
+                    <a href="./equipment.html" class="quick-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                        <span data-i18n="nav_equipment">設備一覧</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">COPYRIGHT © ONPrecision CO.,LTD ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Translations
+        const translations = {
+            ja: {
+                company_name: "ONPrecision",
+                nav_works: "事業内容",
+                nav_products: "加工事例",
+                nav_equipment: "設備一覧",
+                nav_about: "会社概要",
+                nav_recruit: "採用情報",
+                nav_contact: "お問い合わせ",
+                "404_title": "ページが見つかりません",
+                "404_message": "お探しのページは移動または削除された可能性があります。<br>URLをご確認いただくか、下記のリンクからお進みください。",
+                btn_home: "トップページへ",
+                btn_contact: "お問い合わせ",
+                quick_links_title: "おすすめリンク"
+            },
+            vi: {
+                company_name: "ONPrecision",
+                nav_works: "Dịch vụ",
+                nav_products: "Sản phẩm",
+                nav_equipment: "Thiết bị",
+                nav_about: "Về chúng tôi",
+                nav_recruit: "Tuyển dụng",
+                nav_contact: "Liên hệ",
+                "404_title": "Không tìm thấy trang",
+                "404_message": "Trang bạn đang tìm có thể đã được di chuyển hoặc xóa.<br>Vui lòng kiểm tra lại URL hoặc chọn một liên kết bên dưới.",
+                btn_home: "Về trang chủ",
+                btn_contact: "Liên hệ",
+                quick_links_title: "Liên kết nhanh"
+            }
+        };
+
+        // Current language
+        let currentLang = localStorage.getItem('preferred_language') || 'ja';
+
+        // Apply translations
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang;
+        }
+
+        // Update language buttons
+        function updateLanguageButtons(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            applyTranslations(currentLang);
+            updateLanguageButtons(currentLang);
+
+            // Language switcher
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const lang = this.getAttribute('data-lang');
+                    if (lang !== currentLang) {
+                        currentLang = lang;
+                        localStorage.setItem('preferred_language', lang);
+                        applyTranslations(lang);
+                        updateLanguageButtons(lang);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

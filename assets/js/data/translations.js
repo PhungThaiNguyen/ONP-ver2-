@@ -150,7 +150,7 @@ const translations = {
         company_address_label: "所在地",
         company_address_value: "〒399-0428 長野県岡谷市川岸上1105番地8005",
         company_contact_label: "連絡先",
-        company_tel: "TEL：0266-27-3511",
+        company_tel: "TEL：(+84) 907 692 367",
         company_fax: "FAX：0266-23-2776",
         company_business_label: "事業内容",
         company_business_value: "精密機械加工、金型及び治工具製造、一般機械加工品、油化製品製造",
@@ -268,7 +268,7 @@ const translations = {
 
         // Works Section / Phần dịch vụ
         works_subtitle: "Dịch vụ",
-        works_video_label: "ONPrecision<br>Tham quan nhà máy ảo",
+        works_video_label: "ONPrecision<br>Tham quan nhà máy của chúng tôi",
         works_video_description: "Cảnh đêm của Nagaoka nhìn từ trên cao. Mời bạn xem thử.",
         works_heading: "Độ chính xác và tinh xảo cao mở ra tiềm năng phát triển vô hạn.",
         works_text: "ONPrecision chuyên gia công chính xác từ 1 sản phẩm đến lô nhỏ, đáp ứng đa dạng nhu cầu. Chúng tôi chuyên gia công đồng thau, thép không gỉ, nhôm và sản xuất linh kiện chính xác theo yêu cầu khách hàng. Ngoài ra, chúng tôi còn xử lý được các vật liệu khó cắt và vật liệu đặc biệt.",
@@ -377,8 +377,8 @@ const translations = {
         company_address_label: "Địa chỉ",
         company_address_value: "1105-8005 Kawagishi-kami, Okaya-shi, Nagano 399-0428, Nhật Bản",
         company_contact_label: "Liên hệ",
-        company_tel: "ĐT: 0266-27-3511",
-        company_fax: "Fax: 0266-23-2776",
+        company_tel: "ĐT: (+84) 907 692 367",
+        company_fax: "Fax:0305437972",
         company_business_label: "Lĩnh vực kinh doanh",
         company_business_value: "Gia công cơ khí chính xác, Sản xuất khuôn mẫu và đồ gá, Sản phẩm gia công cơ khí, Sản xuất sản phẩm hóa dầu",
         company_exterior: "Toàn cảnh ONPrecision",

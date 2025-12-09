@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title data-i18n="product_detail_title">製品詳細 | ONPrecision</title>
+    <meta name="description" content="ONPrecisionの精密加工製品詳細。高品質な精密切削加工品をご紹介します。">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ========================
+           CSS Variables
+           ======================== */
+        :root {
+            --color-primary: #1a365d;
+            --color-primary-dark: #0f2442;
+            --color-accent: #8b1a1a;
+            --color-text-primary: #333333;
+            --color-text-secondary: #555555;
+            --color-text-muted: #666666;
+            --color-border: #e0e0e0;
+            --color-bg-gray: #f5f5f5;
+            --font-family: 'Noto Sans JP', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* ========================
+           Reset & Base
+           ======================== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            background-color: #ffffff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ========================
+           Header
+           ======================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-accent);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .lang-btn {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #666;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            color: #333;
+        }
+
+        .lang-btn.active {
+            color: var(--color-accent);
+            background: rgba(139, 26, 26, 0.1);
+        }
+
+        .lang-divider {
+            color: #ccc;
+        }
+
+        .header-contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--color-accent);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-contact-btn:hover {
+            background-color: #6b1515;
+        }
+
+        /* ========================
+           Container
+           ======================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ========================
+           Breadcrumb
+           ======================== */
+        .breadcrumb-section {
+            background-color: var(--color-bg-gray);
+            padding: 1rem 0;
+            margin-top: 80px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--color-text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--color-accent);
+        }
+
+        .breadcrumb-current {
+            color: var(--color-text-primary);
+            font-weight: 500;
+        }
+
+        /* ========================
+           Product Detail Section
+           ======================== */
+        .product-detail-section {
+            padding: 4rem 0;
+        }
+
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* Product Gallery */
+        .product-gallery {
+            position: sticky;
+            top: 100px;
+        }
+
+        .product-main-image {
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-main-image img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-main-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        .thumbnail {
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: var(--color-accent);
+            opacity: 1;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        /* Product Info */
+        .product-info {
+            padding: 1rem 0;
+        }
+
+        .product-badge-large {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-badge-large.brass {
+            background: linear-gradient(135deg, #d4a853 0%, #c9963e 100%);
+        }
+
+        .product-badge-large.stainless {
+            background: linear-gradient(135deg, #7c8a99 0%, #5a6875 100%);
+        }
+
+        .product-badge-large.aluminum {
+            background: linear-gradient(135deg, #8cb4d9 0%, #6a9bc3 100%);
+        }
+
+        .product-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .product-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        /* Product Specs */
+        .product-specs {
+            margin-bottom: 2rem;
+        }
+
+        .specs-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .specs-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--color-accent);
+            border-radius: 2px;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .specs-table th,
+        .specs-table td {
+            padding: 1rem;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .specs-table th {
+            width: 35%;
+            background-color: var(--color-bg-gray);
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
+
+        .specs-table td {
+            color: var(--color-text-primary);
+        }
+
+        /* Features */
+        .product-features {
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--color-bg-gray);
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--color-accent);
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* CTA Buttons */
+        .product-cta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--color-accent);
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #6b1515;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 26, 26, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #ffffff;
+            color: var(--color-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: #ffffff;
+        }
+
+        /* ========================
+           Related Products
+           ======================== */
+        .related-products {
+            padding: 4rem 0;
+            background: var(--color-bg-gray);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .related-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .related-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px);
+        }
+
+        .related-card img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .related-card-info {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .related-card-name {
+            font-size: 0.85rem;
+            color: var(--color-text-primary);
+            font-weight: 500;
+        }
+
+        /* ========================
+           Footer
+           ======================== */
+        .footer-nav {
+            background-color: var(--color-primary);
+            padding: 1rem 0;
+        }
+
+        .footer-nav-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem 2rem;
+        }
+
+        .footer-nav-list a {
+            color: #ffffff;
+            font-size: 0.875rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-nav-list a:hover {
+            opacity: 0.8;
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+        }
+
+        /* ========================
+           Back to Top
+           ======================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--color-accent);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #6b1515;
+            transform: translateY(-3px);
+        }
+
+        /* ========================
+           Responsive
+           ======================== */
+        @media (max-width: 992px) {
+            .nav-list {
+                display: none;
+            }
+
+            .product-detail-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-gallery {
+                position: static;
+            }
+
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                height: 60px;
+            }
+
+            .breadcrumb-section {
+                margin-top: 60px;
+            }
+
+            .product-title {
+                font-size: 1.5rem;
+            }
+
+            .product-cta {
+                flex-direction: column;
+            }
+
+            .product-thumbnails {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .related-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="./index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" width="40" height="40">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="#8b1a1a" stroke-width="2" />
+                    <path d="M12 20 L28 20 M20 12 L20 28" stroke="#8b1a1a" stroke-width="2" />
+                </svg>
+                <span class="logo-text" data-i18n="company_name">ONPrecision</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="./works.html" class="nav-link" data-i18n="nav_works">事業内容</a></li>
+                    <li><a href="./products.html" class="nav-link active" data-i18n="nav_products">加工事例</a></li>
+                    <li><a href="./equipment.html" class="nav-link" data-i18n="nav_equipment">設備一覧</a></li>
+                    <li><a href="./company.html" class="nav-link" data-i18n="nav_about">会社案内</a></li>
+                    <li><a href="./recruit.html" class="nav-link" data-i18n="nav_recruit">採用情報</a></li>
+                </ul>
+            </nav>
+
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ja" aria-label="日本語">JP</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VN</button>
+            </div>
+
+            <a href="./contact.html" class="header-contact-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <path d="M22 6l-10 7L2 6" />
+                </svg>
+                <span data-i18n="nav_contact">お問い合わせ</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="./index.html" data-i18n="nav_home">HOME</a>
+                <span>›</span>
+                <a href="./products.html" data-i18n="nav_products">加工事例</a>
+                <span>›</span>
+                <span class="breadcrumb-current" id="breadcrumbProductName">製品詳細</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="container">
+            <div class="product-detail-grid">
+                <!-- Product Gallery -->
+                <div class="product-gallery">
+                    <div class="product-main-image">
+                        <img id="mainProductImage" src="./assets/images/products/product-01.png" alt="製品画像">
+                    </div>
+                    <div class="product-thumbnails" id="productThumbnails">
+                        <!-- Thumbnails will be generated by JS -->
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info">
+                    <span class="product-badge-large brass" id="productBadge" data-i18n="product_badge_brass">真鍮</span>
+
+                    <h1 class="product-title" id="productTitle">真鍮製 精密コネクタ部品</h1>
+                    <p class="product-subtitle" id="productSubtitle" data-i18n="product_detail_subtitle">
+                        高精度NC自動旋盤による精密切削加工品
+                    </p>
+
+                    <!-- Specs -->
+                    <div class="product-specs">
+                        <h3 class="specs-title" data-i18n="product_specs_title">製品仕様</h3>
+                        <table class="specs-table">
+                            <tr>
+                                <th data-i18n="spec_material">材質</th>
+                                <td id="specMaterial">真鍮 (C3604)</td>
+                            </tr>
+                            <tr>
+                                <th data-i18n="spec_size">サイズ</th>
+                                <td id="specSize">φ5.0 × L15.0mm</td>
+                            </tr>
+                            <tr>
+                                <th data-i18n="spec_tolerance">公差</th>
+                                <td id="specTolerance">±0.01mm</td>
+                            </tr>
+                            <tr>
+                                <th data-i18n="spec_surface">表面処理</th>
+                                <td id="specSurface">ニッケルメッキ</td>
+                            </tr>
+                            <tr>
+                                <th data-i18n="spec_process">加工方法</th>
+                                <td id="specProcess">NC自動旋盤加工</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="product-features">
+                        <h3 class="specs-title" data-i18n="product_features_title">特徴</h3>
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                                <span class="feature-text" data-i18n="feature_1">高精度加工（公差±0.01mm）</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                                <span class="feature-text" data-i18n="feature_2">全数検査による品質保証</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                                <span class="feature-text" data-i18n="feature_3">小ロットから量産まで対応</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="product-cta">
+                        <a href="./contact.html" class="btn-primary" data-i18n="btn_inquiry">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <path d="M22 6l-10 7L2 6" />
+                            </svg>
+                            お問い合わせ
+                        </a>
+                        <a href="./products.html" class="btn-secondary" data-i18n="btn_back_products">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7" />
+                            </svg>
+                            製品一覧へ戻る
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="related-products">
+        <div class="container">
+            <header class="section-header">
+                <h2 class="section-title" data-i18n="related_products_title">関連製品</h2>
+                <p class="section-subtitle" data-i18n="related_products_subtitle">その他の加工事例</p>
+            </header>
+
+            <div class="related-grid" id="relatedProductsGrid">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Navigation -->
+    <nav class="footer-nav">
+        <div class="container">
+            <ul class="footer-nav-list">
+                <li><a href="./index.html" data-i18n="nav_home">HOME</a></li>
+                <li><a href="./works.html" data-i18n="nav_works">事業内容</a></li>
+                <li><a href="./products.html" data-i18n="nav_products">加工事例</a></li>
+                <li><a href="./equipment.html" data-i18n="nav_equipment">設備一覧</a></li>
+                <li><a href="./company.html" data-i18n="nav_about">会社概要</a></li>
+                <li><a href="./recruit.html" data-i18n="nav_recruit">採用情報</a></li>
+                <li><a href="./news.html" data-i18n="nav_news">お知らせ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">COPYRIGHT © ONPrecision CO.,LTD ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="ページトップへ戻る">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6" />
+        </svg>
+    </button>
+
+    <!-- Product Data & Scripts -->
+    <script>
+        // Product Database
+        const productsData = {
+            1: {
+                name_ja: "真鍮製 精密コネクタ部品",
+                name_vi: "Linh kiện đầu nối chính xác bằng đồng thau",
+                material: "brass",
+                material_ja: "真鍮 (C3604)",
+                material_vi: "Đồng thau (C3604)",
+                size: "φ5.0 × L15.0mm",
+                tolerance: "±0.01mm",
+                surface_ja: "ニッケルメッキ",
+                surface_vi: "Mạ niken",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-01.png"
+            },
+            2: {
+                name_ja: "ステンレス製 シャフト加工品",
+                name_vi: "Trục gia công bằng thép không gỉ",
+                material: "stainless",
+                material_ja: "ステンレス (SUS304)",
+                material_vi: "Thép không gỉ (SUS304)",
+                size: "φ8.0 × L50.0mm",
+                tolerance: "±0.005mm",
+                surface_ja: "鏡面仕上げ",
+                surface_vi: "Hoàn thiện gương",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-02.png"
+            },
+            3: {
+                name_ja: "真鍮製 精密ピン加工品",
+                name_vi: "Pin chính xác bằng đồng thau",
+                material: "brass",
+                material_ja: "真鍮 (C3604)",
+                material_vi: "Đồng thau (C3604)",
+                size: "φ2.0 × L20.0mm",
+                tolerance: "±0.01mm",
+                surface_ja: "金メッキ",
+                surface_vi: "Mạ vàng",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-03.png"
+            },
+            4: {
+                name_ja: "アルミ製 リング加工品",
+                name_vi: "Vòng gia công bằng nhôm",
+                material: "aluminum",
+                material_ja: "アルミ (A6061)",
+                material_vi: "Nhôm (A6061)",
+                size: "φ30.0 × φ20.0 × L10.0mm",
+                tolerance: "±0.02mm",
+                surface_ja: "アルマイト処理",
+                surface_vi: "Anodize",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-04.png"
+            },
+            5: {
+                name_ja: "真鍮製 バルブシート",
+                name_vi: "Đế van bằng đồng thau",
+                material: "brass",
+                material_ja: "真鍮 (C3604)",
+                material_vi: "Đồng thau (C3604)",
+                size: "φ12.0 × L8.0mm",
+                tolerance: "±0.01mm",
+                surface_ja: "ニッケルメッキ",
+                surface_vi: "Mạ niken",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-05.png"
+            },
+            6: {
+                name_ja: "ステンレス製 精密ノズル",
+                name_vi: "Vòi phun chính xác bằng thép không gỉ",
+                material: "stainless",
+                material_ja: "ステンレス (SUS316)",
+                material_vi: "Thép không gỉ (SUS316)",
+                size: "φ6.0 × L25.0mm",
+                tolerance: "±0.005mm",
+                surface_ja: "電解研磨",
+                surface_vi: "Đánh bóng điện phân",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-06.png"
+            },
+            7: {
+                name_ja: "真鍮製 電気接点部品",
+                name_vi: "Linh kiện tiếp điểm điện bằng đồng thau",
+                material: "brass",
+                material_ja: "真鍮 (C2680)",
+                material_vi: "Đồng thau (C2680)",
+                size: "φ4.0 × L12.0mm",
+                tolerance: "±0.01mm",
+                surface_ja: "銀メッキ",
+                surface_vi: "Mạ bạc",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-07.png"
+            },
+            8: {
+                name_ja: "アルミ製 スペーサー",
+                name_vi: "Miếng đệm bằng nhôm",
+                material: "aluminum",
+                material_ja: "アルミ (A5052)",
+                material_vi: "Nhôm (A5052)",
+                size: "φ15.0 × φ8.0 × L5.0mm",
+                tolerance: "±0.02mm",
+                surface_ja: "アルマイト処理（黒）",
+                surface_vi: "Anodize (đen)",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-08.png"
+            },
+            9: {
+                name_ja: "ステンレス製 精密シャフト",
+                name_vi: "Trục chính xác bằng thép không gỉ",
+                material: "stainless",
+                material_ja: "ステンレス (SUS303)",
+                material_vi: "Thép không gỉ (SUS303)",
+                size: "φ6.0 × L80.0mm",
+                tolerance: "±0.005mm",
+                surface_ja: "鏡面仕上げ",
+                surface_vi: "Hoàn thiện gương",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-09.png"
+            },
+            10: {
+                name_ja: "真鍮製 フィッティング部品",
+                name_vi: "Linh kiện lắp ráp bằng đồng thau",
+                material: "brass",
+                material_ja: "真鍮 (C3604)",
+                material_vi: "Đồng thau (C3604)",
+                size: "φ10.0 × L18.0mm",
+                tolerance: "±0.01mm",
+                surface_ja: "クロムメッキ",
+                surface_vi: "Mạ chrome",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-10.png"
+            },
+            11: {
+                name_ja: "真鍮製 ニップル加工品",
+                name_vi: "Núm nối bằng đồng thau",
+                material: "brass",
+                material_ja: "真鍮 (C3604)",
+                material_vi: "Đồng thau (C3604)",
+                size: "φ8.0 × L22.0mm",
+                tolerance: "±0.01mm",
+                surface_ja: "ニッケルメッキ",
+                surface_vi: "Mạ niken",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-11.png"
+            },
+            12: {
+                name_ja: "ステンレス製 精密ブッシュ",
+                name_vi: "Bạc lót chính xác bằng thép không gỉ",
+                material: "stainless",
+                material_ja: "ステンレス (SUS304)",
+                material_vi: "Thép không gỉ (SUS304)",
+                size: "φ12.0 × φ8.0 × L15.0mm",
+                tolerance: "±0.005mm",
+                surface_ja: "バフ仕上げ",
+                surface_vi: "Đánh bóng buff",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-12.png"
+            },
+            13: {
+                name_ja: "真鍮製 精密カラー",
+                name_vi: "Vòng cổ chính xác bằng đồng thau",
+                material: "brass",
+                material_ja: "真鍮 (C3604)",
+                material_vi: "Đồng thau (C3604)",
+                size: "φ10.0 × φ6.0 × L8.0mm",
+                tolerance: "±0.01mm",
+                surface_ja: "ニッケルメッキ",
+                surface_vi: "Mạ niken",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-13.png"
+            },
+            14: {
+                name_ja: "アルミ製 精密加工品",
+                name_vi: "Sản phẩm gia công chính xác bằng nhôm",
+                material: "aluminum",
+                material_ja: "アルミ (A7075)",
+                material_vi: "Nhôm (A7075)",
+                size: "φ20.0 × L30.0mm",
+                tolerance: "±0.01mm",
+                surface_ja: "硬質アルマイト",
+                surface_vi: "Anodize cứng",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-14.png"
+            },
+            15: {
+                name_ja: "ステンレス製 パイプ加工品",
+                name_vi: "Ống gia công bằng thép không gỉ",
+                material: "stainless",
+                material_ja: "ステンレス (SUS316L)",
+                material_vi: "Thép không gỉ (SUS316L)",
+                size: "φ10.0 × φ8.0 × L40.0mm",
+                tolerance: "±0.01mm",
+                surface_ja: "電解研磨",
+                surface_vi: "Đánh bóng điện phân",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-15.png"
+            },
+            16: {
+                name_ja: "真鍮製 コネクタハウジング",
+                name_vi: "Vỏ đầu nối bằng đồng thau",
+                material: "brass",
+                material_ja: "真鍮 (C3604)",
+                material_vi: "Đồng thau (C3604)",
+                size: "φ8.0 × L20.0mm",
+                tolerance: "±0.01mm",
+                surface_ja: "金メッキ",
+                surface_vi: "Mạ vàng",
+                process_ja: "NC自動旋盤加工",
+                process_vi: "Gia công tiện tự động NC",
+                image: "./assets/images/products/product-16.png"
+            }
+        };
+
+        // Translations
+        const translations = {
+            ja: {
+                company_name: "ONPrecision",
+                nav_home: "HOME",
+                nav_works: "事業内容",
+                nav_products: "加工事例",
+                nav_equipment: "設備一覧",
+                nav_about: "会社概要",
+                nav_recruit: "採用情報",
+                nav_news: "お知らせ",
+                nav_contact: "お問い合わせ",
+                product_detail_subtitle: "高精度NC自動旋盤による精密切削加工品",
+                product_specs_title: "製品仕様",
+                spec_material: "材質",
+                spec_size: "サイズ",
+                spec_tolerance: "公差",
+                spec_surface: "表面処理",
+                spec_process: "加工方法",
+                product_features_title: "特徴",
+                feature_1: "高精度加工（公差±0.01mm）",
+                feature_2: "全数検査による品質保証",
+                feature_3: "小ロットから量産まで対応",
+                btn_inquiry: "お問い合わせ",
+                btn_back_products: "製品一覧へ戻る",
+                related_products_title: "関連製品",
+                related_products_subtitle: "その他の加工事例",
+                product_badge_brass: "真鍮",
+                product_badge_stainless: "ステンレス",
+                product_badge_aluminum: "アルミ"
+            },
+            vi: {
+                company_name: "ONPrecision",
+                nav_home: "TRANG CHỦ",
+                nav_works: "Dịch vụ",
+                nav_products: "Sản phẩm",
+                nav_equipment: "Thiết bị",
+                nav_about: "Về chúng tôi",
+                nav_recruit: "Tuyển dụng",
+                nav_news: "Tin tức",
+                nav_contact: "Liên hệ",
+                product_detail_subtitle: "Sản phẩm gia công cắt gọt chính xác bằng máy tiện tự động NC",
+                product_specs_title: "Thông số kỹ thuật",
+                spec_material: "Vật liệu",
+                spec_size: "Kích thước",
+                spec_tolerance: "Dung sai",
+                spec_surface: "Xử lý bề mặt",
+                spec_process: "Phương pháp gia công",
+                product_features_title: "Đặc điểm",
+                feature_1: "Gia công độ chính xác cao (dung sai ±0.01mm)",
+                feature_2: "Đảm bảo chất lượng với kiểm tra 100%",
+                feature_3: "Đáp ứng từ lô nhỏ đến sản xuất hàng loạt",
+                btn_inquiry: "Liên hệ",
+                btn_back_products: "Quay lại danh sách",
+                related_products_title: "Sản phẩm liên quan",
+                related_products_subtitle: "Các sản phẩm gia công khác",
+                product_badge_brass: "Đồng thau",
+                product_badge_stainless: "Inox",
+                product_badge_aluminum: "Nhôm"
+            }
+        };
+
+        // Get product ID from URL
+        function getProductId() {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('id')) || 1;
+        }
+
+        // Current language
+        let currentLang = localStorage.getItem('preferred_language') || 'ja';
+
+        // Load product data
+        function loadProduct(productId) {
+            const product = productsData[productId];
+            if (!product) return;
+
+            // Update main image
+            document.getElementById('mainProductImage').src = product.image;
+
+            // Update badge
+            const badge = document.getElementById('productBadge');
+            badge.className = `product-badge-large ${product.material}`;
+            badge.textContent = currentLang === 'ja' ?
+                (product.material === 'brass' ? '真鍮' : product.material === 'stainless' ? 'ステンレス' : 'アルミ') :
+                (product.material === 'brass' ? 'Đồng thau' : product.material === 'stainless' ? 'Inox' : 'Nhôm');
+
+            // Update title
+            document.getElementById('productTitle').textContent =
+                currentLang === 'ja' ? product.name_ja : product.name_vi;
+            document.getElementById('breadcrumbProductName').textContent =
+                currentLang === 'ja' ? product.name_ja : product.name_vi;
+
+            // Update specs
+            document.getElementById('specMaterial').textContent =
+                currentLang === 'ja' ? product.material_ja : product.material_vi;
+            document.getElementById('specSize').textContent = product.size;
+            document.getElementById('specTolerance').textContent = product.tolerance;
+            document.getElementById('specSurface').textContent =
+                currentLang === 'ja' ? product.surface_ja : product.surface_vi;
+            document.getElementById('specProcess').textContent =
+                currentLang === 'ja' ? product.process_ja : product.process_vi;
+
+            // Load related products
+            loadRelatedProducts(productId, product.material);
+        }
+
+        // Load related products
+        function loadRelatedProducts(currentId, material) {
+            const grid = document.getElementById('relatedProductsGrid');
+            grid.innerHTML = '';
+
+            // Get products with same material, excluding current
+            const related = Object.entries(productsData)
+                .filter(([id, p]) => parseInt(id) !== currentId && p.material === material)
+                .slice(0, 4);
+
+            // If not enough, add other products
+            if (related.length < 4) {
+                const others = Object.entries(productsData)
+                    .filter(([id, p]) => parseInt(id) !== currentId && p.material !== material)
+                    .slice(0, 4 - related.length);
+                related.push(...others);
+            }
+
+            related.forEach(([id, product]) => {
+                const card = document.createElement('a');
+                card.href = `./product-detail.html?id=${id}`;
+                card.className = 'related-card';
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${currentLang === 'ja' ? product.name_ja : product.name_vi}">
+                    <div class="related-card-info">
+                        <p class="related-card-name">${currentLang === 'ja' ? product.name_ja : product.name_vi}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Apply translations
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang;
+        }
+
+        // Update language buttons
+        function updateLanguageButtons(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            const productId = getProductId();
+
+            applyTranslations(currentLang);
+            updateLanguageButtons(currentLang);
+            loadProduct(productId);
+
+            // Language switcher
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const lang = this.getAttribute('data-lang');
+                    if (lang !== currentLang) {
+                        currentLang = lang;
+                        localStorage.setItem('preferred_language', lang);
+                        applyTranslations(lang);
+                        updateLanguageButtons(lang);
+                        loadProduct(productId);
+                    }
+                });
+            });
+
+            // Back to top
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', function () {
+                backToTop.classList.toggle('visible', window.scrollY > 300);
+            });
+            backToTop.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+
+</html>

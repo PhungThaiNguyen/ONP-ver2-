@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title data-i18n="thankyou_page_title">送信完了 | ONPrecision</title>
+    <meta name="description" content="お問い合わせありがとうございます。">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ========================
+           CSS Variables
+           ======================== */
+        :root {
+            --color-primary: #1a365d;
+            --color-primary-dark: #0f2442;
+            --color-accent: #8b1a1a;
+            --color-text-primary: #333333;
+            --color-text-secondary: #555555;
+            --color-text-muted: #666666;
+            --color-border: #e0e0e0;
+            --color-bg-gray: #f5f5f5;
+            --color-success: #10b981;
+            --font-family: 'Noto Sans JP', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* ========================
+           Reset & Base
+           ======================== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            background-color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ========================
+           Header
+           ======================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-accent);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .lang-btn {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #666;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            color: #333;
+        }
+
+        .lang-btn.active {
+            color: var(--color-accent);
+            background: rgba(139, 26, 26, 0.1);
+        }
+
+        .lang-divider {
+            color: #ccc;
+        }
+
+        .header-contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--color-accent);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-contact-btn:hover {
+            background-color: #6b1515;
+        }
+
+        /* ========================
+           Main Content
+           ======================== */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .thankyou-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Success Animation */
+        .success-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .success-circle {
+            fill: none;
+            stroke: var(--color-success);
+            stroke-width: 4;
+            stroke-linecap: round;
+            animation: circle 0.6s ease-in-out;
+            stroke-dasharray: 330;
+            stroke-dashoffset: 330;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes circle {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .success-check {
+            fill: none;
+            stroke: var(--color-success);
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: check 0.4s ease-in-out 0.4s forwards;
+        }
+
+        @keyframes check {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .thankyou-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .thankyou-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .thankyou-message {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: var(--color-bg-gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .info-box-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box-title svg {
+            width: 18px;
+            height: 18px;
+            color: var(--color-accent);
+        }
+
+        .info-box-content {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+
+        .info-box-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box-content a {
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--color-accent) 0%, #a52828 100%);
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 26, 26, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #ffffff;
+            color: var(--color-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: #ffffff;
+        }
+
+        .btn-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ========================
+           Footer
+           ======================== */
+        .footer {
+            background-color: #1a1a1a;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+        }
+
+        /* ========================
+           Responsive
+           ======================== */
+        @media (max-width: 768px) {
+            .header-container {
+                height: 60px;
+            }
+
+            .nav-list {
+                display: none;
+            }
+
+            .main-content {
+                padding: 100px 1rem 2rem;
+            }
+
+            .thankyou-card {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .thankyou-title {
+                font-size: 1.5rem;
+            }
+
+            .success-icon {
+                width: 100px;
+                height: 100px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            opacity: 0;
+            animation: confetti-fall 3s ease-in-out forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                opacity: 1;
+                top: -10px;
+                transform: rotate(0deg) translateX(0);
+            }
+
+            100% {
+                opacity: 0;
+                top: 100vh;
+                transform: rotate(720deg) translateX(100px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="./index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" width="40" height="40">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="#8b1a1a" stroke-width="2" />
+                    <path d="M12 20 L28 20 M20 12 L20 28" stroke="#8b1a1a" stroke-width="2" />
+                </svg>
+                <span class="logo-text" data-i18n="company_name">ONPrecision</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="./works.html" class="nav-link" data-i18n="nav_works">事業内容</a></li>
+                    <li><a href="./products.html" class="nav-link" data-i18n="nav_products">加工事例</a></li>
+                    <li><a href="./equipment.html" class="nav-link" data-i18n="nav_equipment">設備一覧</a></li>
+                    <li><a href="./company.html" class="nav-link" data-i18n="nav_about">会社案内</a></li>
+                    <li><a href="./recruit.html" class="nav-link" data-i18n="nav_recruit">採用情報</a></li>
+                </ul>
+            </nav>
+
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ja" aria-label="日本語">JP</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VN</button>
+            </div>
+
+            <a href="./contact.html" class="header-contact-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <path d="M22 6l-10 7L2 6" />
+                </svg>
+                <span data-i18n="nav_contact">お問い合わせ</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="thankyou-card">
+            <!-- Success Animation -->
+            <div class="success-icon">
+                <svg viewBox="0 0 120 120">
+                    <circle class="success-circle" cx="60" cy="60" r="54" />
+                    <path class="success-check" d="M38 62 L52 76 L82 46" />
+                </svg>
+            </div>
+
+            <h1 class="thankyou-title" data-i18n="thankyou_title">送信が完了しました</h1>
+            <p class="thankyou-subtitle" data-i18n="thankyou_subtitle">Thank you for contacting us!</p>
+            <p class="thankyou-message" data-i18n="thankyou_message">
+                お問い合わせいただきありがとうございます。<br>
+                担当者より24時間以内にご連絡いたします。
+            </p>
+
+            <!-- Info Box -->
+            <div class="info-box">
+                <h3 class="info-box-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4M12 8h.01" />
+                    </svg>
+                    <span data-i18n="info_box_title">確認メールについて</span>
+                </h3>
+                <div class="info-box-content">
+                    <p data-i18n="info_box_content_1">
+                        ご入力いただいたメールアドレスに確認メールを送信しました。
+                    </p>
+                    <p data-i18n="info_box_content_2">
+                        メールが届かない場合は、迷惑メールフォルダをご確認いただくか、
+                        <a href="mailto:info@onprecision.com">info@onprecision.com</a> までご連絡ください。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <a href="./index.html" class="btn-primary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    <span data-i18n="btn_home">トップページへ</span>
+                </a>
+                <a href="./products.html" class="btn-secondary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                    <span data-i18n="btn_products">製品を見る</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">COPYRIGHT © ONPrecision CO.,LTD ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- Confetti Elements (added by JS) -->
+    <div id="confetti-container"></div>
+
+    <!-- Scripts -->
+    <script>
+        // Translations
+        const translations = {
+            ja: {
+                company_name: "ONPrecision",
+                nav_works: "事業内容",
+                nav_products: "加工事例",
+                nav_equipment: "設備一覧",
+                nav_about: "会社概要",
+                nav_recruit: "採用情報",
+                nav_contact: "お問い合わせ",
+                thankyou_title: "送信が完了しました",
+                thankyou_subtitle: "Thank you for contacting us!",
+                thankyou_message: "お問い合わせいただきありがとうございます。<br>担当者より24時間以内にご連絡いたします。",
+                info_box_title: "確認メールについて",
+                info_box_content_1: "ご入力いただいたメールアドレスに確認メールを送信しました。",
+                info_box_content_2: "メールが届かない場合は、迷惑メールフォルダをご確認いただくか、<a href='mailto:info@onprecision.com'>info@onprecision.com</a> までご連絡ください。",
+                btn_home: "トップページへ",
+                btn_products: "製品を見る"
+            },
+            vi: {
+                company_name: "ONPrecision",
+                nav_works: "Dịch vụ",
+                nav_products: "Sản phẩm",
+                nav_equipment: "Thiết bị",
+                nav_about: "Về chúng tôi",
+                nav_recruit: "Tuyển dụng",
+                nav_contact: "Liên hệ",
+                thankyou_title: "Gửi thành công!",
+                thankyou_subtitle: "Cảm ơn bạn đã liên hệ!",
+                thankyou_message: "Chúng tôi đã nhận được thông tin của bạn.<br>Đội ngũ của chúng tôi sẽ phản hồi trong vòng 24 giờ.",
+                info_box_title: "Về email xác nhận",
+                info_box_content_1: "Chúng tôi đã gửi email xác nhận đến địa chỉ bạn cung cấp.",
+                info_box_content_2: "Nếu không nhận được email, vui lòng kiểm tra thư mục Spam hoặc liên hệ <a href='mailto:info@onprecision.com'>info@onprecision.com</a>.",
+                btn_home: "Về trang chủ",
+                btn_products: "Xem sản phẩm"
+            }
+        };
+
+        // Current language
+        let currentLang = localStorage.getItem('preferred_language') || 'ja';
+
+        // Apply translations
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang;
+        }
+
+        // Update language buttons
+        function updateLanguageButtons(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+        }
+
+        // Create confetti
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#10b981', '#8b1a1a', '#1a365d', '#fbbf24', '#3b82f6'];
+
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = Math.random() * 10 + 5 + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.animationDuration = Math.random() * 2 + 2 + 's';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    container.appendChild(confetti);
+
+                    // Remove confetti after animation
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 30);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            applyTranslations(currentLang);
+            updateLanguageButtons(currentLang);
+
+            // Create confetti celebration
+            createConfetti();
+
+            // Language switcher
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const lang = this.getAttribute('data-lang');
+                    if (lang !== currentLang) {
+                        currentLang = lang;
+                        localStorage.setItem('preferred_language', lang);
+                        applyTranslations(lang);
+                        updateLanguageButtons(lang);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title data-i18n="products_meta_title">加工事例 | ONPrecision - 精密切削加工</title>
+    <meta name="description" data-i18n="products_meta_description"
+        content="ONPrecisionの加工事例・製品ギャラリー。真鍮・ステンレス・アルミなど精密切削加工品をご紹介します。">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ========================
+           CSS Variables
+           ======================== */
+        :root {
+            --color-primary: #1a365d;
+            --color-primary-dark: #0f2442;
+            --color-accent: #8b1a1a;
+            --color-text-primary: #333333;
+            --color-text-secondary: #555555;
+            --color-text-muted: #666666;
+            --color-border: #e0e0e0;
+            --color-bg-gray: #f5f5f5;
+            --font-family: 'Noto Sans JP', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* ========================
+           Reset & Base
+           ======================== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            background-color: #ffffff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ========================
+           Header
+           ======================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-accent);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .lang-btn {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #666;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            color: #333;
+        }
+
+        .lang-btn.active {
+            color: var(--color-accent);
+            background: rgba(139, 26, 26, 0.1);
+        }
+
+        .lang-divider {
+            color: #ccc;
+        }
+
+        .header-contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--color-accent);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-contact-btn:hover {
+            background-color: #6b1515;
+        }
+
+        /* ========================
+           Page Banner
+           ======================== */
+        .page-banner {
+            background-color: var(--color-primary);
+            padding: 8rem 0 3rem;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .page-banner-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #ffffff;
+        }
+
+        .breadcrumb-current {
+            color: #ffffff;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        /* ========================
+           Container
+           ======================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ========================
+           Products Section
+           ======================== */
+        .products-section {
+            padding: 4rem 0;
+            background-color: #ffffff;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            display: block;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.02) 0%, rgba(139, 26, 26, 0.02) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 20px 40px rgba(26, 54, 93, 0.15), 0 8px 16px rgba(0, 0, 0, 0.08);
+            transform: translateY(-8px);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-image {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.03), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .product-card:hover .product-image::after {
+            opacity: 1;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+
+        /* Material Badge - Glassmorphism Style */
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        /* Hide badge on hover */
+        .product-card:hover .product-badge {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        /* Badge colors by material */
+        .product-badge.brass,
+        .product-badge[data-material="brass"] {
+            background: linear-gradient(135deg, #d4a853 0%, #c9963e 100%);
+        }
+
+        .product-badge.stainless,
+        .product-badge[data-material="stainless"] {
+            background: linear-gradient(135deg, #7c8a99 0%, #5a6875 100%);
+        }
+
+        .product-badge.aluminum,
+        .product-badge[data-material="aluminum"] {
+            background: linear-gradient(135deg, #8cb4d9 0%, #6a9bc3 100%);
+        }
+
+        /* Default badge style */
+        .product-badge:not(.brass):not(.stainless):not(.aluminum):not([data-material]) {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+        }
+
+        /* Product Info */
+        .product-info {
+            padding: 1.25rem;
+            background: linear-gradient(to bottom, #ffffff 0%, #fafafa 100%);
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            position: relative;
+        }
+
+        .product-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+            border-radius: 2px;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .product-card:hover .product-info::before {
+            opacity: 1;
+            width: 60px;
+        }
+
+        .product-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            text-align: center;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: color 0.3s ease;
+        }
+
+        .product-card:hover .product-name {
+            color: var(--color-accent);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            color: var(--color-text-primary);
+            font-size: 0.875rem;
+            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-btn:hover,
+        .pagination-btn.active {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: #ffffff;
+        }
+
+        .pagination-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========================
+           CTA Section
+           ======================== */
+        .cta-section {
+            background-color: var(--color-bg-gray);
+            padding: 2rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .cta-notice {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-company {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .cta-company-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .cta-address {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            font-style: normal;
+            margin-top: 0.5rem;
+        }
+
+        .cta-address p {
+            margin: 0.25rem 0;
+        }
+
+        .cta-contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #ffffff;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+            padding: 0.75rem 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-contact-btn:hover {
+            background-color: var(--color-accent);
+            color: #ffffff;
+        }
+
+        .cta-phone {
+            text-align: center;
+        }
+
+        .cta-phone-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            letter-spacing: 0.05em;
+        }
+
+        /* ========================
+           Footer Navigation
+           ======================== */
+        .footer-nav {
+            background-color: var(--color-primary);
+            padding: 1rem 0;
+        }
+
+        .footer-nav-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem 2rem;
+        }
+
+        .footer-nav-list a {
+            color: #ffffff;
+            font-size: 0.875rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-nav-list a:hover {
+            opacity: 0.8;
+        }
+
+        /* ========================
+           Footer
+           ======================== */
+        .footer {
+            background-color: #1a1a1a;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+        }
+
+        /* ========================
+           Back to Top
+           ======================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--color-accent);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #6b1515;
+            transform: translateY(-3px);
+        }
+
+        /* ========================
+           Responsive
+           ======================== */
+        @media (max-width: 992px) {
+            .nav-list {
+                display: none;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .cta-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .cta-company {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                height: 60px;
+            }
+
+            .page-banner {
+                margin-top: 60px;
+                padding: 6rem 0 2rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .product-info {
+                padding: 0.5rem;
+            }
+
+            .product-name {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="./index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" width="40" height="40">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="#8b1a1a" stroke-width="2" />
+                    <path d="M12 20 L28 20 M20 12 L20 28" stroke="#8b1a1a" stroke-width="2" />
+                </svg>
+                <span class="logo-text" data-i18n="company_name">ONPrecision</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="./works.html" class="nav-link" data-i18n="nav_works">事業内容</a></li>
+                    <li><a href="./products.html" class="nav-link active" data-i18n="nav_products">加工事例</a></li>
+                    <li><a href="./equipment.html" class="nav-link" data-i18n="nav_equipment">設備一覧</a></li>
+                    <li><a href="./company.html" class="nav-link" data-i18n="nav_about">会社案内</a></li>
+                    <li><a href="./recruit.html" class="nav-link" data-i18n="nav_recruit">採用情報</a></li>
+                </ul>
+            </nav>
+
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ja" aria-label="日本語">JP</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VN</button>
+            </div>
+
+            <a href="./contact.html" class="header-contact-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <path d="M22 6l-10 7L2 6" />
+                </svg>
+                <span data-i18n="nav_contact">お問い合わせ</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="page-banner-content">
+            <nav class="breadcrumb">
+                <a href="./index.html" data-i18n="nav_home">HOME</a>
+                <span>›</span>
+                <span class="breadcrumb-current" data-i18n="products_page_title">加工事例</span>
+            </nav>
+            <h1 class="page-title" data-i18n="products_page_title">加工事例</h1>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <header class="section-header">
+                <h2 class="section-title" data-i18n="products_section_title">CÁC SẢN PHẨM</h2>
+                <p class="section-subtitle" data-i18n="products_section_subtitle">製品ギャラリー</p>
+            </header>
+
+            <!-- Products Grid -->
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <a href="./product-detail.html?id=1" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge brass" data-i18n="product_badge_brass">真鍮</span>
+                        <img src="./assets/images/products/product-01.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_1_name">真鍮製 精密コネクタ部品</p>
+                    </div>
+                </a>
+
+                <!-- Product 2 -->
+                <a href="./product-detail.html?id=2" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge stainless" data-i18n="product_badge_stainless">ステンレス</span>
+                        <img src="./assets/images/products/product-02.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_2_name">ステンレス製 シャフト加工品</p>
+                    </div>
+                </a>
+
+                <!-- Product 3 -->
+                <a href="./product-detail.html?id=3" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge brass" data-i18n="product_badge_brass">真鍮</span>
+                        <img src="./assets/images/products/product-03.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_3_name">真鍮製 精密ピン加工品</p>
+                    </div>
+                </a>
+
+                <!-- Product 4 -->
+                <a href="./product-detail.html?id=4" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge aluminum" data-i18n="product_badge_aluminum">アルミ</span>
+                        <img src="./assets/images/products/product-04.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_4_name">アルミ製 リング加工品</p>
+                    </div>
+                </a>
+
+                <!-- Product 5 -->
+                <a href="./product-detail.html?id=5" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge brass" data-i18n="product_badge_brass">真鍮</span>
+                        <img src="./assets/images/products/product-05.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_5_name">真鍮製 バルブシート</p>
+                    </div>
+                </a>
+
+                <!-- Product 6 -->
+                <a href="./product-detail.html?id=6" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge stainless" data-i18n="product_badge_stainless">ステンレス</span>
+                        <img src="./assets/images/products/product-06.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_6_name">ステンレス製 精密ノズル</p>
+                    </div>
+                </a>
+
+                <!-- Product 7 -->
+                <a href="./product-detail.html?id=7" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge brass" data-i18n="product_badge_brass">真鍮</span>
+                        <img src="./assets/images/products/product-07.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_7_name">真鍮製 電気接点部品</p>
+                    </div>
+                </a>
+
+                <!-- Product 8 -->
+                <a href="./product-detail.html?id=8" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge aluminum" data-i18n="product_badge_aluminum">アルミ</span>
+                        <img src="./assets/images/products/product-08.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_8_name">アルミ製 スペーサー</p>
+                    </div>
+                </a>
+
+                <!-- Product 9 -->
+                <a href="./product-detail.html?id=9" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge stainless" data-i18n="product_badge_stainless">ステンレス</span>
+                        <img src="./assets/images/products/product-09.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_9_name">ステンレス製 精密シャフト</p>
+                    </div>
+                </a>
+
+                <!-- Product 10 -->
+                <a href="./product-detail.html?id=10" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge brass" data-i18n="product_badge_brass">真鍮</span>
+                        <img src="./assets/images/products/product-10.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_10_name">真鍮製 フィッティング部品</p>
+                    </div>
+                </a>
+
+                <!-- Product 11 -->
+                <a href="./product-detail.html?id=11" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge brass" data-i18n="product_badge_brass">真鍮</span>
+                        <img src="./assets/images/products/product-11.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_11_name">真鍮製 ニップル加工品</p>
+                    </div>
+                </a>
+
+                <!-- Product 12 -->
+                <a href="./product-detail.html?id=12" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge stainless" data-i18n="product_badge_stainless">ステンレス</span>
+                        <img src="./assets/images/products/product-12.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_12_name">ステンレス製 精密ブッシュ</p>
+                    </div>
+                </a>
+
+                <!-- Product 13 -->
+                <a href="./product-detail.html?id=13" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge brass" data-i18n="product_badge_brass">真鍮</span>
+                        <img src="./assets/images/products/product-13.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_13_name">真鍮製 精密カラー</p>
+                    </div>
+                </a>
+
+                <!-- Product 14 -->
+                <a href="./product-detail.html?id=14" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge aluminum" data-i18n="product_badge_aluminum">アルミ</span>
+                        <img src="./assets/images/products/product-14.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_14_name">アルミ製 精密加工品</p>
+                    </div>
+                </a>
+
+                <!-- Product 15 -->
+                <a href="./product-detail.html?id=15" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge stainless" data-i18n="product_badge_stainless">ステンレス</span>
+                        <img src="./assets/images/products/product-15.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_15_name">ステンレス製 パイプ加工品</p>
+                    </div>
+                </a>
+
+                <!-- Product 16 -->
+                <a href="./product-detail.html?id=16" class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge brass" data-i18n="product_badge_brass">真鍮</span>
+                        <img src="./assets/images/products/product-16.png" alt="精密加工パーツ">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name" data-i18n="product_16_name">真鍮製 コネクタハウジング</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Pagination -->
+            <nav class="pagination" aria-label="Pagination">
+                <button class="pagination-btn disabled" aria-label="Previous">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn" aria-label="Next">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-grid">
+                <div class="cta-company-info">
+                    <p class="cta-notice" data-i18n="cta_notice">旋盤による精密切削加工のことならお気軽にどうぞ</p>
+                    <div class="cta-company">
+                        <svg viewBox="0 0 40 40" width="40" height="40">
+                            <circle cx="20" cy="20" r="18" fill="none" stroke="#8b1a1a" stroke-width="2" />
+                            <path d="M12 20 L28 20 M20 12 L20 28" stroke="#8b1a1a" stroke-width="2" />
+                        </svg>
+                        <span class="cta-company-name" data-i18n="company_name">ONPrecision</span>
+                    </div>
+                    <address class="cta-address">
+                        <p data-i18n="company_address">〒399-0428 長野県岡谷市川岸前道1105番地8005</p>
+                        <p data-i18n="company_hours">営業時間：08～17時（平日）　FAX：0266-23-2776</p>
+                    </address>
+                </div>
+
+                <a href="./contact.html" class="cta-contact-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <path d="M22 6l-10 7L2 6" />
+                    </svg>
+                    <span data-i18n="contact_button">お問い合わせ</span>
+                </a>
+
+                <div class="cta-phone">
+                    <a href="tel:(+84) 907 692 367" class="cta-phone-number">(+84) 907 692 367</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Navigation -->
+    <nav class="footer-nav">
+        <div class="container">
+            <ul class="footer-nav-list">
+                <li><a href="./index.html" data-i18n="nav_home">HOME</a></li>
+                <li><a href="./works.html" data-i18n="nav_works">事業内容</a></li>
+                <li><a href="./products.html" data-i18n="nav_products">加工事例</a></li>
+                <li><a href="./equipment.html" data-i18n="nav_equipment">設備一覧</a></li>
+                <li><a href="./company.html" data-i18n="nav_about">会社概要</a></li>
+                <li><a href="./recruit.html" data-i18n="nav_recruit">採用情報</a></li>
+                <li><a href="./news.html" data-i18n="nav_news">お知らせ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">COPYRIGHT © ONPrecision CO.,LTD ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="ページトップへ戻る">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6" />
+        </svg>
+    </button>
+
+    <!-- Translation Data -->
+    <script>
+        const translations = {
+            ja: {
+                company_name: "ONPrecision",
+                nav_home: "HOME",
+                nav_works: "事業内容",
+                nav_products: "加工事例",
+                nav_equipment: "設備一覧",
+                nav_about: "会社概要",
+                nav_recruit: "採用情報",
+                nav_news: "お知らせ",
+                nav_contact: "お問い合わせ",
+                products_page_title: "加工事例",
+                products_section_title: "製品ギャラリー",
+                products_section_subtitle: "加工事例",
+                product_badge_brass: "真鍮",
+                product_badge_stainless: "ステンレス",
+                product_badge_aluminum: "アルミ",
+                product_1_name: "真鍮製 精密コネクタ部品",
+                product_2_name: "ステンレス製 シャフト加工品",
+                product_3_name: "真鍮製 精密ピン加工品",
+                product_4_name: "アルミ製 リング加工品",
+                product_5_name: "真鍮製 バルブシート",
+                product_6_name: "ステンレス製 精密ノズル",
+                product_7_name: "真鍮製 電気接点部品",
+                product_8_name: "アルミ製 スペーサー",
+                product_9_name: "ステンレス製 精密シャフト",
+                product_10_name: "真鍮製 フィッティング部品",
+                product_11_name: "真鍮製 ニップル加工品",
+                product_12_name: "ステンレス製 精密ブッシュ",
+                product_13_name: "真鍮製 精密カラー",
+                product_14_name: "アルミ製 精密加工品",
+                product_15_name: "ステンレス製 パイプ加工品",
+                product_16_name: "真鍮製 コネクタハウジング",
+                cta_notice: "旋盤による精密切削加工のことならお気軽にどうぞ",
+                company_address: "〒399-0428 長野県岡谷市川岸前道1105番地8005",
+                company_hours: "営業時間：08～17時（平日）　FAX：0266-23-2776",
+                contact_button: "お問い合わせ"
+            },
+            vi: {
+                company_name: "ONPrecision",
+                nav_home: "TRANG CHỦ",
+                nav_works: "Dịch vụ",
+                nav_products: "Sản phẩm",
+                nav_equipment: "Thiết bị",
+                nav_about: "Về chúng tôi",
+                nav_recruit: "Tuyển dụng",
+                nav_news: "Tin tức",
+                nav_contact: "Liên hệ",
+                products_page_title: "Ví dụ xử lý",
+                products_section_title: "CÁC SẢN PHẨM",
+                products_section_subtitle: "Thư viện sản phẩm",
+                product_badge_brass: "Đồng thau",
+                product_badge_stainless: "Inox",
+                product_badge_aluminum: "Nhôm",
+                product_1_name: "Linh kiện đầu nối chính xác bằng đồng thau",
+                product_2_name: "Trục gia công bằng thép không gỉ",
+                product_3_name: "Pin chính xác bằng đồng thau",
+                product_4_name: "Vòng gia công bằng nhôm",
+                product_5_name: "Đế van bằng đồng thau",
+                product_6_name: "Vòi phun chính xác bằng thép không gỉ",
+                product_7_name: "Linh kiện tiếp điểm điện bằng đồng thau",
+                product_8_name: "Miếng đệm bằng nhôm",
+                product_9_name: "Trục chính xác bằng thép không gỉ",
+                product_10_name: "Linh kiện lắp ráp bằng đồng thau",
+                product_11_name: "Núm nối bằng đồng thau",
+                product_12_name: "Bạc lót chính xác bằng thép không gỉ",
+                product_13_name: "Vòng cổ chính xác bằng đồng thau",
+                product_14_name: "Sản phẩm gia công chính xác bằng nhôm",
+                product_15_name: "Ống gia công bằng thép không gỉ",
+                product_16_name: "Vỏ đầu nối bằng đồng thau",
+                cta_notice: "Hãy liên hệ với chúng tôi về gia công cắt gọt chính xác bằng máy tiện",
+                company_address: "〒281 Đường Số 1,  Ấp 3, Củ Chi, Thành phố Hồ Chí Minh, Việt Nam",
+                company_hours: "Giờ làm việc: 08~17h (Ngày thường) FAX:0305437972",
+                contact_button: "Liên hệ"
+            }
+        };
+
+        // Language Switcher
+        let currentLang = localStorage.getItem('preferred_language') || 'ja';
+
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang;
+        }
+
+        function updateLanguageButtons(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            applyTranslations(currentLang);
+            updateLanguageButtons(currentLang);
+
+            // Bind language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const lang = this.getAttribute('data-lang');
+                    if (lang !== currentLang) {
+                        currentLang = lang;
+                        localStorage.setItem('preferred_language', lang);
+                        applyTranslations(lang);
+                        updateLanguageButtons(lang);
+                    }
+                });
+            });
+
+            // Back to top button
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Header scroll effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) {
+                    header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
+                } else {
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
