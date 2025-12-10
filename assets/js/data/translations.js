@@ -351,7 +351,7 @@ const translations = {
         nav_news: "Tin tức",
 
         // Footer
-        footer_address: "1-2-3 ○○-cho, Nagaoka-shi, Niigata 940-0000, Nhật Bản",
+        footer_address: "〒281 Đường Số 1, Ấp 3, Củ Chi, TP.HCM, Việt Nam",
         footer_menu: "Menu",
         footer_follow: "Theo dõi",
         footer_privacy: "Chính sách bảo mật",

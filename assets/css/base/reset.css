@@ -1,39 +1,92 @@
-/* ================================================
-   Reset CSS
-   ================================================
-   Normalize và reset browser defaults
-   ================================================ */
+/*
+ * ========================================
+ * ONPrecision - CSS Reset & Base Styles
+ * ========================================
+ * Reset CSS mặc định và định nghĩa style cơ bản
+ */
 
-/* Box Sizing Reset */
+/* ===== CSS Reset ===== */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
-}
-
-/* Remove default margin/padding */
-* {
     margin: 0;
     padding: 0;
 }
 
-/* HTML & Body */
 html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-white);
+    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-    min-height: 100vh;
-    line-height: var(--line-height-base, 1.5);
-    font-family: var(--font-family-primary);
+/* ===== Typography ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: var(--font-weight-bold);
+    line-height: 1.3;
     color: var(--color-text-primary);
-    background-color: var(--color-bg-primary);
 }
 
-/* Images */
+h1 {
+    font-size: var(--font-size-4xl);
+}
+
+h2 {
+    font-size: var(--font-size-3xl);
+}
+
+h3 {
+    font-size: var(--font-size-2xl);
+}
+
+h4 {
+    font-size: var(--font-size-xl);
+}
+
+h5 {
+    font-size: var(--font-size-lg);
+}
+
+h6 {
+    font-size: var(--font-size-base);
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-base);
+}
+
+a:hover {
+    color: var(--color-accent);
+}
+
+/* ===== Lists ===== */
+ul,
+ol {
+    list-style: none;
+}
+
+/* ===== Images ===== */
 img,
 picture,
 video,
@@ -44,73 +97,192 @@ svg {
     height: auto;
 }
 
-/* Form elements */
+/* ===== Forms ===== */
 input,
 button,
 textarea,
 select {
     font: inherit;
-}
-
-/* Remove button styles */
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-/* Links */
-a {
     color: inherit;
-    text-decoration: none;
 }
 
-/* Lists */
-ul,
-ol {
-    list-style: none;
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
 }
 
-/* Tables */
+/* ===== Tables ===== */
 table {
     border-collapse: collapse;
-    border-spacing: 0;
+    width: 100%;
 }
 
-/* Headings */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* ===== Utility Classes ===== */
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-xl);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ===== Text Utilities ===== */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-primary {
+    color: var(--color-primary);
+}
+
+.text-accent {
+    color: var(--color-accent);
+}
+
+.text-muted {
+    color: var(--color-text-muted);
+}
+
+.text-white {
+    color: var(--color-text-white);
+}
+
+.font-light {
+    font-weight: var(--font-weight-light);
+}
+
+.font-normal {
+    font-weight: var(--font-weight-normal);
+}
+
+.font-medium {
+    font-weight: var(--font-weight-medium);
+}
+
+.font-semibold {
+    font-weight: var(--font-weight-semibold);
+}
+
+.font-bold {
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-tight);
 }
 
-/* Paragraphs */
-p {
+/* ===== Spacing Utilities ===== */
+.mt-1 {
+    margin-top: var(--spacing-sm);
+}
+
+.mt-2 {
+    margin-top: var(--spacing-md);
+}
+
+.mt-3 {
+    margin-top: var(--spacing-lg);
+}
+
+.mt-4 {
+    margin-top: var(--spacing-xl);
+}
+
+.mt-5 {
+    margin-top: var(--spacing-2xl);
+}
+
+.mb-1 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.mb-2 {
     margin-bottom: var(--spacing-md);
 }
 
-p:last-child {
-    margin-bottom: 0;
+.mb-3 {
+    margin-bottom: var(--spacing-lg);
 }
 
-/* Address */
-address {
-    font-style: normal;
+.mb-4 {
+    margin-bottom: var(--spacing-xl);
 }
 
-/* Remove animations for users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
+.mb-5 {
+    margin-bottom: var(--spacing-2xl);
+}
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+/* ===== Display Utilities ===== */
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-grid {
+    display: grid;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ===== Selection ===== */
+::selection {
+    background-color: var(--color-accent);
+    color: var(--color-text-white);
+}
+
+/* ===== Focus States ===== */
+:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* ===== Scrollbar (Webkit) ===== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg-gray);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-text-muted);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-secondary);
 }
