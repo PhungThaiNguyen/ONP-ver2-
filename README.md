@@ -1,4 +1,4 @@
-﻿# ONPrecision Website
+﻿# O.N.Precision Website
 
 ## 📁 Project Structure
 
@@ -207,4 +207,4 @@ Uses **FormSubmit** for form handling:
 
 ## 📄 License
 
-© 2024 ONPrecision CO.,LTD. All rights reserved.
+© 2024 O.N.Precision CO.,LTD. All rights reserved.

@@ -1,0 +1,1021 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- Enhanced SEO Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Primary Meta Tags -->
+    <title>ニュース詳細 | O.N.Precision</title>
+    <meta name="title" content="ニュース詳細 | O.N.Precision">
+    <meta name="description" content="O.N.Precisionの最新ニュース詳細をお届けします。設備投資、技術情報、会社からのお知らせ。">
+    <meta name="keywords" content="ニュース, 詳細, O.N.Precision, 精密加工, お知らせ">
+    <meta name="author" content="O.N.Precision">
+    <meta name="robots" content="index, follow">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#8b1a1a">
+    <meta name="msapplication-TileColor" content="#8b1a1a">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.onprecision.com/news-detail.html">
+
+    <!-- Language Alternates -->
+    <link rel="alternate" hreflang="ja" href="https://www.onprecision.com/news-detail.html">
+    <link rel="alternate" hreflang="en" href="https://www.onprecision.com/news-detail.html?lang=en">
+    <link rel="alternate" hreflang="vi" href="https://www.onprecision.com/news-detail.html?lang=vi">
+    <link rel="alternate" hreflang="x-default" href="https://www.onprecision.com/news-detail.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="O.N.Precision">
+    <meta property="og:url" content="https://www.onprecision.com/news-detail.html">
+    <meta property="og:title" content="ニュース詳細 | O.N.Precision">
+    <meta property="og:description" content="O.N.Precisionの最新ニュース詳細">
+    <meta property="og:image" content="https://www.onprecision.com/assets/images/og-image.jpg">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="vi_VN">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ニュース詳細 | O.N.Precision">
+    <meta name="twitter:description" content="O.N.Precisionの最新ニュース詳細">
+    <meta name="twitter:image" content="https://www.onprecision.com/assets/images/og-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-touch-icon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.onprecision.com/"},
+            {"@type": "ListItem", "position": 2, "name": "News", "item": "https://www.onprecision.com/news.html"},
+            {"@type": "ListItem", "position": 3, "name": "Detail"}
+        ]
+    }
+    </script>
+
+    <style>
+        /* ========================
+           CSS Variables
+           ======================== */
+        :root {
+            --color-primary: #1a365d;
+            --color-primary-dark: #0f2442;
+            --color-accent: #8b1a1a;
+            --color-text-primary: #333333;
+            --color-text-secondary: #555555;
+            --color-text-muted: #666666;
+            --color-border: #e0e0e0;
+            --color-bg-gray: #f5f5f5;
+            --font-family: 'Noto Sans JP', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* ========================
+           Reset & Base
+           ======================== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.8;
+            color: var(--color-text-primary);
+            background-color: #ffffff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ========================
+           Header
+           ======================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-accent);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .lang-btn {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #666;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            color: #333;
+        }
+
+        .lang-btn.active {
+            color: var(--color-accent);
+            background: rgba(139, 26, 26, 0.1);
+        }
+
+        .lang-divider {
+            color: #ccc;
+        }
+
+        .header-contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--color-accent);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-contact-btn:hover {
+            background-color: #6b1515;
+        }
+
+        /* ========================
+           Page Banner
+           ======================== */
+        .page-banner {
+            position: relative;
+            height: 300px;
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-accent) 0%, #6b1515 100%);
+            overflow: hidden;
+        }
+
+        .page-banner-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: #ffffff;
+            transition: opacity 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 0.8;
+        }
+
+        .breadcrumb-separator {
+            opacity: 0.6;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        /* ========================
+           News Detail Content
+           ======================== */
+        .news-detail-section {
+            padding: 4rem 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .news-detail-header {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .news-date {
+            display: inline-block;
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .news-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--color-accent);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-left: 1rem;
+        }
+
+        .news-detail-title {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .news-detail-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-detail-content {
+            font-size: 1rem;
+            line-height: 2;
+            color: var(--color-text-secondary);
+        }
+
+        .news-detail-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .news-detail-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--color-accent);
+        }
+
+        .news-detail-content ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+            list-style: disc;
+        }
+
+        .news-detail-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* ========================
+           Navigation Buttons
+           ======================== */
+        .news-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-bg-gray);
+            color: var(--color-text-primary);
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--color-primary);
+            color: #ffffff;
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-back-to-list {
+            background: var(--color-accent);
+            color: #ffffff;
+        }
+
+        .btn-back-to-list:hover {
+            background: #6b1515;
+        }
+
+        /* ========================
+           Related News
+           ======================== */
+        .related-news-section {
+            padding: 4rem 0;
+            background: var(--color-bg-gray);
+        }
+
+        .related-news-section .container {
+            max-width: 1200px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .related-news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .related-news-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .related-news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .related-news-image {
+            height: 160px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .related-news-image svg {
+            width: 48px;
+            height: 48px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .related-news-content {
+            padding: 1.5rem;
+        }
+
+        .related-news-date {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .related-news-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ========================
+           Footer
+           ======================== */
+        .footer {
+            background-color: #1a1a1a;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+        }
+
+        /* ========================
+           Back to Top Button
+           ======================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--color-accent);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 26, 26, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #6b1515;
+            transform: translateY(-3px);
+        }
+
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* ========================
+           Responsive
+           ======================== */
+        @media (max-width: 768px) {
+            .header-container {
+                height: 60px;
+            }
+
+            .nav-list {
+                display: none;
+            }
+
+            .page-banner {
+                height: 200px;
+                margin-top: 60px;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .news-detail-title {
+                font-size: 1.5rem;
+            }
+
+            .related-news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="./index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" width="40" height="40">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="#8b1a1a" stroke-width="2" />
+                    <path d="M12 20 L28 20 M20 12 L20 28" stroke="#8b1a1a" stroke-width="2" />
+                </svg>
+                <span class="logo-text" data-i18n="company_name">O.N.Precision</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="./works.html" class="nav-link" data-i18n="nav_works">事業内容</a></li>
+                    <li><a href="./products.html" class="nav-link" data-i18n="nav_products">加工事例</a></li>
+                    <li><a href="./equipment.html" class="nav-link" data-i18n="nav_equipment">設備一覧</a></li>
+                    <li><a href="./company.html" class="nav-link" data-i18n="nav_about">会社概要</a></li>
+                    <li><a href="./recruit.html" class="nav-link" data-i18n="nav_recruit">採用情報</a></li>
+                </ul>
+            </nav>
+
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ja" aria-label="日本語">JP</button>
+                <span class="lang-divider">|</span><button class="lang-btn" data-lang="en"
+                    aria-label="English">EN</button><span class="lang-divider">|</span><button class="lang-btn"
+                    data-lang="vi" aria-label="Tiếng Việt">VN</button>
+            </div>
+
+            <a href="./contact.html" class="header-contact-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <path d="M22 6l-10 7L2 6" />
+                </svg>
+                <span data-i18n="nav_contact">お問い合わせ</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="page-banner-content">
+            <nav class="breadcrumb">
+                <a href="./index.html" data-i18n="nav_home">HOME</a>
+                <span class="breadcrumb-separator">›</span>
+                <a href="./news.html" data-i18n="nav_news">ニュース</a>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-current" data-i18n="news_detail_breadcrumb">詳細</span>
+            </nav>
+            <h1 class="page-title" data-i18n="nav_news">NEWS</h1>
+        </div>
+    </section>
+
+    <!-- News Detail Content -->
+    <section class="news-detail-section">
+        <div class="container">
+            <article class="news-detail-article">
+                <header class="news-detail-header">
+                    <span class="news-date" id="newsDate">2023年03月24日（金）</span>
+                    <span class="news-category" data-i18n="news_category_info">お知らせ</span>
+                    <h1 class="news-detail-title" id="newsTitle">第二工場を増築しました</h1>
+                </header>
+
+                <img class="news-detail-image" id="newsImage" src="./assets/images/company.png" alt="News Image">
+
+                <div class="news-detail-content" id="newsContent">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </article>
+
+            <!-- Navigation -->
+            <div class="news-navigation">
+                <a href="#" class="nav-btn" id="prevNews">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                    <span data-i18n="news_prev">前の記事</span>
+                </a>
+                <a href="./news.html" class="nav-btn btn-back-to-list">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                    <span data-i18n="news_back_to_list">一覧に戻る</span>
+                </a>
+                <a href="#" class="nav-btn" id="nextNews">
+                    <span data-i18n="news_next">次の記事</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related News -->
+    <section class="related-news-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="news_related">関連ニュース</h2>
+            <div class="related-news-grid" id="relatedNews">
+                <!-- Will be populated dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">COPYRIGHT © O.N.Precision CO.,LTD ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6" />
+        </svg>
+    </button>
+
+    <script>
+        // News Data
+        const newsData = {
+            1: {
+                date_ja: "2023年03月24日（金）",
+                date_en: "March 24, 2023 (Fri)",
+                date_vi: "24/03/2023 (Thứ 6)",
+                title_ja: "第二工場を増築しました",
+                title_en: "Expanded Second Factory",
+                title_vi: "Đã mở rộng nhà máy thứ hai",
+                content_ja: `
+                    <p>O.N.Precision本社に隣接する第二工場を増築いたしました。これにより、生産ラインの拡充と効率化を図り、お客様のニーズにより迅速にお応えできる体制を整えました。</p>
+                    <h2>増築の概要</h2>
+                    <ul>
+                        <li>延床面積：約500㎡増加</li>
+                        <li>新規NC自動旋盤：5台導入</li>
+                        <li>検査設備の拡充</li>
+                    </ul>
+                    <p>今後も精密加工のプロフェッショナルとして、高品質な製品をお届けしてまいります。お気軽にお問い合わせください。</p>
+                `,
+                content_en: `
+                    <p>We have expanded our second factory adjacent to O.N.Precision headquarters. This expansion has enhanced our production lines and efficiency, enabling us to respond more quickly to customer needs.</p>
+                    <h2>Expansion Overview</h2>
+                    <ul>
+                        <li>Floor area: Approximately 500㎡ increase</li>
+                        <li>New NC automatic lathes: 5 units installed</li>
+                        <li>Expanded inspection equipment</li>
+                    </ul>
+                    <p>We will continue to deliver high-quality products as professionals in precision machining. Please feel free to contact us.</p>
+                `,
+                content_vi: `
+                    <p>Chúng tôi đã mở rộng nhà máy thứ hai liền kề với trụ sở chính của O.N.Precision. Việc mở rộng này đã nâng cao dây chuyền sản xuất và hiệu quả, cho phép chúng tôi đáp ứng nhanh hơn nhu cầu của khách hàng.</p>
+                    <h2>Tổng quan về việc mở rộng</h2>
+                    <ul>
+                        <li>Diện tích sàn: Tăng khoảng 500㎡</li>
+                        <li>Máy tiện tự động NC mới: 5 máy được lắp đặt</li>
+                        <li>Mở rộng thiết bị kiểm tra</li>
+                    </ul>
+                    <p>Chúng tôi sẽ tiếp tục cung cấp sản phẩm chất lượng cao với tư cách là chuyên gia gia công chính xác. Vui lòng liên hệ với chúng tôi.</p>
+                `,
+                image: "./assets/images/company.png"
+            },
+            2: {
+                date_ja: "2024年02月09日（金）",
+                date_en: "February 9, 2024 (Fri)",
+                date_vi: "09/02/2024 (Thứ 6)",
+                title_ja: "NC自動旋盤設備に投資しました",
+                title_en: "Invested in NC Automatic Lathe Equipment",
+                title_vi: "Đã đầu tư thiết bị máy tiện tự động NC",
+                content_ja: `
+                    <p>生産能力拡大のため、2024年2月にNC自動旋盤を追加導入いたしました。最新鋭の設備により、より高精度かつ効率的な加工が可能となりました。</p>
+                    <h2>導入設備</h2>
+                    <ul>
+                        <li>スター精密製 SR-20</li>
+                        <li>シチズンマシナリー製 L12</li>
+                        <li>加工径：φ3～φ20対応</li>
+                    </ul>
+                    <p>2024年も引き続き設備投資を計画しております。お客様のご要望にお応えできるよう、体制を強化してまいります。</p>
+                `,
+                content_en: `
+                    <p>To expand production capacity, we added NC automatic lathes in February 2024. With state-of-the-art equipment, we can now perform more precise and efficient machining.</p>
+                    <h2>Installed Equipment</h2>
+                    <ul>
+                        <li>Star Micronics SR-20</li>
+                        <li>Citizen Machinery L12</li>
+                        <li>Processing diameter: φ3 to φ20</li>
+                    </ul>
+                    <p>We plan to continue capital investment in 2024. We will strengthen our capabilities to meet customer requirements.</p>
+                `,
+                content_vi: `
+                    <p>Để mở rộng năng lực sản xuất, chúng tôi đã bổ sung máy tiện tự động NC vào tháng 2/2024. Với thiết bị hiện đại, chúng tôi có thể thực hiện gia công chính xác và hiệu quả hơn.</p>
+                    <h2>Thiết bị đã lắp đặt</h2>
+                    <ul>
+                        <li>Star Micronics SR-20</li>
+                        <li>Citizen Machinery L12</li>
+                        <li>Đường kính gia công: φ3 đến φ20</li>
+                    </ul>
+                    <p>Chúng tôi dự định tiếp tục đầu tư vào năm 2024. Chúng tôi sẽ tăng cường năng lực để đáp ứng yêu cầu của khách hàng.</p>
+                `,
+                image: "./assets/images/equipment/lathe.png"
+            },
+            3: {
+                date_ja: "2023年06月08日（木）",
+                date_en: "June 8, 2023 (Thu)",
+                date_vi: "08/06/2023 (Thứ 5)",
+                title_ja: "新型3D画像測定機を導入しました",
+                title_en: "Introduced New 3D Image Measuring Machine",
+                title_vi: "Đã đưa vào sử dụng máy đo hình ảnh 3D mới",
+                content_ja: `
+                    <p>キーエンス製の3D画像測定機「LM-X」を導入いたしました。従来の測定機と比較して、測定時間を大幅に短縮し、より高精度な品質管理が可能となりました。</p>
+                    <h2>導入機器の特長</h2>
+                    <ul>
+                        <li>高速・高精度測定</li>
+                        <li>複雑形状の3D測定対応</li>
+                        <li>自動レポート生成機能</li>
+                    </ul>
+                    <p>これにより、お客様への品質保証をより一層強化してまいります。</p>
+                `,
+                content_en: `
+                    <p>We have introduced Keyence's 3D image measuring machine "LM-X". Compared to conventional measuring machines, measurement time has been significantly reduced, enabling more precise quality control.</p>
+                    <h2>Features of Introduced Equipment</h2>
+                    <ul>
+                        <li>High-speed, high-precision measurement</li>
+                        <li>3D measurement of complex shapes</li>
+                        <li>Automatic report generation</li>
+                    </ul>
+                    <p>This will further strengthen our quality assurance for customers.</p>
+                `,
+                content_vi: `
+                    <p>Chúng tôi đã đưa vào sử dụng máy đo hình ảnh 3D "LM-X" của Keyence. So với máy đo thông thường, thời gian đo đã được giảm đáng kể, cho phép kiểm soát chất lượng chính xác hơn.</p>
+                    <h2>Tính năng của thiết bị</h2>
+                    <ul>
+                        <li>Đo tốc độ cao, độ chính xác cao</li>
+                        <li>Đo 3D các hình dạng phức tạp</li>
+                        <li>Tự động tạo báo cáo</li>
+                    </ul>
+                    <p>Điều này sẽ tăng cường hơn nữa đảm bảo chất lượng cho khách hàng.</p>
+                `,
+                image: "./assets/images/equipment/inspection.png"
+            }
+        };
+
+        // Translations
+        const translations = {
+            ja: {
+                company_name: "O.N.Precision",
+                nav_home: "HOME",
+                nav_works: "事業内容",
+                nav_products: "加工事例",
+                nav_equipment: "設備一覧",
+                nav_about: "会社概要",
+                nav_recruit: "採用情報",
+                nav_contact: "お問い合わせ",
+                nav_news: "ニュース",
+                news_detail_breadcrumb: "詳細",
+                news_detail_page_title: "ニュース詳細 | O.N.Precision",
+                news_category_info: "お知らせ",
+                news_prev: "前の記事",
+                news_next: "次の記事",
+                news_back_to_list: "一覧に戻る",
+                news_related: "関連ニュース"
+            },
+            en: {
+                company_name: "O.N.Precision",
+                nav_home: "HOME",
+                nav_works: "Services",
+                nav_products: "Products",
+                nav_equipment: "Equipment",
+                nav_about: "About Us",
+                nav_recruit: "Careers",
+                nav_contact: "Contact",
+                nav_news: "News",
+                news_detail_breadcrumb: "Detail",
+                news_detail_page_title: "News Detail | O.N.Precision",
+                news_category_info: "Announcement",
+                news_prev: "Previous",
+                news_next: "Next",
+                news_back_to_list: "Back to List",
+                news_related: "Related News"
+            },
+            vi: {
+                company_name: "O.N.Precision",
+                nav_home: "TRANG CHỦ",
+                nav_works: "Dịch vụ",
+                nav_products: "Sản phẩm",
+                nav_equipment: "Thiết bị",
+                nav_about: "Về chúng tôi",
+                nav_recruit: "Tuyển dụng",
+                nav_contact: "Liên hệ",
+                nav_news: "Tin tức",
+                news_detail_breadcrumb: "Chi tiết",
+                news_detail_page_title: "Chi tiết tin tức | O.N.Precision",
+                news_category_info: "Thông báo",
+                news_prev: "Bài trước",
+                news_next: "Bài sau",
+                news_back_to_list: "Về danh sách",
+                news_related: "Tin tức liên quan"
+            }
+        };
+
+        // Get current language
+        let currentLang = localStorage.getItem('preferred_language') || 'ja';
+
+        // Get news ID from URL
+        function getNewsId() {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('id')) || 1;
+        }
+
+        // Load news content
+        function loadNews(id) {
+            const news = newsData[id];
+            if (!news) {
+                // Redirect to news list if not found
+                window.location.href = './news.html';
+                return;
+            }
+
+            const dateKey = `date_${currentLang}`;
+            const titleKey = `title_${currentLang}`;
+            const contentKey = `content_${currentLang}`;
+
+            document.getElementById('newsDate').textContent = news[dateKey] || news.date_ja;
+            document.getElementById('newsTitle').textContent = news[titleKey] || news.title_ja;
+            document.getElementById('newsContent').innerHTML = news[contentKey] || news.content_ja;
+            document.getElementById('newsImage').src = news.image;
+
+            // Update navigation
+            const prevId = id > 1 ? id - 1 : null;
+            const nextId = id < Object.keys(newsData).length ? id + 1 : null;
+
+            const prevBtn = document.getElementById('prevNews');
+            const nextBtn = document.getElementById('nextNews');
+
+            if (prevId) {
+                prevBtn.href = `./news-detail.html?id=${prevId}`;
+                prevBtn.style.visibility = 'visible';
+            } else {
+                prevBtn.style.visibility = 'hidden';
+            }
+
+            if (nextId) {
+                nextBtn.href = `./news-detail.html?id=${nextId}`;
+                nextBtn.style.visibility = 'visible';
+            } else {
+                nextBtn.style.visibility = 'hidden';
+            }
+
+            // Load related news
+            loadRelatedNews(id);
+        }
+
+        // Load related news
+        function loadRelatedNews(currentId) {
+            const relatedContainer = document.getElementById('relatedNews');
+            relatedContainer.innerHTML = '';
+
+            const relatedIds = Object.keys(newsData).filter(id => parseInt(id) !== currentId).slice(0, 3);
+
+            relatedIds.forEach(id => {
+                const news = newsData[id];
+                const titleKey = `title_${currentLang}`;
+                const dateKey = `date_${currentLang}`;
+
+                const card = document.createElement('a');
+                card.href = `./news-detail.html?id=${id}`;
+                card.className = 'related-news-card';
+                card.innerHTML = `
+                    <div class="related-news-image">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+                        </svg>
+                    </div>
+                    <div class="related-news-content">
+                        <span class="related-news-date">${news[dateKey] || news.date_ja}</span>
+                        <h3 class="related-news-title">${news[titleKey] || news.title_ja}</h3>
+                    </div>
+                `;
+                relatedContainer.appendChild(card);
+            });
+        }
+
+        // Apply translations
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang;
+
+            // Reload news content with new language
+            const newsId = getNewsId();
+            loadNews(newsId);
+        }
+
+        // Update language buttons
+        function updateLanguageButtons(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            const newsId = getNewsId();
+            loadNews(newsId);
+            applyTranslations(currentLang);
+            updateLanguageButtons(currentLang);
+
+            // Language switcher
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const lang = this.getAttribute('data-lang');
+                    if (lang !== currentLang) {
+                        currentLang = lang;
+                        localStorage.setItem('preferred_language', lang);
+                        applyTranslations(lang);
+                        updateLanguageButtons(lang);
+                    }
+                });
+            });
+
+            // Back to top
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+    <script src="./assets/js/modules/seo-manager.js"></script>
+</body>
+
+</html>

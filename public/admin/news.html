@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Management | O.N.P Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --accent: #8b1a1a;
+            --accent-hover: #6b1515;
+            --success: #10b981;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --sidebar-width: 260px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 1.5rem;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+        }
+
+        .sidebar-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .sidebar-nav svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.75rem;
+            border: 1px solid var(--gray-300);
+            background: #fff;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .table-container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .table-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        th {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            background: var(--gray-50);
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        .news-cell {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .news-thumb {
+            width: 80px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--gray-200);
+        }
+
+        .news-title {
+            font-weight: 500;
+            color: var(--gray-900);
+            max-width: 300px;
+        }
+
+        .news-id {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        .news-date {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-published {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-draft {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .action-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .action-btn.edit {
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .action-btn.edit:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .action-btn.delete {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--gray-100);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group.col-2 {
+            grid-column: span 2;
+        }
+
+        .form-group.col-3 {
+            grid-column: span 3;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .form-section {
+            background: var(--gray-50);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .form-section h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 1rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 2000;
+        }
+
+        .toast {
+            background: var(--gray-800);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            background: var(--success);
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+                padding: 1rem;
+            }
+
+            .sidebar-logo span,
+            .sidebar-nav span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.col-2,
+            .form-group.col-3 {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="index.html" class="sidebar-logo">
+            <svg viewBox="0 0 40 40">
+                <circle cx="20" cy="20" r="18" fill="none" stroke="#fff" stroke-width="2" />
+                <path d="M12 20 L28 20 M20 12 L20 28" stroke="#fff" stroke-width="2" />
+            </svg>
+            <span>O.N.P Admin</span>
+        </a>
+        <ul class="sidebar-nav">
+            <li><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg><span data-i18n="sidebar_dashboard">Dashboard</span></a></li>
+            <li><a href="products.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                    </svg><span data-i18n="sidebar_products">Products</span></a></li>
+            <li><a href="equipment.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                        <rect x="9" y="9" width="6" height="6"></rect>
+                        <line x1="9" y1="1" x2="9" y2="4"></line>
+                        <line x1="15" y1="1" x2="15" y2="4"></line>
+                        <line x1="9" y1="20" x2="9" y2="23"></line>
+                        <line x1="15" y1="20" x2="15" y2="23"></line>
+                        <line x1="20" y1="9" x2="23" y2="9"></line>
+                        <line x1="20" y1="15" x2="23" y2="15"></line>
+                        <line x1="1" y1="9" x2="4" y2="9"></line>
+                        <line x1="1" y1="15" x2="4" y2="15"></line>
+                    </svg><span data-i18n="nav_equipment">Equipment</span></a></li>
+            <li><a href="news.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+                    </svg><span data-i18n="sidebar_news">News</span></a></li>
+            <li><a href="contacts.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg><span data-i18n="sidebar_contacts">Contacts</span></a></li>
+            <li id="usersNavItem"><a href="users.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg><span data-i18n="sidebar_users">Users</span></a></li>
+            <li><a href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    </svg><span data-i18n="sidebar_view_site">View Site</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <h1 data-i18n="news_title">News Management</h1>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button class="lang-btn" data-lang="ja" onclick="setAdminLanguage('ja')">JP</button>
+                    <button class="lang-btn" data-lang="vi" onclick="setAdminLanguage('vi')">VN</button>
+                    <button class="lang-btn" data-lang="en" onclick="setAdminLanguage('en')">EN</button>
+                </div>
+                <button class="btn btn-primary" onclick="openModal()" id="addNewsBtn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    <span data-i18n="news_add">Add News</span>
+                </button>
+                <button class="btn btn-secondary" onclick="logout()" style="padding:0.5rem 1rem;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    <span data-i18n="dashboard_logout">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h2><span data-i18n="news_all">All News</span> (<span id="newsCount">0</span>)</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th data-i18n="news_th_news">News</th>
+                        <th data-i18n="news_th_date">Date</th>
+                        <th data-i18n="news_th_status">Status</th>
+                        <th data-i18n="news_th_actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="newsTableBody"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="newsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle" data-i18n="news_modal_add">Add News</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <form id="newsForm" onsubmit="saveNews(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="newsId">
+
+                    <div class="form-section">
+                        <h3 data-i18n="news_section_title">📝 Title (Multilingual)</h3>
+                        <div class="form-grid">
+                            <div class="form-group"><label data-i18n="news_title_ja">Title (日本語) *</label><input
+                                    type="text" id="title_ja" required></div>
+                            <div class="form-group"><label data-i18n="news_title_en">Title (English)</label><input
+                                    type="text" id="title_en"></div>
+                            <div class="form-group"><label data-i18n="news_title_vi">Title (Tiếng Việt)</label><input
+                                    type="text" id="title_vi"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 data-i18n="news_section_date">📅 Date</h3>
+                        <div class="form-grid">
+                            <div class="form-group"><label data-i18n="news_published_date">Published Date</label><input
+                                    type="date" id="published_at"></div>
+                            <div class="form-group"><label data-i18n="news_date_ja">Date (日本語)</label><input type="text"
+                                    id="date_ja" placeholder="2024年01月01日（月）"></div>
+                            <div class="form-group"><label data-i18n="news_date_en">Date (English)</label><input
+                                    type="text" id="date_en" placeholder="January 1, 2024 (Mon)"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 data-i18n="news_section_excerpt">📋 Excerpt (Summary)</h3>
+                        <div class="form-grid">
+                            <div class="form-group col-3"><label data-i18n="news_excerpt_ja">Excerpt (日本語)</label><input
+                                    type="text" id="excerpt_ja"></div>
+                            <div class="form-group col-3"><label data-i18n="news_excerpt_en">Excerpt
+                                    (English)</label><input type="text" id="excerpt_en"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 data-i18n="news_section_content">📰 Content</h3>
+                        <div class="form-group col-3"><label data-i18n="news_content_ja">Content (日本語) - HTML
+                                supported</label><textarea id="content_ja"></textarea></div>
+                        <div class="form-group col-3"><label data-i18n="news_content_en">Content
+                                (English)</label><textarea id="content_en"></textarea></div>
+                        <div class="form-group col-3"><label data-i18n="news_content_vi">Content (Tiếng
+                                Việt)</label><textarea id="content_vi"></textarea></div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 data-i18n="news_section_image">🖼️ Image & Status</h3>
+                        <div class="form-grid">
+                            <div class="form-group col-2">
+                                <label data-i18n="news_upload_image">Upload Image</label>
+                                <div style="display:flex;gap:0.5rem;align-items:center;">
+                                    <input type="file" id="imageFile" accept="image/*"
+                                        onchange="handleImageUpload(this)" style="flex:1;">
+                                    <div id="uploadStatus" style="font-size:0.75rem;color:var(--gray-500);"></div>
+                                </div>
+                                <div style="margin-top:0.5rem;">
+                                    <label style="font-size:0.75rem;color:var(--gray-500);" data-i18n="news_or_url">Or
+                                        enter URL:</label>
+                                    <input type="text" id="image" placeholder="./assets/images/company.png">
+                                </div>
+                                <div id="imagePreview" style="margin-top:0.5rem;display:none;">
+                                    <img id="previewImg" src=""
+                                        style="max-width:100px;max-height:60px;border-radius:8px;border:1px solid var(--gray-200);">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="is_published" checked>
+                                    <label for="is_published" style="margin:0;"
+                                        data-i18n="news_is_published">Published</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()"
+                        data-i18n="news_btn_cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="news_btn_save">Save News</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal" style="max-width:400px;">
+            <div class="modal-header">
+                <h2 data-i18n="news_delete_title">Delete News</h2><button class="modal-close"
+                    onclick="closeDeleteModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p><span data-i18n="news_delete_confirm">Delete</span> "<strong id="deleteNewsTitle"></strong>"?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()"
+                    data-i18n="news_btn_cancel">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()" data-i18n="news_btn_delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Admin Translations -->
+    <script src="/admin/js/admin-translations.js"></script>
+
+    <script>
+        const token = localStorage.getItem('adminToken');
+        const currentUser = JSON.parse(localStorage.getItem('adminUser') || '{}');
+        let newsList = [];
+        let deleteNewsId = null;
+        let permissions = {};
+
+        // Check auth
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+
+        // Handle image upload
+        async function handleImageUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const status = document.getElementById('uploadStatus');
+            const preview = document.getElementById('imagePreview');
+            const previewImg = document.getElementById('previewImg');
+
+            status.textContent = 'Uploading...';
+            status.style.color = 'var(--gray-500)';
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    body: formData
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById('image').value = data.data.url;
+                    previewImg.src = data.data.url.replace('./', '../');
+                    preview.style.display = 'block';
+                    status.textContent = '✓ Uploaded!';
+                    status.style.color = 'var(--success)';
+                } else {
+                    status.textContent = '✗ ' + data.message;
+                    status.style.color = 'var(--danger)';
+                }
+            } catch (e) {
+                status.textContent = '✗ Upload failed';
+                status.style.color = 'var(--danger)';
+            }
+        }
+
+        // Check permissions
+        async function checkPermissions() {
+            try {
+                const res = await fetch('/api/users/permissions', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                permissions = data.permissions || {};
+
+                if (!permissions.news?.includes('create')) {
+                    document.querySelector('.btn-primary').style.display = 'none';
+                }
+
+                if (currentUser.role !== 'admin') {
+                    const usersNav = document.getElementById('usersNavItem');
+                    if (usersNav) usersNav.style.display = 'none';
+                }
+
+                loadNews();
+            } catch (e) {
+                loadNews();
+            }
+        }
+
+        async function loadNews() {
+            const res = await fetch('/api/news');
+            const data = await res.json();
+            if (data.success) {
+                newsList = data.data;
+                renderNews();
+            }
+        }
+
+        // Lấy tiêu đề tin tức theo ngôn ngữ
+        function getNewsTitle(n) {
+            const lang = getAdminLanguage();
+            if (lang === 'vi' && n.title_vi) return n.title_vi;
+            if (lang === 'en' && n.title_en) return n.title_en;
+            return n.title_ja || n.title_en || n.title_vi || 'Untitled';
+        }
+
+        // Lấy ngày theo ngôn ngữ
+        function getNewsDate(n) {
+            const lang = getAdminLanguage();
+
+            // Nếu có date theo ngôn ngữ thì hiển thị
+            if (lang === 'ja' && n.date_ja) return n.date_ja;
+            if (lang === 'en' && n.date_en) return n.date_en;
+
+            // Nếu có published_at thì format theo ngôn ngữ
+            if (n.published_at) {
+                const date = new Date(n.published_at);
+                if (lang === 'vi') {
+                    return date.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                }
+                if (lang === 'en') {
+                    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                }
+                // Tiếng Nhật
+                return date.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            }
+
+            return n.date_ja || '-';
+        }
+
+        function renderNews() {
+            const tbody = document.getElementById('newsTableBody');
+            document.getElementById('newsCount').textContent = newsList.length;
+
+            const canUpdate = permissions.news?.includes('update');
+            const canDelete = permissions.news?.includes('delete');
+
+            tbody.innerHTML = newsList.map(n => {
+                const newsTitle = getNewsTitle(n);
+                const newsDate = getNewsDate(n);
+                const statusText = n.is_published ? t('news_status_published') : t('news_status_draft');
+                return '<tr>' +
+                    '<td><div class="news-cell"><img src="' + (n.image || './assets/images/company.png').replace('./', '../') + '" class="news-thumb"><div><div class="news-title">' + newsTitle + '</div><div class="news-id">ID: ' + n.id + '</div></div></div></td>' +
+                    '<td class="news-date">' + newsDate + '</td>' +
+                    '<td><span class="badge ' + (n.is_published ? 'badge-published' : 'badge-draft') + '">' + statusText + '</span></td>' +
+                    '<td><div class="actions">' +
+                    (canUpdate ? '<button class="action-btn edit" onclick="editNews(' + n.id + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>' : '') +
+                    (canDelete ? '<button class="action-btn delete" onclick="deleteNews(' + n.id + ', \'' + newsTitle.replace(/'/g, "\\'") + '\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>' : '') +
+                    '</div></td>' +
+                    '</tr>';
+            }).join('');
+        }
+
+        function openModal() {
+            document.getElementById('modalTitle').setAttribute('data-i18n', 'news_modal_add');
+            document.getElementById('modalTitle').textContent = t('news_modal_add');
+            document.getElementById('newsForm').reset();
+            document.getElementById('newsId').value = '';
+            document.getElementById('is_published').checked = true;
+            document.getElementById('newsModal').classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('newsModal').classList.remove('active'); }
+
+        async function editNews(id) {
+            const res = await fetch('/api/news/' + id);
+            const data = await res.json();
+            if (data.success) {
+                const n = data.data;
+                document.getElementById('modalTitle').setAttribute('data-i18n', 'news_modal_edit');
+                document.getElementById('modalTitle').textContent = t('news_modal_edit');
+                document.getElementById('newsId').value = n.id;
+                document.getElementById('title_ja').value = n.title_ja || '';
+                document.getElementById('title_en').value = n.title_en || '';
+                document.getElementById('title_vi').value = n.title_vi || '';
+                document.getElementById('published_at').value = n.published_at || '';
+                document.getElementById('date_ja').value = n.date_ja || '';
+                document.getElementById('date_en').value = n.date_en || '';
+                document.getElementById('excerpt_ja').value = n.excerpt_ja || '';
+                document.getElementById('excerpt_en').value = n.excerpt_en || '';
+                document.getElementById('content_ja').value = n.content_ja || '';
+                document.getElementById('content_en').value = n.content_en || '';
+                document.getElementById('content_vi').value = n.content_vi || '';
+                document.getElementById('image').value = n.image || '';
+                document.getElementById('is_published').checked = n.is_published === 1;
+                document.getElementById('newsModal').classList.add('active');
+            }
+        }
+
+        async function saveNews(e) {
+            e.preventDefault();
+            const id = document.getElementById('newsId').value;
+            const newsData = {
+                title_ja: document.getElementById('title_ja').value,
+                title_en: document.getElementById('title_en').value,
+                title_vi: document.getElementById('title_vi').value,
+                published_at: document.getElementById('published_at').value,
+                date_ja: document.getElementById('date_ja').value,
+                date_en: document.getElementById('date_en').value,
+                excerpt_ja: document.getElementById('excerpt_ja').value,
+                excerpt_en: document.getElementById('excerpt_en').value,
+                content_ja: document.getElementById('content_ja').value,
+                content_en: document.getElementById('content_en').value,
+                content_vi: document.getElementById('content_vi').value,
+                image: document.getElementById('image').value,
+                is_published: document.getElementById('is_published').checked ? 1 : 0
+            };
+
+            const url = id ? '/api/news/' + id : '/api/news';
+            const res = await fetch(url, {
+                method: id ? 'PUT' : 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify(newsData)
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast(id ? t('news_msg_updated') : t('news_msg_created'), 'success');
+                closeModal();
+                loadNews();
+            } else {
+                showToast(data.message || t('news_msg_error'), 'error');
+            }
+        }
+
+        function deleteNews(id, title) {
+            deleteNewsId = id;
+            document.getElementById('deleteNewsTitle').textContent = title;
+            document.getElementById('deleteModal').classList.add('active');
+        }
+
+        function closeDeleteModal() { document.getElementById('deleteModal').classList.remove('active'); deleteNewsId = null; }
+
+        async function confirmDelete() {
+            if (!deleteNewsId) return;
+            const res = await fetch('/api/news/' + deleteNewsId, {
+                method: 'DELETE',
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast(t('news_msg_deleted'), 'success');
+                closeDeleteModal();
+                loadNews();
+            } else {
+                showToast(data.message || t('news_msg_error'), 'error');
+            }
+        }
+
+        function showToast(msg, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            toast.textContent = msg;
+            document.getElementById('toastContainer').appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Listen for language change
+        window.addEventListener('adminLanguageChanged', () => {
+            if (newsList.length > 0) renderNews();
+        });
+
+        checkPermissions();
+
+        // Show welcome message
+        const adminUser = JSON.parse(localStorage.getItem('adminUser') || '{}');
+        document.getElementById('welcomeUser').textContent = t('dashboard_welcome') + ', ' + (adminUser.fullname || adminUser.username || 'Admin');
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('adminToken');
+            localStorage.removeItem('adminUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+{
+    "name": "O.N.Precision - Precision Machining",
+    "short_name": "O.N.Precision",
+    "description": "精密切削加工の専門メーカー | Precision Machining Specialist | Chuyên gia gia công chính xác",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "theme_color": "#8b1a1a",
+    "background_color": "#ffffff",
+    "lang": "ja",
+    "dir": "ltr",
+    "categories": [
+        "business",
+        "manufacturing",
+        "industrial"
+    ],
+    "icons": [
+        {
+            "src": "/assets/images/favicon.png",
+            "sizes": "32x32",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/assets/images/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/assets/images/og-image.jpg",
+            "sizes": "1200x630",
+            "type": "image/jpeg",
+            "form_factor": "wide",
+            "label": "O.N.Precision Homepage"
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "shortcuts": [
+        {
+            "name": "製品一覧",
+            "short_name": "Products",
+            "description": "View our precision machining products",
+            "url": "/products.html",
+            "icons": [
+                {
+                    "src": "/assets/images/favicon.png",
+                    "sizes": "32x32"
+                }
+            ]
+        },
+        {
+            "name": "お問い合わせ",
+            "short_name": "Contact",
+            "description": "Contact us for inquiries",
+            "url": "/contact.html",
+            "icons": [
+                {
+                    "src": "/assets/images/favicon.png",
+                    "sizes": "32x32"
+                }
+            ]
+        }
+    ]
+}

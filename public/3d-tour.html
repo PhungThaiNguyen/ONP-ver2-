@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>3D Factory Tour | O.N.Precision - バーチャル工場見学</title>
+    <meta name="description" content="O.N.Precisionの3Dバーチャル工場見学。CNC、CAM、QC、組立など各部門をインタラクティブに体験。">
+    <meta name="theme-color" content="#8b1a1a">
+
+    <link rel="canonical" href="https://www.onprecision.com/3d-tour.html">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="./manifest.json">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        :root {
+            --color-primary: #8b1a1a;
+            --color-primary-light: #a82e2e;
+            --color-primary-glow: rgba(139, 26, 26, 0.6);
+            --color-secondary: #1a365d;
+            --color-accent: #d4af37;
+            --color-accent-glow: rgba(212, 175, 55, 0.5);
+            --color-white: #ffffff;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Noto Sans JP', 'Noto Sans', sans-serif;
+        }
+
+        /* ========================
+           Enhanced Loading Screen
+           ======================== */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0a1628 0%, #1a365d 50%, #0f172a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .loading-screen::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(139, 26, 26, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 20%, rgba(26, 54, 93, 0.2) 0%, transparent 40%);
+            animation: loadingPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes loadingPulse {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1) rotate(5deg);
+                opacity: 1;
+            }
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.1);
+        }
+
+        .loading-logo {
+            position: relative;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 40px rgba(139, 26, 26, 0.8),
+                0 0 80px rgba(139, 26, 26, 0.4);
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            0% {
+                text-shadow: 0 0 40px rgba(139, 26, 26, 0.8), 0 0 80px rgba(139, 26, 26, 0.4);
+            }
+
+            100% {
+                text-shadow: 0 0 60px rgba(212, 175, 55, 0.8), 0 0 120px rgba(212, 175, 55, 0.4);
+            }
+        }
+
+        .loading-spinner {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .loading-spinner::before,
+        .loading-spinner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px solid transparent;
+        }
+
+        .loading-spinner::before {
+            border-top-color: var(--color-primary);
+            border-right-color: var(--color-primary);
+            animation: spinOuter 1.5s linear infinite;
+        }
+
+        .loading-spinner::after {
+            inset: 8px;
+            border-bottom-color: var(--color-accent);
+            border-left-color: var(--color-accent);
+            animation: spinInner 1s linear infinite reverse;
+        }
+
+        @keyframes spinOuter {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spinInner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            position: relative;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-top: 2rem;
+            letter-spacing: 0.1em;
+            animation: textFade 2s ease-in-out infinite;
+        }
+
+        @keyframes textFade {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Floating particles effect */
+        .loading-screen .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .loading-screen .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: particleFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes particleFloat {
+
+            0%,
+            100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ========================
+           Canvas Container
+           ======================== */
+        #canvas-container {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(180deg, #0a1628 0%, #1a2744 100%);
+        }
+
+        /* ========================
+           UI Overlay with subtle gradient
+           ======================== */
+        .ui-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+            background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.3) 100%);
+        }
+
+        /* ========================
+           Enhanced Header
+           ======================== */
+        .tour-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: auto;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+            animation: headerSlide 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes headerSlide {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .tour-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-white);
+            transition: transform 0.3s ease;
+        }
+
+        .tour-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .tour-logo svg {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 0 10px rgba(139, 26, 26, 0.5));
+            transition: filter 0.3s ease;
+        }
+
+        .tour-logo:hover svg {
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8));
+        }
+
+        .tour-logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tour-nav {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .tour-nav-btn {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--color-white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tour-nav-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tour-nav-btn:hover::before {
+            opacity: 1;
+        }
+
+        .tour-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .tour-nav-btn.primary {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            border-color: transparent;
+            box-shadow: 0 4px 20px var(--color-primary-glow);
+        }
+
+        .tour-nav-btn.primary:hover {
+            box-shadow: 0 8px 30px var(--color-primary-glow);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        /* ========================
+           Enhanced Center Info
+           ======================== */
+        .center-info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--color-white);
+            pointer-events: auto;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .center-info.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        .center-info h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #d4d4d4 50%, #ffffff 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleShimmer 3s ease-in-out infinite;
+            text-shadow: none;
+            filter: drop-shadow(0 4px 30px rgba(255, 255, 255, 0.3));
+        }
+
+        @keyframes titleShimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .center-info p {
+            font-size: 1.3rem;
+            opacity: 0.85;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+            animation: subtitlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes subtitlePulse {
+
+            0%,
+            100% {
+                opacity: 0.85;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+        }
+
+        .start-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, var(--color-primary) 0%, #c02626 100%);
+            color: var(--color-white);
+            padding: 1.25rem 3rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 8px 40px var(--color-primary-glow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: btnFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes btnFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .start-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .start-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .start-btn:hover {
+            background: linear-gradient(135deg, #c02626 0%, #e03030 100%);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px var(--color-primary-glow),
+                0 0 60px rgba(139, 26, 26, 0.3);
+            animation: none;
+        }
+
+        .start-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .start-btn:hover svg {
+            transform: translateX(5px);
+        }
+
+        /* ========================
+           Enhanced Department Tabs
+           ======================== */
+        .dept-tabs {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.35rem;
+            pointer-events: auto;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.6rem;
+            border-radius: 60px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            animation: tabsSlide 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes tabsSlide {
+            from {
+                transform: translateX(-50%) translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .dept-tab {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .dept-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 1px;
+        }
+
+        .dept-tab:hover {
+            color: var(--color-white);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dept-tab:hover::after {
+            width: 60%;
+        }
+
+        .dept-tab.active {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--color-white);
+            box-shadow: 0 4px 15px var(--color-primary-glow);
+            transform: scale(1.05);
+        }
+
+        .dept-tab.active::after {
+            width: 0;
+        }
+
+        /* ========================
+           Enhanced Navigation Arrows
+           ======================== */
+        .nav-arrows {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1.5rem;
+            pointer-events: auto;
+            animation: arrowsFade 0.6s ease 0.3s both;
+        }
+
+        @keyframes arrowsFade {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .nav-arrow {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--color-white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-arrow::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, var(--color-primary) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-arrow:hover::before {
+            opacity: 1;
+        }
+
+        .nav-arrow:hover {
+            border-color: var(--color-primary);
+            transform: scale(1.15);
+            box-shadow: 0 0 30px var(--color-primary-glow);
+        }
+
+        .nav-arrow:active {
+            transform: scale(0.95);
+        }
+
+        .nav-arrow svg {
+            width: 26px;
+            height: 26px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-arrow:hover svg {
+            transform: scale(1.1);
+        }
+
+        #prevBtn:hover svg {
+            transform: translateX(-3px);
+        }
+
+        #nextBtn:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* ========================
+           Enhanced Image Counter
+           ======================== */
+        .image-counter {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.85rem 1.75rem;
+            border-radius: 50px;
+            color: var(--color-white);
+            font-size: 0.9rem;
+            font-weight: 500;
+            pointer-events: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            animation: counterSlide 0.6s ease;
+        }
+
+        @keyframes counterSlide {
+            from {
+                transform: translateX(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .image-counter span:first-child {
+            color: var(--color-accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* ========================
+           Enhanced Image Info Panel
+           ======================== */
+        .image-info {
+            position: absolute;
+            bottom: 180px;
+            left: 30px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 54, 93, 0.6) 100%);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 1.75rem;
+            border-radius: 16px;
+            color: var(--color-white);
+            max-width: 380px;
+            pointer-events: auto;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid var(--color-primary);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .image-info.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .image-info .dept-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: white;
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            box-shadow: 0 4px 15px var(--color-primary-glow);
+        }
+
+        .image-info h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-white);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .image-info p {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        /* ========================
+           Enhanced Controls Hint
+           ======================== */
+        .controls-hint {
+            position: absolute;
+            top: 100px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1.25rem 1.75rem;
+            border-radius: 16px;
+            color: var(--color-white);
+            font-size: 0.85rem;
+            pointer-events: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: hintSlide 0.6s ease 0.5s both;
+        }
+
+        @keyframes hintSlide {
+            from {
+                transform: translateX(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .controls-hint ul {
+            list-style: none;
+        }
+
+        .controls-hint li {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .controls-hint li:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .controls-hint li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================
+           Responsive Design
+           ======================== */
+        @media (max-width: 768px) {
+            .tour-header {
+                padding: 1rem;
+            }
+
+            .tour-nav {
+                display: none;
+            }
+
+            .center-info h1 {
+                font-size: 2.5rem;
+            }
+
+            .center-info p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .start-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .dept-tabs {
+                bottom: 130px;
+                padding: 0.5rem;
+            }
+
+            .dept-tab {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.7rem;
+            }
+
+            .image-info {
+                left: 15px;
+                right: 15px;
+                max-width: none;
+                bottom: 200px;
+                padding: 1.25rem;
+            }
+
+            .image-info h3 {
+                font-size: 1.3rem;
+            }
+
+            .controls-hint {
+                display: none;
+            }
+
+            .nav-arrow {
+                width: 48px;
+                height: 48px;
+            }
+
+            .nav-arrow svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .image-counter {
+                font-size: 0.8rem;
+                padding: 0.65rem 1.25rem;
+            }
+        }
+
+        /* ========================
+           Particle Styles for JS
+           ======================== */
+        .floating-particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: rgba(212, 175, 55, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            animation: floatParticle 15s linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <!-- Particles Container -->
+        <div class="particles" id="loadingParticles"></div>
+        <div class="loading-logo">O.N.Precision</div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text" id="loadingText">Loading departments...</div>
+    </div>
+
+    <!-- 3D Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- UI Overlay -->
+    <div class="ui-overlay">
+        <!-- Header -->
+        <header class="tour-header">
+            <a href="./index.html" class="tour-logo">
+                <svg viewBox="0 0 40 40" fill="none">
+                    <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2" />
+                    <path d="M12 20 L28 20 M20 12 L20 28" stroke="currentColor" stroke-width="2" />
+                </svg>
+                <span class="tour-logo-text">O.N.Precision</span>
+            </a>
+            <nav class="tour-nav">
+                <a href="./index.html" class="tour-nav-btn" data-i18n="nav_home">ホーム</a>
+                <a href="./products.html" class="tour-nav-btn" data-i18n="nav_products">製品</a>
+                <a href="./contact.html" class="tour-nav-btn primary" data-i18n="nav_contact">お問い合わせ</a>
+                <!-- Language Selector -->
+                <div class="lang-selector" style="display: flex; gap: 0.25rem; margin-left: 0.5rem;">
+                    <button class="lang-btn" data-lang="ja"
+                        style="padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: white; cursor: pointer; font-size: 0.75rem;">JA</button>
+                    <button class="lang-btn" data-lang="vi"
+                        style="padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: white; cursor: pointer; font-size: 0.75rem;">VI</button>
+                    <button class="lang-btn" data-lang="en"
+                        style="padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: white; cursor: pointer; font-size: 0.75rem;">EN</button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Center Info -->
+        <div class="center-info" id="centerInfo">
+            <h1 id="tourTitle" data-i18n="tour_title">バーチャル工場見学</h1>
+            <p id="tourSubtitle" data-i18n="tour_subtitle">10の部門をインタラクティブに体験</p>
+            <button class="start-btn" id="startBtn">
+                <span id="startBtnText" data-i18n="tour_start">ツアーを開始</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Department Tabs (rendered dynamically from API) -->
+        <div class="dept-tabs" id="deptTabs" style="display: none;">
+            <!-- Tabs will be generated dynamically -->
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="nav-arrows" id="navArrows" style="display: none;">
+            <button class="nav-arrow" id="prevBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+            <button class="nav-arrow" id="nextBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Image Counter -->
+        <div class="image-counter" id="imageCounter" style="display: none;">
+            <span id="currentIndex">1</span> / <span id="totalImages">16</span>
+        </div>
+
+        <!-- Image Info Panel -->
+        <div class="image-info" id="imageInfo">
+            <span class="dept-badge" id="deptBadge">CNC</span>
+            <h3 id="imageTitle">Department Name</h3>
+            <p id="imageDesc">Description...</p>
+        </div>
+
+        <!-- Controls Hint -->
+        <div class="controls-hint" id="controlsHint" style="display: none;">
+            <ul>
+                <li data-i18n="hint_drag">🖱️ ドラッグで回転</li>
+                <li data-i18n="hint_scroll">🔍 スクロールでズーム</li>
+                <li data-i18n="hint_arrows">⬅️➡️ 矢印キーで移動</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        class DepartmentTour {
+            constructor() {
+                this.container = document.getElementById('canvas-container');
+                this.loadingScreen = document.getElementById('loadingScreen');
+                this.loadingText = document.getElementById('loadingText');
+
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.controls = null;
+
+                this.imagePanels = [];
+                this.currentIndex = 0;
+                this.isStarted = false;
+                this.textureLoader = new THREE.TextureLoader();
+
+                // API Config
+                this.apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                    ? 'http://localhost:3000/api'
+                    : '/api';
+
+                // Department data from API
+                this.departments = [];
+                this.images = [];
+                this.filteredImages = [];
+                this.currentDept = 'all';
+                this.lang = this.detectLanguage();
+
+                this.init();
+            }
+
+            detectLanguage() {
+                const params = new URLSearchParams(window.location.search);
+                return params.get('lang') || localStorage.getItem('preferred_language') || 'ja';
+            }
+
+            // Translations for 3D Tour
+            translations = {
+                ja: {
+                    nav_home: 'ホーム',
+                    nav_products: '製品',
+                    nav_contact: 'お問い合わせ',
+                    tour_title: 'バーチャル工場見学',
+                    tour_subtitle: '各部門をインタラクティブに体験',
+                    tour_start: 'ツアーを開始',
+                    loading: '読み込み中...',
+                    loading_dept: '部門データを読み込み中...',
+                    hint_drag: '🖱️ ドラッグで回転',
+                    hint_scroll: '🔍 スクロールでズーム',
+                    hint_arrows: '⬅️➡️ 矢印キーで移動',
+                    all: 'すべて'
+                },
+                vi: {
+                    nav_home: 'Trang chủ',
+                    nav_products: 'Sản phẩm',
+                    nav_contact: 'Liên hệ',
+                    tour_title: 'Tham quan nhà máy ảo',
+                    tour_subtitle: 'Trải nghiệm tương tác các bộ phận',
+                    tour_start: 'Bắt đầu tham quan',
+                    loading: 'Đang tải...',
+                    loading_dept: 'Đang tải dữ liệu bộ phận...',
+                    hint_drag: '🖱️ Kéo để xoay',
+                    hint_scroll: '🔍 Cuộn để zoom',
+                    hint_arrows: '⬅️➡️ Phím mũi tên để di chuyển',
+                    all: 'Tất cả'
+                },
+                en: {
+                    nav_home: 'Home',
+                    nav_products: 'Products',
+                    nav_contact: 'Contact',
+                    tour_title: 'Virtual Factory Tour',
+                    tour_subtitle: 'Interactive experience of all departments',
+                    tour_start: 'Start Tour',
+                    loading: 'Loading...',
+                    loading_dept: 'Loading department data...',
+                    hint_drag: '🖱️ Drag to rotate',
+                    hint_scroll: '🔍 Scroll to zoom',
+                    hint_arrows: '⬅️➡️ Arrow keys to navigate',
+                    all: 'All'
+                }
+            };
+
+            t(key) {
+                return this.translations[this.lang]?.[key] || this.translations['en']?.[key] || key;
+            }
+
+            updateUILanguage() {
+                // Update all elements with data-i18n attribute
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    const translated = this.t(key);
+                    if (translated) {
+                        el.textContent = translated;
+                    }
+                });
+
+                // Update dynamic texts with counts (subtitle with image count)
+                const subtitleEl = document.getElementById('tourSubtitle');
+                if (subtitleEl && this.images.length > 0) {
+                    const subtitles = {
+                        ja: `${this.images.length}の画像をインタラクティブに体験`,
+                        en: `Experience ${this.images.length} images interactively`,
+                        vi: `Trải nghiệm ${this.images.length} hình ảnh tương tác`
+                    };
+                    subtitleEl.textContent = subtitles[this.lang] || subtitles.en;
+                }
+
+                // Update loading text
+                if (this.loadingText) {
+                    this.loadingText.textContent = this.t('loading_dept');
+                }
+
+                // Update language button active state
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.style.background = btn.dataset.lang === this.lang ? 'rgba(255,255,255,0.3)' : 'transparent';
+                    btn.style.fontWeight = btn.dataset.lang === this.lang ? 'bold' : 'normal';
+                });
+            }
+
+            setLanguage(lang) {
+                this.lang = lang;
+                localStorage.setItem('preferred_language', lang);
+                this.updateUILanguage();
+                this.renderDepartmentTabs();
+
+                // Re-attach event listeners for department tabs
+                document.querySelectorAll('.dept-tab').forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        const dept = e.target.dataset.dept;
+                        this.filterByDept(dept);
+                        document.querySelectorAll('.dept-tab').forEach(t => t.classList.remove('active'));
+                        e.target.classList.add('active');
+                    });
+                });
+
+                // Update current image info if tour started
+                if (this.isStarted && this.filteredImages.length > 0) {
+                    this.updateImageInfo(this.currentIndex);
+                }
+            }
+
+            async init() {
+                // Create loading particles
+                this.createLoadingParticles();
+
+                // Setup language buttons immediately (before loading)
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.setLanguage(btn.dataset.lang);
+                    });
+                });
+
+                this.updateUILanguage();
+                this.loadingText.textContent = this.t('loading_dept');
+
+                // Fetch departments from API
+                await this.fetchDepartments();
+
+                this.updateUILanguage();
+                this.renderDepartmentTabs();
+                this.setupScene();
+                this.setupCamera();
+                this.setupRenderer();
+                this.setupControls();
+                this.setupLights();
+                await this.loadImages();
+                this.setupEventListeners();
+                this.animate();
+
+                setTimeout(() => {
+                    this.loadingScreen.classList.add('hidden');
+                    // Create floating particles after loading
+                    this.createFloatingParticles();
+                }, 500);
+            }
+
+            createLoadingParticles() {
+                const container = document.getElementById('loadingParticles');
+                if (!container) return;
+
+                const particleCount = 30;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.animationDelay = `${Math.random() * 8}s`;
+                    particle.style.animationDuration = `${6 + Math.random() * 6}s`;
+                    particle.style.width = `${2 + Math.random() * 4}px`;
+                    particle.style.height = particle.style.width;
+                    particle.style.opacity = `${0.2 + Math.random() * 0.4}`;
+                    container.appendChild(particle);
+                }
+            }
+
+            createFloatingParticles() {
+                const particleCount = 15;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'floating-particle';
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.animationDelay = `${Math.random() * 15}s`;
+                    particle.style.animationDuration = `${12 + Math.random() * 10}s`;
+                    document.body.appendChild(particle);
+                }
+            }
+
+            async fetchDepartments() {
+                try {
+                    const response = await fetch(`${this.apiBase}/departments?active=true`);
+                    const result = await response.json();
+
+                    if (result.success && result.data) {
+                        this.departments = result.data;
+
+                        // Transform API data to images format - support multiple images per department
+                        this.images = [];
+                        this.departments.forEach(dept => {
+                            // Parse images array from JSON string
+                            let deptImages = [];
+                            if (dept.images) {
+                                try {
+                                    deptImages = JSON.parse(dept.images);
+                                } catch (e) {
+                                    deptImages = [dept.images];
+                                }
+                            } else if (dept.image) {
+                                deptImages = [dept.image];
+                            } else {
+                                // Fallback to default image
+                                deptImages = [`./assets/images/departments/${dept.code}.png`];
+                            }
+
+                            // Create image entry for each image in the department
+                            deptImages.forEach((imgSrc, index) => {
+                                this.images.push({
+                                    src: imgSrc,
+                                    dept: dept.code,
+                                    title: {
+                                        ja: dept.name_ja,
+                                        en: dept.name_en,
+                                        vi: dept.name_vi
+                                    },
+                                    desc: {
+                                        ja: dept.description_ja,
+                                        en: dept.description_en,
+                                        vi: dept.description_vi
+                                    },
+                                    color: dept.color,
+                                    icon: dept.icon,
+                                    imageIndex: index,
+                                    totalImages: deptImages.length
+                                });
+                            });
+                        });
+
+                        this.filteredImages = [...this.images];
+                        console.log(`✅ Loaded ${this.departments.length} departments with ${this.images.length} total images from API`);
+                    } else {
+                        console.warn('⚠️ API returned no data, using fallback');
+                        this.useFallbackData();
+                    }
+                } catch (error) {
+                    console.warn('⚠️ Failed to fetch from API, using fallback:', error.message);
+                    this.useFallbackData();
+                }
+            }
+
+            useFallbackData() {
+                // Fallback data when API is not available
+                this.images = [
+                    { src: './assets/images/departments/cnc.png', dept: 'cnc', title: { ja: 'CNC加工室', en: 'CNC Machining Room', vi: 'Phòng CNC' }, desc: { ja: 'NC自動旋盤による精密切削加工を行う主力部門', en: 'Main department for precision cutting with NC automatic lathes', vi: 'Bộ phận chính cho gia công cắt gọt chính xác' } },
+                    { src: './assets/images/departments/cam.png', dept: 'cam', title: { ja: 'CAMプログラミング室', en: 'CAM Programming Room', vi: 'Phòng CAM' }, desc: { ja: 'CAD/CAMソフトウェアによる加工プログラム作成', en: 'Machining program creation with CAD/CAM software', vi: 'Tạo chương trình gia công bằng phần mềm CAD/CAM' } },
+                    { src: './assets/images/departments/kcs.png', dept: 'kcs', title: { ja: 'KCS検査室', en: 'KCS Inspection Room', vi: 'Phòng KCS' }, desc: { ja: '製品検査・外観検査を行う部門', en: 'Product and visual inspection department', vi: 'Bộ phận kiểm tra sản phẩm và ngoại quan' } },
+                    { src: './assets/images/departments/qc.png', dept: 'qc', title: { ja: 'QC品質管理室', en: 'QC Quality Control Room', vi: 'Phòng QC' }, desc: { ja: '三次元測定機による精密検査と品質保証', en: 'Precision inspection and quality assurance with CMM', vi: 'Kiểm tra chính xác và đảm bảo chất lượng bằng CMM' } },
+                    { src: './assets/images/departments/washing.png', dept: 'washing', title: { ja: '洗浄室', en: 'Washing Room', vi: 'Phòng Rửa' }, desc: { ja: '超音波洗浄機による部品洗浄工程', en: 'Parts cleaning process with ultrasonic cleaning machines', vi: 'Quy trình rửa linh kiện bằng máy rửa siêu âm' } },
+                    { src: './assets/images/departments/packing.png', dept: 'packing', title: { ja: '梱包室', en: 'Packing Room', vi: 'Phòng Đóng gói' }, desc: { ja: '製品の梱包・出荷準備を行う部門', en: 'Department for product packaging and shipping preparation', vi: 'Bộ phận đóng gói và chuẩn bị giao hàng' } },
+                    { src: './assets/images/departments/support.png', dept: 'support', title: { ja: '補助部門', en: 'Support Department', vi: 'Phòng Phụ trợ' }, desc: { ja: '工具管理・保守メンテナンスを行う部門', en: 'Tool management and maintenance department', vi: 'Bộ phận quản lý công cụ và bảo trì' } },
+                    { src: './assets/images/departments/assembly.png', dept: 'assembly', title: { ja: '組立室', en: 'Assembly Room', vi: 'Phòng Lắp ráp' }, desc: { ja: '精密部品の組立・検品を行う部門', en: 'Department for precision parts assembly and inspection', vi: 'Bộ phận lắp ráp và kiểm tra linh kiện chính xác' } },
+                    { src: './assets/images/departments/office.png', dept: 'office', title: { ja: '事務所', en: 'Office', vi: 'Văn phòng' }, desc: { ja: '営業・管理業務を行う事務所', en: 'Office for sales and administrative operations', vi: 'Văn phòng quản lý và kinh doanh' } }
+                ];
+                this.filteredImages = [...this.images];
+            }
+
+            renderDepartmentTabs() {
+                const tabsContainer = document.getElementById('deptTabs');
+                tabsContainer.innerHTML = '';
+
+                // Add "All" tab
+                const allTab = document.createElement('button');
+                allTab.className = 'dept-tab active';
+                allTab.dataset.dept = 'all';
+                allTab.textContent = this.t('all');
+                tabsContainer.appendChild(allTab);
+
+                // Add department tabs from API data
+                const uniqueDepts = [...new Set(this.images.map(img => img.dept))];
+                uniqueDepts.forEach(deptCode => {
+                    const deptData = this.images.find(img => img.dept === deptCode);
+                    if (deptData) {
+                        const tab = document.createElement('button');
+                        tab.className = 'dept-tab';
+                        tab.dataset.dept = deptCode;
+                        tab.textContent = deptCode.toUpperCase();
+
+                        // Use translated name for certain departments
+                        const nameKey = `name_${this.lang}`;
+                        const dept = this.departments.find(d => d.code === deptCode);
+                        if (dept && dept[nameKey]) {
+                            // Keep code for CNC, CAM, KCS, QC; translate others
+                            if (!['cnc', 'cam', 'kcs', 'qc'].includes(deptCode)) {
+                                tab.textContent = dept[nameKey];
+                            }
+                        }
+
+                        tabsContainer.appendChild(tab);
+                    }
+                });
+            }
+
+
+            setupScene() {
+                this.scene = new THREE.Scene();
+
+                const canvas = document.createElement('canvas');
+                canvas.width = 2;
+                canvas.height = 512;
+                const ctx = canvas.getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 512);
+                gradient.addColorStop(0, '#0a0a0a');
+                gradient.addColorStop(0.5, '#1a1a2e');
+                gradient.addColorStop(1, '#16213e');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 2, 512);
+
+                this.scene.background = new THREE.CanvasTexture(canvas);
+            }
+
+            setupCamera() {
+                this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+                this.camera.position.set(0, 0, 15);
+            }
+
+            setupRenderer() {
+                this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                this.renderer.outputEncoding = THREE.sRGBEncoding;
+                this.container.appendChild(this.renderer.domElement);
+            }
+
+            setupControls() {
+                this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+                this.controls.enableDamping = true;
+                this.controls.dampingFactor = 0.05;
+                this.controls.minDistance = 5;
+                this.controls.maxDistance = 30;
+                this.controls.enablePan = false;
+                this.controls.autoRotate = false;
+                this.controls.autoRotateSpeed = 0.3;
+            }
+
+            setupLights() {
+                this.scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+
+                const frontLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                frontLight.position.set(0, 5, 10);
+                this.scene.add(frontLight);
+
+                const redLight = new THREE.PointLight(0x8b1a1a, 0.5, 50);
+                redLight.position.set(-15, 5, 0);
+                this.scene.add(redLight);
+
+                const blueLight = new THREE.PointLight(0x1a365d, 0.3, 50);
+                blueLight.position.set(15, 5, 0);
+                this.scene.add(blueLight);
+            }
+
+            async loadImages() {
+                // Clear existing panels
+                this.imagePanels.forEach(panel => this.scene.remove(panel));
+                this.imagePanels = [];
+
+                const radius = 12;
+                const angleStep = (Math.PI * 2) / this.filteredImages.length;
+
+                for (let i = 0; i < this.filteredImages.length; i++) {
+                    const imageData = this.filteredImages[i];
+                    const angle = angleStep * i - Math.PI / 2;
+
+                    try {
+                        const texture = await this.loadTexture(imageData.src);
+                        const panel = this.createImagePanel(texture, imageData, i);
+
+                        panel.position.x = Math.cos(angle) * radius;
+                        panel.position.z = Math.sin(angle) * radius;
+                        panel.lookAt(0, 0, 0);
+
+                        this.scene.add(panel);
+                        this.imagePanels.push(panel);
+
+                        this.loadingText.textContent = `Loading ${i + 1}/${this.filteredImages.length}...`;
+                    } catch (error) {
+                        console.warn(`Failed to load: ${imageData.src}`);
+                    }
+                }
+
+                this.createFloor();
+                this.createParticles();
+            }
+
+            loadTexture(src) {
+                return new Promise((resolve, reject) => {
+                    this.textureLoader.load(src, resolve, undefined, reject);
+                });
+            }
+
+            createImagePanel(texture, imageData, index) {
+                const aspectRatio = texture.image.width / texture.image.height;
+                const height = 5;
+                const width = height * aspectRatio;
+
+                const geometry = new THREE.PlaneGeometry(width, height);
+                const material = new THREE.MeshStandardMaterial({
+                    map: texture,
+                    side: THREE.DoubleSide,
+                    roughness: 0.5,
+                    metalness: 0.1
+                });
+
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.userData = { index, ...imageData };
+
+                // Frame
+                const frameGeometry = new THREE.BoxGeometry(width + 0.2, height + 0.2, 0.1);
+                const frameMaterial = new THREE.MeshStandardMaterial({
+                    color: 0x1a1a1a,
+                    roughness: 0.3,
+                    metalness: 0.8
+                });
+                const frame = new THREE.Mesh(frameGeometry, frameMaterial);
+                frame.position.z = -0.06;
+                mesh.add(frame);
+
+                return mesh;
+            }
+
+            createFloor() {
+                const floorGeometry = new THREE.CircleGeometry(15, 64);
+                const floorMaterial = new THREE.MeshStandardMaterial({
+                    color: 0x0a0a0a,
+                    roughness: 0.8,
+                    metalness: 0.2,
+                    transparent: true,
+                    opacity: 0.5
+                });
+                const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+                floor.rotation.x = -Math.PI / 2;
+                floor.position.y = -3;
+                this.scene.add(floor);
+
+                const gridHelper = new THREE.GridHelper(30, 30, 0x333333, 0x222222);
+                gridHelper.position.y = -2.99;
+                this.scene.add(gridHelper);
+            }
+
+            createParticles() {
+                const particleCount = 200;
+                const geometry = new THREE.BufferGeometry();
+                const positions = new Float32Array(particleCount * 3);
+
+                for (let i = 0; i < particleCount * 3; i += 3) {
+                    positions[i] = (Math.random() - 0.5) * 40;
+                    positions[i + 1] = Math.random() * 15 - 5;
+                    positions[i + 2] = (Math.random() - 0.5) * 40;
+                }
+
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+                const material = new THREE.PointsMaterial({
+                    color: 0xd4af37,
+                    size: 0.05,
+                    transparent: true,
+                    opacity: 0.6
+                });
+
+                this.particles = new THREE.Points(geometry, material);
+                this.scene.add(this.particles);
+            }
+
+            setupEventListeners() {
+                window.addEventListener('resize', () => this.onWindowResize());
+
+                document.getElementById('startBtn').addEventListener('click', () => this.startTour());
+
+                document.getElementById('prevBtn').addEventListener('click', () => this.navigate(-1));
+                document.getElementById('nextBtn').addEventListener('click', () => this.navigate(1));
+
+                window.addEventListener('keydown', (e) => {
+                    if (!this.isStarted) return;
+                    if (e.key === 'ArrowLeft') this.navigate(-1);
+                    if (e.key === 'ArrowRight') this.navigate(1);
+                });
+
+                document.querySelectorAll('.dept-tab').forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        const dept = e.target.dataset.dept;
+                        this.filterByDept(dept);
+
+                        document.querySelectorAll('.dept-tab').forEach(t => t.classList.remove('active'));
+                        e.target.classList.add('active');
+                    });
+                });
+
+                this.renderer.domElement.addEventListener('click', (e) => {
+                    if (!this.isStarted) return;
+                    this.onPanelClick(e);
+                });
+
+                // Language button event listeners
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.setLanguage(btn.dataset.lang);
+                    });
+                });
+            }
+
+            startTour() {
+                this.isStarted = true;
+                document.getElementById('centerInfo').classList.add('fade-out');
+                document.getElementById('deptTabs').style.display = 'flex';
+                document.getElementById('navArrows').style.display = 'flex';
+                document.getElementById('imageCounter').style.display = 'block';
+                document.getElementById('controlsHint').style.display = 'block';
+
+                this.controls.autoRotate = true;
+                this.focusOnImage(0);
+                this.updateImageInfo(0);
+            }
+
+            navigate(direction) {
+                this.currentIndex = (this.currentIndex + direction + this.filteredImages.length) % this.filteredImages.length;
+                this.focusOnImage(this.currentIndex);
+                this.updateImageInfo(this.currentIndex);
+            }
+
+            focusOnImage(index) {
+                const panel = this.imagePanels[index];
+                if (!panel) return;
+
+                const targetPos = panel.position.clone();
+                const direction = targetPos.clone().normalize();
+                const cameraTarget = direction.multiplyScalar(8);
+                cameraTarget.y = 0;
+
+                this.animateCameraTo(cameraTarget, targetPos);
+
+                document.getElementById('currentIndex').textContent = index + 1;
+                document.getElementById('totalImages').textContent = this.filteredImages.length;
+            }
+
+            animateCameraTo(position, lookAt) {
+                const startPos = this.camera.position.clone();
+                const startLook = this.controls.target.clone();
+                let progress = 0;
+                const duration = 60;
+
+                const animate = () => {
+                    progress++;
+                    const t = this.easeInOutCubic(progress / duration);
+
+                    this.camera.position.lerpVectors(startPos, position, t);
+                    this.controls.target.lerpVectors(startLook, lookAt, t);
+
+                    if (progress < duration) requestAnimationFrame(animate);
+                };
+                animate();
+            }
+
+            updateImageInfo(index) {
+                const data = this.filteredImages[index];
+                if (!data) return;
+
+                // If viewing "All" departments, show overview text
+                if (this.currentDept === 'all') {
+                    const overviewTexts = {
+                        ja: {
+                            badge: `工場概要`,
+                            title: 'O.N.Precision 工場見学',
+                            desc: `CNC、CAM、QC、組立など全${this.departments.length}部門をご覧いただけます。精密加工の現場をバーチャルで体験してください。`
+                        },
+                        vi: {
+                            badge: `Tổng quan`,
+                            title: 'Tham quan nhà máy O.N.Precision',
+                            desc: `Khám phá toàn bộ ${this.departments.length} bộ phận bao gồm CNC, CAM, QC, Lắp ráp và nhiều hơn nữa. Trải nghiệm ảo về cơ sở gia công chính xác.`
+                        },
+                        en: {
+                            badge: `Overview`,
+                            title: 'O.N.Precision Factory Tour',
+                            desc: `Explore all ${this.departments.length} departments including CNC, CAM, QC, Assembly and more. Virtual experience of our precision machining facility.`
+                        }
+                    };
+
+                    const overview = overviewTexts[this.lang] || overviewTexts.en;
+                    document.getElementById('deptBadge').textContent = `${overview.badge} (${index + 1}/${this.filteredImages.length})`;
+                    document.getElementById('imageTitle').textContent = overview.title;
+                    document.getElementById('imageDesc').textContent = overview.desc;
+                    document.getElementById('imageInfo').classList.add('visible');
+                    return;
+                }
+
+                // Specific department view
+                const deptNames = {
+                    cnc: 'CNC', cam: 'CAM', kcs: 'KCS', qc: 'QC',
+                    washing: { ja: '洗浄', en: 'Washing', vi: 'Rửa' },
+                    packing: { ja: '梱包', en: 'Packing', vi: 'Đóng gói' },
+                    support: { ja: '補助', en: 'Support', vi: 'Phụ trợ' },
+                    assembly: { ja: '組立', en: 'Assembly', vi: 'Lắp ráp' },
+                    office: { ja: '事務所', en: 'Office', vi: 'Văn phòng' }
+                };
+
+                let deptName = deptNames[data.dept];
+                if (typeof deptName === 'object') deptName = deptName[this.lang] || deptName.en;
+
+                // Show image count if department has multiple images
+                let badgeText = deptName || data.dept.toUpperCase();
+                if (data.totalImages && data.totalImages > 1) {
+                    badgeText += ` (${data.imageIndex + 1}/${data.totalImages})`;
+                }
+
+                document.getElementById('deptBadge').textContent = badgeText;
+                document.getElementById('imageTitle').textContent = data.title[this.lang] || data.title.en || data.title.ja;
+                document.getElementById('imageDesc').textContent = data.desc[this.lang] || data.desc.en || data.desc.ja || '';
+                document.getElementById('imageInfo').classList.add('visible');
+            }
+
+            filterByDept(dept) {
+                this.currentDept = dept;
+
+                if (dept === 'all') {
+                    this.filteredImages = [...this.images];
+                } else {
+                    this.filteredImages = this.images.filter(img => img.dept === dept);
+                }
+
+                this.currentIndex = 0;
+                this.loadImages().then(() => {
+                    if (this.filteredImages.length > 0) {
+                        this.focusOnImage(0);
+                        this.updateImageInfo(0);
+                    }
+                });
+            }
+
+            onPanelClick(event) {
+                const mouse = new THREE.Vector2();
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+                const raycaster = new THREE.Raycaster();
+                raycaster.setFromCamera(mouse, this.camera);
+
+                const intersects = raycaster.intersectObjects(this.imagePanels);
+                if (intersects.length > 0) {
+                    const clickedPanel = intersects[0].object;
+                    const index = clickedPanel.userData.index;
+                    this.currentIndex = index;
+                    this.focusOnImage(index);
+                    this.updateImageInfo(index);
+                }
+            }
+
+            easeInOutCubic(t) {
+                return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            }
+
+            onWindowResize() {
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+
+                if (this.particles) {
+                    this.particles.rotation.y += 0.0005;
+                }
+
+                this.controls.update();
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => new DepartmentTour());
+    </script>
+</body>
+
+</html>

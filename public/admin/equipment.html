@@ -1,0 +1,2466 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="equipment_page_title">Equipment Management | O.N.P Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --accent: #8b1a1a;
+            --accent-hover: #6b1515;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --sidebar-width: 260px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 1.5rem;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+        }
+
+        .sidebar-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .sidebar-nav svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.75rem;
+            border: 1px solid var(--gray-300);
+            background: #fff;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-300);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            background: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-500);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: var(--gray-700);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Card */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        /* Search Box */
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-box svg {
+            color: var(--gray-400);
+            flex-shrink: 0;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 0.875rem;
+            width: 200px;
+            color: var(--gray-800);
+        }
+
+        .search-box input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .search-box button {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: var(--gray-400);
+            font-size: 1rem;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .search-box button:hover {
+            color: var(--gray-600);
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--gray-50);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-600);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        td {
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        tr:hover td {
+            background: var(--gray-50);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-cnc {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-grinding {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-qc {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-washing {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .badge-packaging {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+
+        .badge-cam {
+            background: #cffafe;
+            color: #0e7490;
+        }
+
+        .badge-active {
+            background: var(--success);
+            color: #fff;
+        }
+
+        .badge-inactive {
+            background: var(--gray-400);
+            color: #fff;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .action-btn.edit {
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .action-btn.edit:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .action-btn.delete {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--gray-100);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: var(--gray-500);
+        }
+
+        .modal-close:hover {
+            background: var(--gray-200);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: 70vh;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 9999;
+        }
+
+        .toast {
+            padding: 1rem 1.25rem;
+            background: var(--gray-800);
+            color: #fff;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            background: var(--success);
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-500);
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .stat-info p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
+        /* Image Thumbnail in Table */
+        .equipment-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .equipment-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .no-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background: var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            font-size: 1.2rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .pagination-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--gray-300);
+            background: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--gray-100);
+            border-color: var(--primary);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-info {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 900px;
+            width: 100%;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .lightbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: var(--gray-100);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .lightbox-header h3 {
+            font-size: 1.1rem;
+            color: var(--gray-900);
+        }
+
+        .lightbox-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--gray-200);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--gray-600);
+        }
+
+        .lightbox-close:hover {
+            background: var(--gray-300);
+        }
+
+        .lightbox-body {
+            padding: 1.5rem;
+        }
+
+        .main-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: var(--gray-100);
+        }
+
+        .thumbnail-list {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .thumbnail-item {
+            width: 80px;
+            height: 60px;
+            border-radius: 6px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .thumbnail-item:hover,
+        .thumbnail-item.active {
+            border-color: var(--accent);
+        }
+
+        .no-images-message {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray-500);
+        }
+
+        .no-images-message svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Image URLs Input */
+        .image-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .image-url-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .image-url-row input {
+            flex: 1;
+        }
+
+        .image-url-row button {
+            padding: 0.5rem;
+            background: var(--gray-200);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .image-url-row button:hover {
+            background: var(--gray-300);
+        }
+
+        .image-url-row button.remove {
+            color: var(--danger);
+        }
+
+        .add-image-btn {
+            align-self: flex-start;
+            padding: 0.5rem 1rem;
+            background: var(--gray-100);
+            border: 1px dashed var(--gray-300);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        .add-image-btn:hover {
+            background: var(--gray-200);
+        }
+
+        .image-preview-list {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .image-preview-item {
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid var(--gray-200);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="index.html" class="sidebar-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="16" />
+                <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+            O.N.P Admin
+        </a>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="index.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="3" width="7" height="7" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" />
+                        <rect x="14" y="14" width="7" height="7" rx="1" />
+                    </svg>
+                    <span data-i18n="sidebar_dashboard">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="products.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                    </svg>
+                    <span data-i18n="sidebar_products">Products</span>
+                </a>
+            </li>
+            <li>
+                <a href="equipment.html" class="active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                        <rect x="9" y="9" width="6" height="6"></rect>
+                        <line x1="9" y1="1" x2="9" y2="4"></line>
+                        <line x1="15" y1="1" x2="15" y2="4"></line>
+                        <line x1="9" y1="20" x2="9" y2="23"></line>
+                        <line x1="15" y1="20" x2="15" y2="23"></line>
+                        <line x1="20" y1="9" x2="23" y2="9"></line>
+                        <line x1="20" y1="15" x2="23" y2="15"></line>
+                        <line x1="1" y1="9" x2="4" y2="9"></line>
+                        <line x1="1" y1="15" x2="4" y2="15"></line>
+                    </svg>
+                    <span data-i18n="nav_equipment">Equipment</span>
+                </a>
+            </li>
+            <li>
+                <a href="news.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+                    </svg>
+                    <span data-i18n="sidebar_news">News</span>
+                </a>
+            </li>
+            <li>
+                <a href="contacts.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    <span data-i18n="sidebar_contacts">Contacts</span>
+                </a>
+            </li>
+            <li id="usersNavItem">
+                <a href="users.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <span data-i18n="sidebar_users">Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="/" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    </svg>
+                    <span data-i18n="sidebar_view_site">View Site</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <h1 data-i18n="equipment_title">Equipment Management</h1>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button class="lang-btn" data-lang="ja" onclick="changeLanguage('ja')">JP</button>
+                    <button class="lang-btn" data-lang="vi" onclick="changeLanguage('vi')">VN</button>
+                    <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+                </div>
+                <button class="btn btn-primary" onclick="openModal()" id="addEquipmentBtn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    <span data-i18n="equipment_add">Add Equipment</span>
+                </button>
+                <button class="btn btn-secondary" onclick="openDepartmentManager()" id="manageDeptBtn"
+                    style="background: var(--gray-600); color: #fff;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 4h18v6H3z" />
+                        <path d="M3 14h18v6H3z" />
+                    </svg>
+                    <span data-i18n="equipment_manage_dept">Manage Departments</span>
+                </button>
+                <button class="btn btn-secondary" onclick="logout()" style="padding:0.5rem 1rem;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    <span data-i18n="dashboard_logout">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row" id="statsRow"></div>
+
+        <!-- Tabs for departments -->
+        <div class="tabs" id="departmentTabs">
+            <button class="tab-btn active" data-dept="all" onclick="filterByDepartment('all')">
+                <span data-i18n="equipment_all">All</span> (<span id="countAll">0</span>)
+            </button>
+        </div>
+
+        <!-- Equipment Table -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">
+                    <span data-i18n="equipment_list">Equipment List</span>
+                    (<span id="equipmentCount">0</span>)
+                </span>
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="M21 21l-4.35-4.35" />
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search..." data-i18n-placeholder="equipment_search"
+                        oninput="handleSearch()">
+                    <button type="button" id="clearSearch" onclick="clearSearch()" style="display: none;">✕</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-i18n="equipment_th_image">Image</th>
+                            <th data-i18n="equipment_th_name">Name</th>
+                            <th data-i18n="equipment_th_department">Department</th>
+                            <th data-i18n="equipment_th_brand">Brand/Model</th>
+                            <th data-i18n="equipment_th_quantity">Qty</th>
+                            <th data-i18n="equipment_th_year">Year</th>
+                            <th data-i18n="equipment_th_status">Status</th>
+                            <th data-i18n="equipment_th_actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="equipmentTableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" style="display: none;">
+                <button class="pagination-btn" id="prevPage" onclick="changePage(-1)">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                </button>
+                <span class="pagination-info" id="pageInfo">1 / 1</span>
+                <button class="pagination-btn" id="nextPage" onclick="changePage(1)">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="equipmentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle" data-i18n="equipment_modal_add">Add Equipment</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <form id="equipmentForm" onsubmit="saveEquipment(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="equipmentId">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="equipment_label_department">Department</label>
+                            <select id="department_id">
+                                <option value="">-- Select Department --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="equipment_label_category">Category</label>
+                            <select id="category">
+                                <option value="lathe">Lathe (Tiện)</option>
+                                <option value="milling">Milling (Phay)</option>
+                                <option value="grinder">Grinder (Mài)</option>
+                                <option value="measuring">Measuring (Đo lường)</option>
+                                <option value="cleaning">Cleaning (Rửa/Sấy)</option>
+                                <option value="packaging">Packaging (Đóng gói)</option>
+                                <option value="computer">Computer/Software</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="equipment_label_name_ja">Name (Japanese) *</label>
+                        <input type="text" id="name_ja" required placeholder="NC自動旋盤">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="equipment_label_name_en">Name (English)</label>
+                            <input type="text" id="name_en" placeholder="NC Automatic Lathe">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="equipment_label_name_vi">Name (Vietnamese)</label>
+                            <input type="text" id="name_vi" placeholder="Máy tiện tự động NC">
+                        </div>
+                    </div>
+
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label data-i18n="equipment_label_brand">Brand</label>
+                            <input type="text" id="brand" placeholder="CITIZEN">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="equipment_label_model">Model</label>
+                            <input type="text" id="model" placeholder="L20-VIII">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="equipment_label_country">Country</label>
+                            <input type="text" id="country" placeholder="Japan">
+                        </div>
+                    </div>
+
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label data-i18n="equipment_label_quantity">Quantity</label>
+                            <input type="number" id="quantity" value="1" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="equipment_label_year">Year</label>
+                            <input type="number" id="year" placeholder="2020" min="1990" max="2030">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="equipment_label_status">Status</label>
+                            <select id="is_active">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="equipment_label_specs_ja">Specs (Japanese)</label>
+                        <textarea id="specs_ja" rows="2" placeholder="加工径: φ20mm / 主軸回転数: 10,000rpm"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="equipment_label_specs_en">Specs (English)</label>
+                        <textarea id="specs_en" rows="2"
+                            placeholder="Max Diameter: φ20mm / Spindle Speed: 10,000rpm"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="equipment_label_specs_vi">Specs (Vietnamese)</label>
+                        <textarea id="specs_vi" rows="2"
+                            placeholder="Đường kính max: φ20mm / Tốc độ trục chính: 10,000rpm"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="equipment_label_images">Images</label>
+
+                        <!-- File Upload -->
+                        <div class="upload-section"
+                            style="margin-bottom: 1rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; border: 2px dashed var(--gray-300);">
+                            <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                            <button type="button" class="btn btn-secondary"
+                                onclick="document.getElementById('imageUpload').click()" style="width: 100%;">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                                <span data-i18n="equipment_upload_images">Upload Images</span>
+                            </button>
+                            <p
+                                style="font-size: 0.75rem; color: var(--gray-500); text-align: center; margin-top: 0.5rem;">
+                                Max 5MB per file. Supported: JPG, PNG, GIF, WebP
+                            </p>
+                        </div>
+
+                        <!-- URL Inputs -->
+                        <label
+                            style="font-size: 0.8rem; color: var(--gray-500); margin-bottom: 0.5rem; display: block;">Or
+                            enter image URLs:</label>
+                        <div class="image-input-group" id="imageInputGroup">
+                            <div class="image-url-row">
+                                <input type="text" class="image-url-input" placeholder="https://example.com/image.jpg">
+                                <button type="button" class="remove" onclick="removeImageInput(this)"
+                                    title="Remove">✕</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-image-btn" onclick="addImageInput()">+ Add Image URL</button>
+
+                        <!-- Image Preview -->
+                        <div class="image-preview-list" id="imagePreviewList"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()"
+                        data-i18n="equipment_btn_cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="equipment_btn_save">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2 data-i18n="equipment_delete_title">Delete Equipment</h2>
+                <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p><span data-i18n="equipment_delete_confirm">Delete this equipment?</span></p>
+                <p><strong id="deleteEquipmentName"></strong></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()"
+                    data-i18n="equipment_btn_cancel">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()"
+                    data-i18n="equipment_btn_delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Lightbox -->
+    <div class="lightbox" id="imageLightbox">
+        <div class="lightbox-content">
+            <div class="lightbox-header">
+                <h3 id="lightboxTitle">Equipment Images</h3>
+                <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            </div>
+            <div class="lightbox-body" id="lightboxBody">
+                <!-- Images will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Department Manager Modal -->
+    <div class="modal-overlay" id="departmentModal">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2 data-i18n="equipment_dept_manager">Department Manager</h2>
+                <button class="modal-close" onclick="closeDepartmentManager()">✕</button>
+            </div>
+            <div class="modal-body" style="max-height: 60vh;">
+                <!-- Department List -->
+                <div id="departmentList" style="margin-bottom: 1.5rem;">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th data-i18n="dept_th_image">Image</th>
+                                <th data-i18n="dept_th_icon">Icon</th>
+                                <th data-i18n="dept_th_code">Code</th>
+                                <th data-i18n="dept_th_name">Name</th>
+                                <th data-i18n="dept_th_color">Color</th>
+                                <th data-i18n="dept_th_actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="departmentTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Add/Edit Department Form -->
+                <div style="background: var(--gray-50); padding: 1rem; border-radius: 8px;">
+                    <h3 id="deptFormTitle" style="margin-bottom: 1rem; font-size: 1rem;">
+                        <span data-i18n="dept_form_add">Add Department</span>
+                    </h3>
+                    <input type="hidden" id="deptId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="dept_label_code">Code *</label>
+                            <input type="text" id="deptCode" placeholder="cnc" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="dept_label_icon">Icon (Emoji)</label>
+                            <input type="text" id="deptIcon" placeholder="⚙️">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="dept_label_color">Color</label>
+                            <input type="color" id="deptColor" value="#1a365d" style="height: 38px;">
+                        </div>
+                    </div>
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label data-i18n="dept_label_name_ja">Name (Japanese) *</label>
+                            <input type="text" id="deptNameJa" placeholder="CNC加工" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="dept_label_name_en">Name (English)</label>
+                            <input type="text" id="deptNameEn" placeholder="CNC Machining">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="dept_label_name_vi">Name (Vietnamese)</label>
+                            <input type="text" id="deptNameVi" placeholder="Gia công CNC">
+                        </div>
+                    </div>
+                    <!-- Department Images (Multiple) -->
+                    <div class="form-group" style="margin-top: 1rem; margin-bottom: 1rem;">
+                        <label data-i18n="dept_label_images">Department Images (multiple)</label>
+
+                        <!-- Upload Section -->
+                        <div
+                            style="background: var(--gray-50); padding: 1rem; border-radius: 8px; border: 2px dashed var(--gray-300); margin-bottom: 0.5rem;">
+                            <input type="file" id="deptImageUpload" accept="image/*" multiple style="display: none;">
+                            <button type="button" class="btn btn-secondary" style="width: 100%;"
+                                onclick="document.getElementById('deptImageUpload').click()">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                                <span data-i18n="dept_upload_images">Upload Images (Max 10)</span>
+                            </button>
+                            <p style="font-size: 0.75rem; color: var(--gray-500); text-align: center; margin-top: 0.5rem;"
+                                data-i18n="dept_label_images_hint">
+                                Max 5MB per file. Supported: JPG, PNG, GIF, WebP
+                            </p>
+                        </div>
+
+                        <!-- Or add URL manually -->
+                        <div style="margin-bottom: 0.5rem;">
+                            <label style="font-size: 0.8rem; color: var(--gray-500);" data-i18n="dept_add_url">Or add
+                                image URL:</label>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" id="deptAddImageUrl" placeholder="https://example.com/image.jpg"
+                                    style="flex: 1;">
+                                <button type="button" class="btn btn-secondary" onclick="addDeptImageFromUrl()"
+                                    style="white-space: nowrap;" data-i18n="dept_btn_add_url">+ Add</button>
+                            </div>
+                        </div>
+
+                        <!-- Image Preview Gallery -->
+                        <div id="deptImagesPreview"
+                            style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; min-height: 60px; padding: 0.5rem; background: var(--gray-50); border-radius: 8px;">
+                            <span id="deptNoImagesText" style="color: var(--gray-400); font-size: 0.85rem;"
+                                data-i18n="dept_no_images">No images added yet</span>
+                        </div>
+
+                        <!-- Hidden textarea to store JSON array of images -->
+                        <textarea id="deptImagesJson" style="display: none;"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="dept_label_sort">Sort Order</label>
+                        <input type="number" id="deptSortOrder" value="0" min="0">
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button type="button" class="btn btn-primary" onclick="saveDepartment()">
+                            <span data-i18n="equipment_btn_save">Save</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="resetDeptForm()">
+                            <span data-i18n="equipment_btn_cancel">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Department Images Lightbox -->
+    <div class="lightbox" id="deptImagesLightbox">
+        <div class="lightbox-content" style="max-width: 900px;">
+            <div class="lightbox-header">
+                <h3 id="deptLightboxTitle">Department Images</h3>
+                <button class="lightbox-close" onclick="closeDeptLightbox()">✕</button>
+            </div>
+            <div class="lightbox-body">
+                <img src="" class="main-image" id="deptLightboxMainImage" alt="Department Image"
+                    style="width: 100%; max-height: 450px; object-fit: contain; border-radius: 8px; background: var(--gray-100);">
+                <div class="thumbnail-list" id="deptLightboxThumbnails"
+                    style="display: flex; gap: 0.5rem; margin-top: 1rem; overflow-x: auto; padding-bottom: 0.5rem;">
+                </div>
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn btn-secondary" id="deptLightboxPrev" onclick="navigateDeptImage(-1)"
+                        style="padding: 0.5rem 1rem;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="15 18 9 12 15 6" />
+                        </svg>
+                        Prev
+                    </button>
+                    <span id="deptLightboxCounter"
+                        style="display: flex; align-items: center; font-size: 0.9rem; color: var(--gray-600);">1 /
+                        1</span>
+                    <button class="btn btn-secondary" id="deptLightboxNext" onclick="navigateDeptImage(1)"
+                        style="padding: 0.5rem 1rem;">
+                        Next
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Admin Translations -->
+    <script src="js/admin-translations.js"></script>
+
+    <script>
+        const token = localStorage.getItem('adminToken');
+        const currentUser = JSON.parse(localStorage.getItem('adminUser') || '{}');
+        let equipment = [];
+        let departments = [];
+        let deleteEquipmentId = null;
+        let currentDepartment = 'all';
+
+        // Pagination
+        let currentPage = 1;
+        const itemsPerPage = 4; // Số thiết bị mỗi trang
+
+        // Search
+        let searchTerm = '';
+
+        // Permission flags
+        const userRole = currentUser.role || 'viewer';
+        const canEdit = userRole === 'admin' || userRole === 'editor'; // Admin and Editor can add/edit
+        const canDelete = userRole === 'admin'; // Only Admin can delete
+
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+
+        // Hide Users menu if not admin
+        if (currentUser.role !== 'admin') {
+            const usersNav = document.getElementById('usersNavItem');
+            if (usersNav) usersNav.style.display = 'none';
+        }
+
+        // Hide Add button if no edit permission
+        if (!canEdit) {
+            const addBtn = document.getElementById('addEquipmentBtn');
+            if (addBtn) addBtn.style.display = 'none';
+        }
+
+        // Load departments
+        async function loadDepartments() {
+            try {
+                const res = await fetch('/api/departments?active=true');
+                const data = await res.json();
+                if (data.success) {
+                    departments = data.data;
+                    renderDepartmentTabs();
+                    populateDepartmentSelect();
+                }
+            } catch (e) {
+                console.error('Error loading departments:', e);
+            }
+        }
+
+        // Render department tabs
+        function renderDepartmentTabs() {
+            const tabsContainer = document.getElementById('departmentTabs');
+            const lang = getAdminLanguage();
+
+            let html = `<button class="tab-btn ${currentDepartment === 'all' ? 'active' : ''}" data-dept="all" onclick="filterByDepartment('all')">
+                <span data-i18n="equipment_all">${t('equipment_all')}</span> (<span id="countAll">${equipment.length}</span>)
+            </button>`;
+
+            departments.forEach(d => {
+                const name = lang === 'ja' ? d.name_ja : (lang === 'en' ? d.name_en : d.name_vi);
+                const count = equipment.filter(e => e.department_id === d.id).length;
+                html += `<button class="tab-btn ${currentDepartment === d.code ? 'active' : ''}" data-dept="${d.code}" onclick="filterByDepartment('${d.code}')">
+                    ${d.icon || ''} ${name} (${count})
+                </button>`;
+            });
+
+            tabsContainer.innerHTML = html;
+        }
+
+        // Filter by department
+        function filterByDepartment(deptCode) {
+            currentDepartment = deptCode;
+            renderEquipment();
+            renderDepartmentTabs();
+        }
+
+        // Populate department select
+        function populateDepartmentSelect() {
+            const select = document.getElementById('department_id');
+            const lang = getAdminLanguage();
+
+            let options = '<option value="">-- Select Department --</option>';
+            departments.forEach(d => {
+                const name = lang === 'ja' ? d.name_ja : (lang === 'en' ? d.name_en : d.name_vi);
+                options += `<option value="${d.id}">${d.icon || ''} ${name}</option>`;
+            });
+            select.innerHTML = options;
+        }
+
+        // Load equipment
+        async function loadEquipment() {
+            try {
+                const res = await fetch('/api/equipment', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    equipment = data.data;
+                    renderEquipment();
+                    renderDepartmentTabs();
+                    renderStats();
+                }
+            } catch (e) {
+                showToast(t('equipment_msg_error'), 'error');
+            }
+        }
+
+        // Render stats
+        function renderStats() {
+            const statsRow = document.getElementById('statsRow');
+            const lang = getAdminLanguage();
+
+            const stats = {};
+            departments.forEach(d => {
+                stats[d.code] = { count: 0, name: lang === 'ja' ? d.name_ja : (lang === 'en' ? d.name_en : d.name_vi), icon: d.icon, color: d.color };
+            });
+
+            equipment.forEach(e => {
+                if (e.department_code && stats[e.department_code]) {
+                    stats[e.department_code].count++;
+                }
+            });
+
+            let html = '';
+            Object.entries(stats).forEach(([code, data]) => {
+                if (data.count > 0) {
+                    html += `<div class="stat-card">
+                        <div class="stat-icon" style="background: ${data.color}22; color: ${data.color};">${data.icon || '⚙️'}</div>
+                        <div class="stat-info">
+                            <h3>${data.count}</h3>
+                            <p>${data.name}</p>
+                        </div>
+                    </div>`;
+                }
+            });
+
+            statsRow.innerHTML = html;
+        }
+
+        // Render equipment table
+        function renderEquipment() {
+            const tbody = document.getElementById('equipmentTableBody');
+            const lang = getAdminLanguage();
+
+            let filteredEquipment = equipment;
+
+            // Filter by department
+            if (currentDepartment !== 'all') {
+                filteredEquipment = filteredEquipment.filter(e => e.department_code === currentDepartment);
+            }
+
+            // Filter by search term
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filteredEquipment = filteredEquipment.filter(e => {
+                    const name = (e.name_ja || '') + (e.name_en || '') + (e.name_vi || '');
+                    const brand = (e.brand || '') + (e.model || '');
+                    const category = e.category || '';
+                    return name.toLowerCase().includes(term) ||
+                        brand.toLowerCase().includes(term) ||
+                        category.toLowerCase().includes(term);
+                });
+            }
+
+            const totalItems = filteredEquipment.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+            // Reset page if out of range
+            if (currentPage > totalPages) currentPage = 1;
+
+            document.getElementById('equipmentCount').textContent = totalItems;
+            document.getElementById('countAll').textContent = equipment.length;
+
+            // Handle pagination visibility (only show if >= 4 items)
+            const paginationEl = document.getElementById('pagination');
+            if (totalItems >= 4) {
+                paginationEl.style.display = 'flex';
+                document.getElementById('pageInfo').textContent = `${currentPage} / ${totalPages}`;
+                document.getElementById('prevPage').disabled = currentPage <= 1;
+                document.getElementById('nextPage').disabled = currentPage >= totalPages;
+            } else {
+                paginationEl.style.display = 'none';
+            }
+
+            if (totalItems === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="empty-state">${t('equipment_empty')}</td></tr>`;
+                return;
+            }
+
+            // Paginate items
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+            const pageItems = filteredEquipment.slice(startIndex, endIndex);
+
+            tbody.innerHTML = pageItems.map(e => {
+                const name = lang === 'ja' ? e.name_ja : (lang === 'en' ? (e.name_en || e.name_ja) : (e.name_vi || e.name_en || e.name_ja));
+                const deptName = lang === 'ja' ? e.department_name_ja : (lang === 'en' ? e.department_name_en : e.department_name_vi);
+                const deptCode = e.department_code || 'other';
+
+                // Get images
+                const allImages = getEquipmentImages(e);
+                const thumbImage = allImages.length > 0 ? allImages[0] : null;
+                const imageCount = allImages.length;
+
+                // Build action buttons based on permissions
+                let actionButtons = '';
+                if (canEdit) {
+                    actionButtons += `<button class="action-btn edit" onclick="editEquipment(${e.id})" title="Edit">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>`;
+                }
+                if (canDelete) {
+                    actionButtons += `<button class="action-btn delete" onclick="deleteEquipment(${e.id}, '${name.replace(/'/g, "\\'")}')" title="Delete">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            </button>`;
+                }
+
+                // Image cell
+                const imageCell = thumbImage
+                    ? `<img src="${thumbImage}" class="equipment-thumb" onclick="openLightbox(${e.id})" alt="${name}" onerror="this.outerHTML='<div class=\\'no-image\\'>📷</div>'">`
+                    : `<div class="no-image" onclick="openLightbox(${e.id})" style="cursor:pointer;">📷</div>`;
+
+                return `<tr>
+                    <td>${imageCell}${imageCount > 1 ? `<span style="font-size:0.7rem;color:var(--gray-500);display:block;text-align:center;">+${imageCount - 1}</span>` : ''}</td>
+                    <td>
+                        <div style="font-weight: 500;">${name}</div>
+                        <div style="font-size: 0.8rem; color: var(--gray-500);">${e.category || ''}</div>
+                    </td>
+                    <td><span class="badge badge-${deptCode}">${deptName || '-'}</span></td>
+                    <td>
+                        <div style="font-weight: 500;">${e.brand || '-'}</div>
+                        <div style="font-size: 0.8rem; color: var(--gray-500);">${e.model || ''}</div>
+                    </td>
+                    <td>${e.quantity || 1}</td>
+                    <td>${e.year || '-'}</td>
+                    <td><span class="badge ${e.is_active ? 'badge-active' : 'badge-inactive'}">${e.is_active ? t('equipment_status_active') : t('equipment_status_inactive')}</span></td>
+                    <td>
+                        <div class="actions">
+                            ${actionButtons || '<span style="color: var(--gray-400);">-</span>'}
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        // Change page
+        function changePage(direction) {
+            const totalItems = currentDepartment === 'all' ? equipment.length : equipment.filter(e => e.department_code === currentDepartment).length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+            currentPage += direction;
+            if (currentPage < 1) currentPage = 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            renderEquipment();
+        }
+
+        // Search functions
+        function handleSearch() {
+            const input = document.getElementById('searchInput');
+            searchTerm = input.value.trim();
+            currentPage = 1; // Reset về trang 1 khi search
+
+            // Show/hide clear button
+            document.getElementById('clearSearch').style.display = searchTerm ? 'block' : 'none';
+
+            renderEquipment();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            searchTerm = '';
+            document.getElementById('clearSearch').style.display = 'none';
+            currentPage = 1;
+            renderEquipment();
+        }
+
+        // Reset page when filtering
+        function filterByDepartment(dept) {
+            currentDepartment = dept;
+            currentPage = 1; // Reset về trang 1 khi filter
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.dept === dept);
+            });
+            renderEquipment();
+        }
+
+        // Get all images for equipment
+        function getEquipmentImages(e) {
+            let images = [];
+            if (e.image) images.push(e.image);
+            if (e.images) {
+                try {
+                    const parsed = JSON.parse(e.images);
+                    if (Array.isArray(parsed)) images = images.concat(parsed);
+                } catch {
+                    // images might be comma-separated
+                    const split = e.images.split(',').map(s => s.trim()).filter(s => s);
+                    images = images.concat(split);
+                }
+            }
+            return images.filter(img => img && img.length > 0);
+        }
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('modalTitle').textContent = t('equipment_modal_add');
+            document.getElementById('equipmentForm').reset();
+            document.getElementById('equipmentId').value = '';
+            setImageUrls(['']); // Reset image inputs
+            document.getElementById('equipmentModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('equipmentModal').classList.remove('active');
+        }
+
+        function editEquipment(id) {
+            const e = equipment.find(x => x.id === id);
+            if (!e) return;
+
+            document.getElementById('modalTitle').textContent = t('equipment_modal_edit');
+            document.getElementById('equipmentId').value = e.id;
+            document.getElementById('department_id').value = e.department_id || '';
+            document.getElementById('category').value = e.category || '';
+            document.getElementById('name_ja').value = e.name_ja || '';
+            document.getElementById('name_en').value = e.name_en || '';
+            document.getElementById('name_vi').value = e.name_vi || '';
+            document.getElementById('brand').value = e.brand || '';
+            document.getElementById('model').value = e.model || '';
+            document.getElementById('country').value = e.country || '';
+            document.getElementById('quantity').value = e.quantity || 1;
+            document.getElementById('year').value = e.year || '';
+            document.getElementById('is_active').value = e.is_active ? '1' : '0';
+            document.getElementById('specs_ja').value = e.specs_ja || '';
+            document.getElementById('specs_en').value = e.specs_en || '';
+            document.getElementById('specs_vi').value = e.specs_vi || '';
+
+            // Load images
+            const images = getEquipmentImages(e);
+            setImageUrls(images.length > 0 ? images : ['']);
+
+            document.getElementById('equipmentModal').classList.add('active');
+        }
+
+        async function saveEquipment(e) {
+            e.preventDefault();
+            const id = document.getElementById('equipmentId').value;
+
+            const imageUrls = getImageUrls();
+
+            const data = {
+                department_id: document.getElementById('department_id').value || null,
+                category: document.getElementById('category').value,
+                name_ja: document.getElementById('name_ja').value,
+                name_en: document.getElementById('name_en').value,
+                name_vi: document.getElementById('name_vi').value,
+                brand: document.getElementById('brand').value,
+                model: document.getElementById('model').value,
+                country: document.getElementById('country').value,
+                quantity: parseInt(document.getElementById('quantity').value) || 1,
+                year: parseInt(document.getElementById('year').value) || null,
+                is_active: parseInt(document.getElementById('is_active').value),
+                specs_ja: document.getElementById('specs_ja').value,
+                specs_en: document.getElementById('specs_en').value,
+                specs_vi: document.getElementById('specs_vi').value,
+                image: imageUrls[0] || '',
+                images: JSON.stringify(imageUrls.slice(1))
+            };
+
+            const url = id ? '/api/equipment/' + id : '/api/equipment';
+            const method = id ? 'PUT' : 'POST';
+
+            try {
+                const res = await fetch(url, {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    showToast(id ? t('equipment_msg_updated') : t('equipment_msg_created'), 'success');
+                    closeModal();
+                    loadEquipment();
+                } else {
+                    showToast(result.message || t('equipment_msg_error'), 'error');
+                }
+            } catch (err) {
+                showToast(t('equipment_msg_error'), 'error');
+            }
+        }
+
+        function deleteEquipment(id, name) {
+            deleteEquipmentId = id;
+            document.getElementById('deleteEquipmentName').textContent = name;
+            document.getElementById('deleteModal').classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('active');
+            deleteEquipmentId = null;
+        }
+
+        async function confirmDelete() {
+            if (!deleteEquipmentId) return;
+
+            try {
+                const res = await fetch('/api/equipment/' + deleteEquipmentId, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    showToast(t('equipment_msg_deleted'), 'success');
+                    closeDeleteModal();
+                    loadEquipment();
+                } else {
+                    showToast(result.message || t('equipment_msg_error'), 'error');
+                }
+            } catch (err) {
+                showToast(t('equipment_msg_error'), 'error');
+            }
+        }
+
+        function showToast(msg, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            toast.textContent = msg;
+            document.getElementById('toastContainer').appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            localStorage.removeItem('adminUser');
+            window.location.href = 'login.html';
+        }
+
+        function changeLanguage(lang) {
+            if (typeof setAdminLanguage === 'function') {
+                setAdminLanguage(lang);
+            }
+            // Manual update ensures immediate response
+            applyAdminTranslations();
+            renderEquipment();
+            renderDepartmentTabs();
+            renderStats();
+            populateDepartmentSelect();
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+        }
+
+        // ===== IMAGE FUNCTIONS =====
+
+        // Handle file upload
+        document.getElementById('imageUpload').addEventListener('change', async function (e) {
+            const files = e.target.files;
+            if (!files.length) return;
+
+            const uploadBtn = this.previousElementSibling;
+            const originalText = uploadBtn.innerHTML;
+            uploadBtn.innerHTML = '<span>Uploading...</span>';
+            uploadBtn.disabled = true;
+
+            for (const file of files) {
+                try {
+                    const formData = new FormData();
+                    formData.append('image', file);
+
+                    const res = await fetch('/api/equipment/upload', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        },
+                        body: formData
+                    });
+
+                    const result = await res.json();
+
+                    if (result.success) {
+                        // Add uploaded URL to inputs
+                        const emptyInput = document.querySelector('.image-url-input[value=""]') ||
+                            document.querySelector('.image-url-input:last-child');
+                        if (emptyInput && !emptyInput.value) {
+                            emptyInput.value = result.url;
+                        } else {
+                            addImageInput();
+                            const inputs = document.querySelectorAll('.image-url-input');
+                            inputs[inputs.length - 1].value = result.url;
+                        }
+                        updateImagePreviews();
+                        showToast('Image uploaded!', 'success');
+                    } else {
+                        showToast(result.message || 'Upload failed', 'error');
+                    }
+                } catch (err) {
+                    console.error('Upload error:', err);
+                    showToast('Upload error', 'error');
+                }
+            }
+
+            uploadBtn.innerHTML = originalText;
+            uploadBtn.disabled = false;
+            this.value = ''; // Reset file input
+        });
+
+        // Add image URL input row
+        function addImageInput() {
+            const group = document.getElementById('imageInputGroup');
+            const row = document.createElement('div');
+            row.className = 'image-url-row';
+            row.innerHTML = `
+                <input type="text" class="image-url-input" placeholder="https://example.com/image.jpg">
+                <button type="button" class="remove" onclick="removeImageInput(this)" title="Remove">✕</button>
+            `;
+            group.appendChild(row);
+        }
+
+        // Remove image URL input row
+        function removeImageInput(btn) {
+            const row = btn.parentElement;
+            const group = document.getElementById('imageInputGroup');
+            if (group.querySelectorAll('.image-url-row').length > 1) {
+                row.remove();
+            } else {
+                row.querySelector('input').value = '';
+            }
+            updateImagePreviews();
+        }
+
+        // Get image URLs from inputs
+        function getImageUrls() {
+            const inputs = document.querySelectorAll('.image-url-input');
+            const urls = [];
+            inputs.forEach(input => {
+                const url = input.value.trim();
+                if (url) urls.push(url);
+            });
+            return urls;
+        }
+
+        // Set image URLs to inputs
+        function setImageUrls(urls) {
+            const group = document.getElementById('imageInputGroup');
+            group.innerHTML = '';
+
+            if (urls.length === 0) {
+                urls = [''];
+            }
+
+            urls.forEach(url => {
+                const row = document.createElement('div');
+                row.className = 'image-url-row';
+                row.innerHTML = `
+                    <input type="text" class="image-url-input" placeholder="https://example.com/image.jpg" value="${url}">
+                    <button type="button" class="remove" onclick="removeImageInput(this)" title="Remove">✕</button>
+                `;
+                group.appendChild(row);
+            });
+            updateImagePreviews();
+        }
+
+        // Update image previews
+        function updateImagePreviews() {
+            const previewList = document.getElementById('imagePreviewList');
+            const urls = getImageUrls();
+
+            previewList.innerHTML = urls.map(url =>
+                `<img src="${url}" class="image-preview-item" onerror="this.style.display='none'" alt="Preview">`
+            ).join('');
+        }
+
+        // Listen for input changes to update previews
+        document.getElementById('imageInputGroup').addEventListener('input', function (e) {
+            if (e.target.classList.contains('image-url-input')) {
+                updateImagePreviews();
+            }
+        });
+
+        // ===== LIGHTBOX FUNCTIONS =====
+
+        let currentLightboxImages = [];
+        let currentLightboxIndex = 0;
+
+        function openLightbox(equipmentId) {
+            const e = equipment.find(x => x.id === equipmentId);
+            if (!e) return;
+
+            const lang = getAdminLanguage();
+            const name = lang === 'ja' ? e.name_ja : (lang === 'en' ? (e.name_en || e.name_ja) : (e.name_vi || e.name_en || e.name_ja));
+
+            currentLightboxImages = getEquipmentImages(e);
+            currentLightboxIndex = 0;
+
+            document.getElementById('lightboxTitle').textContent = name;
+
+            const body = document.getElementById('lightboxBody');
+
+            if (currentLightboxImages.length === 0) {
+                body.innerHTML = `
+                    <div class="no-images-message">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                        <p data-i18n="equipment_no_images">No images available</p>
+                    </div>
+                `;
+            } else {
+                body.innerHTML = `
+                    <img src="${currentLightboxImages[0]}" class="main-image" id="lightboxMainImage" alt="${name}">
+                    ${currentLightboxImages.length > 1 ? `
+                        <div class="thumbnail-list">
+                            ${currentLightboxImages.map((img, i) =>
+                    `<img src="${img}" class="thumbnail-item ${i === 0 ? 'active' : ''}" onclick="selectLightboxImage(${i})" alt="Thumbnail ${i + 1}">`
+                ).join('')}
+                        </div>
+                    ` : ''}
+                `;
+            }
+
+            document.getElementById('imageLightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('imageLightbox').classList.remove('active');
+        }
+
+        function selectLightboxImage(index) {
+            currentLightboxIndex = index;
+            document.getElementById('lightboxMainImage').src = currentLightboxImages[index];
+
+            document.querySelectorAll('.thumbnail-item').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+        }
+
+        // Close lightbox when clicking outside
+        document.getElementById('imageLightbox').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Initialize
+        applyAdminTranslations();
+        loadDepartments().then(() => loadEquipment());
+
+        // Update language buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if (btn.dataset.lang === getAdminLanguage()) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // Listen for language changes
+        document.addEventListener('adminLanguageChanged', function () {
+            renderEquipment();
+            renderDepartmentTabs();
+            renderStats();
+            populateDepartmentSelect();
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === getAdminLanguage());
+            });
+        });
+
+        // ===== DEPARTMENT CRUD =====
+
+        function openDepartmentManager() {
+            document.getElementById('departmentModal').classList.add('active');
+            renderDepartmentList();
+        }
+
+        function closeDepartmentManager() {
+            document.getElementById('departmentModal').classList.remove('active');
+            resetDeptForm();
+        }
+
+        function renderDepartmentList() {
+            const tbody = document.getElementById('departmentTableBody');
+            const lang = getAdminLanguage();
+
+            tbody.innerHTML = departments.map(d => {
+                const name = lang === 'ja' ? d.name_ja : (lang === 'en' ? d.name_en : d.name_vi) || d.name_ja;
+
+                // Get images array
+                let imgArray = [];
+                if (d.images) {
+                    try { imgArray = JSON.parse(d.images); } catch (e) { imgArray = [d.images]; }
+                } else if (d.image) {
+                    imgArray = [d.image];
+                }
+                const imgCount = imgArray.length;
+
+                const imageCell = d.image
+                    ? `<div style="position: relative; cursor: pointer;" onclick="openDeptImagesLightbox(${d.id})">
+                        <img src="${d.image}" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover; transition: transform 0.2s;" 
+                            onmouseover="this.style.transform='scale(1.1)'" 
+                            onmouseout="this.style.transform='scale(1)'"
+                            onerror="this.src='/assets/images/placeholder.png'">
+                        ${imgCount > 1 ? `<span style="position: absolute; bottom: -4px; right: -4px; background: var(--accent); color: white; font-size: 0.65rem; padding: 2px 5px; border-radius: 10px;">+${imgCount - 1}</span>` : ''}
+                       </div>`
+                    : `<div style="width: 50px; height: 50px; border-radius: 8px; background: var(--gray-200); display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="openDeptImagesLightbox(${d.id})"><span style="color: var(--gray-400);">📷</span></div>`;
+
+                return `<tr>
+                    <td>${imageCell}</td>
+                    <td style="font-size: 1.5rem;">${d.icon || '📁'}</td>
+                    <td><code style="background: var(--gray-100); padding: 0.25rem 0.5rem; border-radius: 4px;">${d.code}</code></td>
+                    <td>${name}</td>
+                    <td><div style="width: 24px; height: 24px; border-radius: 4px; background: ${d.color || '#1a365d'};"></div></td>
+                    <td>
+                        <div class="actions">
+                            <button class="action-btn" onclick="openDeptImagesLightbox(${d.id})" title="View Images" style="background: #e0f2fe; color: #0284c7;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            </button>
+                            <button class="action-btn edit" onclick="editDepartment(${d.id})" title="Edit">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <button class="action-btn delete" onclick="deleteDepartment(${d.id}, '${name.replace(/'/g, "\\'")}' )" title="Delete">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        function editDepartment(id) {
+            const d = departments.find(x => x.id === id);
+            if (!d) return;
+
+            document.getElementById('deptFormTitle').innerHTML = `<span>${t('dept_form_edit')}</span>`;
+            document.getElementById('deptId').value = d.id;
+            document.getElementById('deptCode').value = d.code || '';
+            document.getElementById('deptIcon').value = d.icon || '';
+            document.getElementById('deptColor').value = d.color || '#1a365d';
+            document.getElementById('deptNameJa').value = d.name_ja || '';
+            document.getElementById('deptNameEn').value = d.name_en || '';
+            document.getElementById('deptNameVi').value = d.name_vi || '';
+            document.getElementById('deptSortOrder').value = d.sort_order || 0;
+
+            // Load images (support both single image and images array)
+            deptImagesList = [];
+            if (d.images) {
+                try {
+                    deptImagesList = JSON.parse(d.images);
+                } catch (e) {
+                    deptImagesList = [d.images];
+                }
+            } else if (d.image) {
+                deptImagesList = [d.image];
+            }
+            renderDeptImagesPreview();
+        }
+
+        function resetDeptForm() {
+            document.getElementById('deptFormTitle').innerHTML = `<span>${t('dept_form_add')}</span>`;
+            applyAdminTranslations();
+            document.getElementById('deptId').value = '';
+            document.getElementById('deptCode').value = '';
+            document.getElementById('deptIcon').value = '';
+            document.getElementById('deptColor').value = '#1a365d';
+            document.getElementById('deptNameJa').value = '';
+            document.getElementById('deptNameEn').value = '';
+            document.getElementById('deptNameVi').value = '';
+            document.getElementById('deptSortOrder').value = '0';
+            deptImagesList = [];
+            renderDeptImagesPreview();
+        }
+
+        // Department multiple images handling
+        let deptImagesList = [];
+
+        function renderDeptImagesPreview() {
+            const container = document.getElementById('deptImagesPreview');
+            const noImagesText = document.getElementById('deptNoImagesText');
+
+            if (deptImagesList.length === 0) {
+                container.innerHTML = `<span id="deptNoImagesText" style="color: var(--gray-400); font-size: 0.85rem;">${t('dept_no_images')}</span>`;
+                return;
+            }
+
+            let html = '';
+            deptImagesList.forEach((url, index) => {
+                html += `
+                    <div style="position: relative; width: 70px; height: 70px;">
+                        <img src="${url}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px; border: 1px solid var(--gray-200);" 
+                            onerror="this.src='/assets/images/placeholder.png'">
+                        <button type="button" onclick="removeDeptImage(${index})" 
+                            style="position: absolute; top: -6px; right: -6px; width: 20px; height: 20px; border-radius: 50%; background: var(--danger); color: white; border: none; cursor: pointer; font-size: 12px; line-height: 1;">×</button>
+                        ${index === 0 ? '<span style="position: absolute; bottom: 2px; left: 2px; background: var(--success); color: white; font-size: 0.6rem; padding: 1px 4px; border-radius: 3px;">Main</span>' : ''}
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function removeDeptImage(index) {
+            deptImagesList.splice(index, 1);
+            renderDeptImagesPreview();
+        }
+
+        function addDeptImageFromUrl() {
+            const input = document.getElementById('deptAddImageUrl');
+            const url = input.value.trim();
+            if (!url) {
+                showToast('Please enter an image URL', 'error');
+                return;
+            }
+            if (deptImagesList.length >= 10) {
+                showToast('Maximum 10 images allowed', 'error');
+                return;
+            }
+            deptImagesList.push(url);
+            input.value = '';
+            renderDeptImagesPreview();
+            showToast('Image added!', 'success');
+        }
+
+        // Department image upload handling (multiple files)
+        document.getElementById('deptImageUpload').addEventListener('change', async function (e) {
+            const files = Array.from(e.target.files);
+            if (!files.length) return;
+
+            // Check total count
+            if (deptImagesList.length + files.length > 10) {
+                showToast(`Maximum 10 images. You can add ${10 - deptImagesList.length} more.`, 'error');
+                return;
+            }
+
+            // Check file sizes
+            for (const file of files) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast(`File "${file.name}" is too large (max 5MB)`, 'error');
+                    return;
+                }
+            }
+
+            const formData = new FormData();
+            files.forEach(file => formData.append('images', file));
+            formData.append('type', 'departments');
+
+            try {
+                showToast(`Uploading ${files.length} image(s)...`, 'info');
+                const res = await fetch('/api/upload/multiple', {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    body: formData
+                });
+                const result = await res.json();
+
+                if (result.success && result.urls) {
+                    deptImagesList = [...deptImagesList, ...result.urls];
+                    renderDeptImagesPreview();
+                    showToast(`${result.urls.length} image(s) uploaded!`, 'success');
+                } else {
+                    showToast(result.message || 'Upload failed', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Upload failed', 'error');
+            }
+
+            // Reset input
+            e.target.value = '';
+        });
+
+        async function saveDepartment() {
+            const id = document.getElementById('deptId').value;
+            const code = document.getElementById('deptCode').value.trim();
+            const nameJa = document.getElementById('deptNameJa').value.trim();
+
+            if (!code || !nameJa) {
+                showToast('Code and Japanese name are required', 'error');
+                return;
+            }
+
+            const data = {
+                code: code,
+                name_ja: nameJa,
+                name_en: document.getElementById('deptNameEn').value.trim(),
+                name_vi: document.getElementById('deptNameVi').value.trim(),
+                icon: document.getElementById('deptIcon').value.trim(),
+                color: document.getElementById('deptColor').value,
+                image: deptImagesList.length > 0 ? deptImagesList[0] : null,
+                images: deptImagesList.length > 0 ? JSON.stringify(deptImagesList) : null,
+                sort_order: parseInt(document.getElementById('deptSortOrder').value) || 0,
+                is_active: 1
+            };
+
+            const url = id ? '/api/departments/' + id : '/api/departments';
+            const method = id ? 'PUT' : 'POST';
+
+            try {
+                const res = await fetch(url, {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    showToast(id ? 'Department updated!' : 'Department created!', 'success');
+                    resetDeptForm();
+                    await loadDepartments();
+                    renderDepartmentList();
+                    renderDepartmentTabs();
+                    populateDepartmentSelect();
+                    renderStats();
+                } else {
+                    showToast(result.message || 'Error', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Error saving department', 'error');
+            }
+        }
+
+        async function deleteDepartment(id, name) {
+            if (!confirm(`Delete department "${name}"?\nEquipment in this department will become unassigned.`)) return;
+
+            try {
+                const res = await fetch('/api/departments/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    showToast('Department deleted!', 'success');
+                    await loadDepartments();
+                    await loadEquipment();
+                    renderDepartmentList();
+                    renderDepartmentTabs();
+                    populateDepartmentSelect();
+                    renderStats(); // Refresh stats cards
+                } else {
+                    showToast(result.message || 'Error', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Error deleting department', 'error');
+            }
+        }
+
+        // Close department modal when clicking outside
+        document.getElementById('departmentModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeDepartmentManager();
+            }
+        });
+
+        // ===== DEPARTMENT IMAGES LIGHTBOX =====
+        let currentDeptLightboxImages = [];
+        let currentDeptLightboxIndex = 0;
+        let currentDeptLightboxName = '';
+
+        function openDeptImagesLightbox(deptId) {
+            const dept = departments.find(d => d.id === deptId);
+            if (!dept) return;
+
+            const lang = getAdminLanguage();
+            currentDeptLightboxName = lang === 'ja' ? dept.name_ja : (lang === 'en' ? dept.name_en : dept.name_vi) || dept.name_ja;
+
+            // Get images array
+            currentDeptLightboxImages = [];
+            if (dept.images) {
+                try { currentDeptLightboxImages = JSON.parse(dept.images); }
+                catch (e) { currentDeptLightboxImages = [dept.images]; }
+            } else if (dept.image) {
+                currentDeptLightboxImages = [dept.image];
+            }
+
+            currentDeptLightboxIndex = 0;
+
+            document.getElementById('deptLightboxTitle').textContent = `${dept.icon || '📁'} ${currentDeptLightboxName} (${currentDeptLightboxImages.length} ${t('dept_th_image').toLowerCase()})`;
+
+            if (currentDeptLightboxImages.length === 0) {
+                document.getElementById('deptLightboxMainImage').src = '/assets/images/placeholder.png';
+                document.getElementById('deptLightboxThumbnails').innerHTML = `<p style="color: var(--gray-400); text-align: center; width: 100%;">${t('dept_no_images')}</p>`;
+                document.getElementById('deptLightboxCounter').textContent = '0 / 0';
+            } else {
+                updateDeptLightboxImage();
+                renderDeptLightboxThumbnails();
+            }
+
+            document.getElementById('deptImagesLightbox').classList.add('active');
+        }
+
+        function closeDeptLightbox() {
+            document.getElementById('deptImagesLightbox').classList.remove('active');
+        }
+
+        function updateDeptLightboxImage() {
+            const mainImg = document.getElementById('deptLightboxMainImage');
+            mainImg.src = currentDeptLightboxImages[currentDeptLightboxIndex];
+            mainImg.onerror = function () { this.src = '/assets/images/placeholder.png'; };
+
+            document.getElementById('deptLightboxCounter').textContent = `${currentDeptLightboxIndex + 1} / ${currentDeptLightboxImages.length}`;
+
+            // Update prev/next buttons
+            document.getElementById('deptLightboxPrev').disabled = currentDeptLightboxIndex <= 0;
+            document.getElementById('deptLightboxNext').disabled = currentDeptLightboxIndex >= currentDeptLightboxImages.length - 1;
+
+            // Update thumbnail active state
+            document.querySelectorAll('.dept-lightbox-thumb').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === currentDeptLightboxIndex);
+            });
+        }
+
+        function renderDeptLightboxThumbnails() {
+            const container = document.getElementById('deptLightboxThumbnails');
+            container.innerHTML = currentDeptLightboxImages.map((img, i) => `
+                <img src="${img}" 
+                    class="thumbnail-item dept-lightbox-thumb ${i === 0 ? 'active' : ''}" 
+                    onclick="selectDeptLightboxImage(${i})" 
+                    alt="Thumbnail ${i + 1}"
+                    onerror="this.src='/assets/images/placeholder.png'"
+                    style="cursor: pointer;">
+            `).join('');
+        }
+
+        function selectDeptLightboxImage(index) {
+            currentDeptLightboxIndex = index;
+            updateDeptLightboxImage();
+        }
+
+        function navigateDeptImage(direction) {
+            const newIndex = currentDeptLightboxIndex + direction;
+            if (newIndex >= 0 && newIndex < currentDeptLightboxImages.length) {
+                currentDeptLightboxIndex = newIndex;
+                updateDeptLightboxImage();
+            }
+        }
+
+        // Close dept lightbox when clicking outside
+        document.getElementById('deptImagesLightbox').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeDeptLightbox();
+            }
+        });
+
+        // Keyboard navigation for dept lightbox
+        document.addEventListener('keydown', function (e) {
+            if (!document.getElementById('deptImagesLightbox').classList.contains('active')) return;
+
+            if (e.key === 'Escape') closeDeptLightbox();
+            if (e.key === 'ArrowLeft') navigateDeptImage(-1);
+            if (e.key === 'ArrowRight') navigateDeptImage(1);
+        });
+    </script>
+</body>
+
+</html>

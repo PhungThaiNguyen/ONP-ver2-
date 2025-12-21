@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="products_page_title">Products Management | O.N.P Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --accent: #8b1a1a;
+            --accent-hover: #6b1515;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --sidebar-width: 260px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 1.5rem;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+        }
+
+        .sidebar-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .sidebar-nav svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.75rem;
+            border: 1px solid var(--gray-300);
+            background: #fff;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-300);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .table-container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .table-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-300);
+            background: #fff;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .customer-filter {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-300);
+            background: #fff;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            min-width: 180px;
+            transition: all 0.2s;
+        }
+
+        .customer-filter:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        /* Search Box */
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .search-box svg {
+            color: var(--gray-400);
+            flex-shrink: 0;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 0.875rem;
+            width: 180px;
+            color: var(--gray-800);
+        }
+
+        .search-box input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .search-box button {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: var(--gray-400);
+            font-size: 1rem;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .search-box button:hover {
+            color: var(--gray-600);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        th {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--gray-50);
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        .product-cell {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .product-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--gray-200);
+        }
+
+        .product-name {
+            font-weight: 500;
+            color: var(--gray-900);
+        }
+
+        .product-id {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-brass {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-stainless {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .badge-aluminum {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-steel {
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .badge-plastic {
+            background: #fae8ff;
+            color: #86198f;
+        }
+
+        .badge-featured {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .action-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .action-btn.edit {
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .action-btn.edit:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .action-btn.delete {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--gray-100);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group.col-2 {
+            grid-column: span 2;
+        }
+
+        .form-group.col-3 {
+            grid-column: span 3;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .form-section {
+            background: var(--gray-50);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .form-section h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-section h3::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-500);
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 2000;
+        }
+
+        .toast {
+            background: var(--gray-800);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            background: var(--success);
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+                padding: 1rem;
+            }
+
+            .sidebar-logo span,
+            .sidebar-nav span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.col-2,
+            .form-group.col-3 {
+                grid-column: span 1;
+            }
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-top: 1px solid var(--gray-200);
+            margin-top: 1rem;
+        }
+
+        .pagination-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--gray-300);
+            background: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--gray-100);
+            border-color: var(--primary);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-info {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            min-width: 60px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="/admin" class="sidebar-logo">
+            <svg viewBox="0 0 40 40">
+                <circle cx="20" cy="20" r="18" fill="none" stroke="#fff" stroke-width="2" />
+                <path d="M12 20 L28 20 M20 12 L20 28" stroke="#fff" stroke-width="2" />
+            </svg>
+            <span>O.N.P Admin</span>
+        </a>
+        <ul class="sidebar-nav">
+            <li><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg><span data-i18n="sidebar_dashboard">Dashboard</span></a></li>
+            <li><a href="products.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                    </svg><span data-i18n="sidebar_products">Products</span></a></li>
+            <li><a href="equipment.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                        <rect x="9" y="9" width="6" height="6"></rect>
+                        <line x1="9" y1="1" x2="9" y2="4"></line>
+                        <line x1="15" y1="1" x2="15" y2="4"></line>
+                        <line x1="9" y1="20" x2="9" y2="23"></line>
+                        <line x1="15" y1="20" x2="15" y2="23"></line>
+                        <line x1="20" y1="9" x2="23" y2="9"></line>
+                        <line x1="20" y1="15" x2="23" y2="15"></line>
+                        <line x1="1" y1="9" x2="4" y2="9"></line>
+                        <line x1="1" y1="15" x2="4" y2="15"></line>
+                    </svg><span data-i18n="nav_equipment">Equipment</span></a></li>
+            <li><a href="news.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+                    </svg><span data-i18n="sidebar_news">News</span></a></li>
+            <li><a href="contacts.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg><span data-i18n="sidebar_contacts">Contacts</span></a></li>
+            <li id="usersNavItem"><a href="users.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg><span data-i18n="sidebar_users">Users</span></a></li>
+            <li><a href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    </svg><span data-i18n="sidebar_view_site">View Site</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <h1 data-i18n="products_page_title">Products Management</h1>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button class="lang-btn" data-lang="ja" onclick="setAdminLanguage('ja')">JP</button>
+                    <button class="lang-btn" data-lang="vi" onclick="setAdminLanguage('vi')">VN</button>
+                    <button class="lang-btn" data-lang="en" onclick="setAdminLanguage('en')">EN</button>
+                </div>
+                <button class="btn btn-primary" onclick="openModal()" id="addProductBtn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    <span data-i18n="products_add">Add Product</span>
+                </button>
+                <button class="btn btn-secondary" onclick="openCustomerManager()" id="manageCustomerBtn"
+                    style="background: var(--gray-600); color: #fff;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <span data-i18n="products_manage_customers">Manage Customers</span>
+                </button>
+                <button class="btn btn-secondary" onclick="openMaterialManager()" id="manageMaterialBtn"
+                    style="background: var(--primary-light); color: #fff;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
+                    <span data-i18n="products_manage_materials">Manage Materials</span>
+                </button>
+                <button class="btn btn-secondary" onclick="logout()" style="padding:0.5rem 1rem;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    <span data-i18n="dashboard_logout">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <div class="table-header">
+                <h2><span data-i18n="products_all">All Products</span> (<span id="productCount">0</span>)</h2>
+                <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+                    <select id="materialFilter" class="customer-filter" onchange="filterByMaterial(this.value)">
+                        <option value="all" data-i18n="products_filter_all_materials">All materials</option>
+                    </select>
+                    <select id="customerFilter" class="customer-filter" onchange="filterByCustomer(this.value)">
+                        <option value="all" data-i18n="products_filter_all_customers">All customers</option>
+                    </select>
+                    <div class="search-box">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="M21 21l-4.35-4.35" />
+                        </svg>
+                        <input type="text" id="searchInput" placeholder="Search..."
+                            data-i18n-placeholder="products_search" oninput="handleSearch()">
+                        <button type="button" id="clearSearch" onclick="clearSearch()" style="display: none;">✕</button>
+                    </div>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th data-i18n="products_th_product">Product</th>
+                        <th data-i18n="products_th_material">Material</th>
+                        <th data-i18n="products_th_size">Size</th>
+                        <th data-i18n="products_th_tolerance">Tolerance</th>
+                        <th data-i18n="products_th_featured">Featured</th>
+                        <th data-i18n="products_th_actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody"></tbody>
+            </table>
+            <div class="empty-state" id="emptyState" style="display:none;">
+                <p data-i18n="products_no_products">No products found</p>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" style="display: none;">
+                <button class="pagination-btn" id="prevPage" onclick="changePage(-1)">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                </button>
+                <span class="pagination-info" id="pageInfo">1 / 1</span>
+                <button class="pagination-btn" id="nextPage" onclick="changePage(1)">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle" data-i18n="products_modal_add">Add New Product</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <form id="productForm" onsubmit="saveProduct(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="productId">
+
+                    <!-- Product Names -->
+                    <div class="form-section">
+                        <h3 data-i18n="products_section_names">Product Names (Multilingual)</h3>
+                        <div class="form-grid">
+                            <div class="form-group"><label data-i18n="products_name_ja">Name (日本語) *</label><input
+                                    type="text" id="name_ja" required></div>
+                            <div class="form-group"><label data-i18n="products_name_en">Name (English)</label><input
+                                    type="text" id="name_en"></div>
+                            <div class="form-group"><label data-i18n="products_name_vi">Name (Tiếng Việt)</label><input
+                                    type="text" id="name_vi"></div>
+                        </div>
+                    </div>
+
+                    <!-- Material -->
+                    <div class="form-section">
+                        <h3 data-i18n="products_section_material">Material Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label data-i18n="products_material_type">Material Type *</label>
+                                <select id="material" required>
+                                    <option value="brass" data-i18n="products_opt_brass">Brass (真鍮)</option>
+                                    <option value="stainless" data-i18n="products_opt_stainless">Stainless (ステンレス)
+                                    </option>
+                                    <option value="aluminum" data-i18n="products_opt_aluminum">Aluminum (アルミ)</option>
+                                    <option value="steel" data-i18n="products_opt_steel">Steel (鋼鉄)</option>
+                                    <option value="plastic" data-i18n="products_opt_plastic">Plastic (プラスチック)</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label data-i18n="products_material_detail_ja">Material Detail
+                                    (日本語)</label><input type="text" id="material_ja" placeholder="例: 真鍮 (C3604)"></div>
+                            <div class="form-group"><label data-i18n="products_material_detail_en">Material Detail
+                                    (English)</label><input type="text" id="material_en"
+                                    placeholder="e.g: Brass (C3604)"></div>
+                        </div>
+                    </div>
+
+                    <!-- Specifications -->
+                    <div class="form-section">
+                        <h3 data-i18n="products_section_specs">Specifications</h3>
+                        <div class="form-grid">
+                            <div class="form-group"><label data-i18n="products_size">Size</label><input type="text"
+                                    id="size" placeholder="φ5.0 × L15.0mm"></div>
+                            <div class="form-group"><label data-i18n="products_tolerance">Tolerance</label><input
+                                    type="text" id="tolerance" placeholder="±0.01mm"></div>
+                            <div class="form-group"><label data-i18n="products_surface_ja">Surface (日本語)</label><input
+                                    type="text" id="surface_ja" placeholder="ニッケルメッキ"></div>
+                            <div class="form-group"><label data-i18n="products_surface_en">Surface
+                                    (English)</label><input type="text" id="surface_en" placeholder="Nickel Plating">
+                            </div>
+                            <div class="form-group"><label data-i18n="products_surface_vi">Surface (Tiếng
+                                    Việt)</label><input type="text" id="surface_vi" placeholder="Mạ niken"></div>
+                            <div class="form-group"><label data-i18n="products_process_ja">Process (日本語)</label><input
+                                    type="text" id="process_ja" placeholder="NC自動旋盤加工"></div>
+                            <div class="form-group"><label data-i18n="products_process_en">Process
+                                    (English)</label><input type="text" id="process_en"
+                                    placeholder="NC Automatic Lathe"></div>
+                            <div class="form-group"><label data-i18n="products_process_vi">Process (Tiếng
+                                    Việt)</label><input type="text" id="process_vi" placeholder="Tiện tự động NC"></div>
+                            <div class="form-group col-3">
+                                <label data-i18n="products_customer">Customer</label>
+                                <select id="customer" class="customer-filter">
+                                    <option value="" data-i18n="products_select_customer">-- Select Customer --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="form-section">
+                        <h3 data-i18n="products_section_image">Image & Display Options</h3>
+                        <div class="form-grid">
+                            <div class="form-group col-2">
+                                <label data-i18n="products_upload_image">Upload Image</label>
+                                <div style="display:flex;gap:0.5rem;align-items:center;">
+                                    <input type="file" id="imageFile" accept="image/*"
+                                        onchange="handleImageUpload(this)" style="flex:1;">
+                                    <div id="uploadStatus" style="font-size:0.75rem;color:var(--gray-500);"></div>
+                                </div>
+                                <div style="margin-top:0.5rem;"><label style="font-size:0.75rem;color:var(--gray-500);"
+                                        data-i18n="products_or_url">Or enter URL:</label><input type="text" id="image"
+                                        placeholder="./assets/images/products/product-01.png"></div>
+                                <div id="imagePreview" style="margin-top:0.5rem;display:none;"><img id="previewImg"
+                                        src=""
+                                        style="max-width:100px;max-height:100px;border-radius:8px;border:1px solid var(--gray-200);">
+                                </div>
+                            </div>
+                            <div class="form-group"><label data-i18n="products_sort_order">Sort Order</label><input
+                                    type="number" id="sort_order" value="0" min="0"></div>
+                            <div class="form-group col-3">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="is_featured">
+                                    <label for="is_featured" style="margin-bottom:0;"
+                                        data-i18n="products_is_featured">Featured Product (show on homepage)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()"
+                        data-i18n="products_btn_cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn" data-i18n="products_btn_save">Save
+                        Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirm Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal" style="max-width:400px;">
+            <div class="modal-header">
+                <h2 data-i18n="products_delete_title">Delete Product</h2>
+                <button class="modal-close" onclick="closeDeleteModal()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><span data-i18n="products_delete_confirm">Are you sure you want to delete</span> "<strong
+                        id="deleteProductName"></strong>"?</p>
+                <p style="color:var(--gray-500);font-size:0.875rem;margin-top:0.5rem;"
+                    data-i18n="products_delete_warning">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()"
+                    data-i18n="products_btn_cancel">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()" data-i18n="products_btn_delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Manager Modal -->
+    <div class="modal-overlay" id="customerModal">
+        <div class="modal" style="max-width: 700px;">
+            <div class="modal-header">
+                <h2 data-i18n="products_customer_manager">Customer Manager</h2>
+                <button class="modal-close" onclick="closeCustomerManager()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+                <!-- Customer List -->
+                <div id="customerList" style="margin-bottom: 1.5rem;">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th data-i18n="products_customer_name">Name</th>
+                                <th data-i18n="products_customer_country">Country</th>
+                                <th data-i18n="products_th_actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Add/Edit Customer Form -->
+                <div style="background: var(--gray-50); padding: 1rem; border-radius: 8px;">
+                    <h3 id="customerFormTitle" style="margin-bottom: 1rem; font-size: 1rem;">
+                        <span data-i18n="products_customer_add">Add Customer</span>
+                    </h3>
+                    <input type="hidden" id="customerId">
+                    <div class="form-grid" style="display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr);">
+                        <div class="form-group">
+                            <label data-i18n="products_customer_name">Name *</label>
+                            <input type="text" id="customerName" placeholder="Samsung Electronics" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="products_customer_country">Country</label>
+                            <input type="text" id="customerCountry" placeholder="Japan">
+                        </div>
+                        <div class="form-group">
+                            <label>Name (日本語)</label>
+                            <input type="text" id="customerNameJa" placeholder="サムスン電子">
+                        </div>
+                        <div class="form-group">
+                            <label>Website</label>
+                            <input type="text" id="customerWebsite" placeholder="https://example.com">
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <button type="button" class="btn btn-primary" onclick="saveCustomer()">
+                            <span data-i18n="products_btn_save">Save</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="resetCustomerForm()">
+                            <span data-i18n="products_btn_cancel">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Material Manager Modal -->
+    <div class="modal-overlay" id="materialModal">
+        <div class="modal" style="max-width: 750px;">
+            <div class="modal-header">
+                <h2 data-i18n="products_material_manager">Material Manager</h2>
+                <button class="modal-close" onclick="closeMaterialManager()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+                <!-- Material List -->
+                <div id="materialList" style="margin-bottom: 1.5rem;">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Color</th>
+                                <th data-i18n="products_material_code">Code</th>
+                                <th data-i18n="products_material_name">Name</th>
+                                <th data-i18n="products_th_actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="materialTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Add/Edit Material Form -->
+                <div style="background: var(--gray-50); padding: 1rem; border-radius: 8px;">
+                    <h3 id="materialFormTitle" style="margin-bottom: 1rem; font-size: 1rem;">
+                        <span data-i18n="products_material_add">Add Material</span>
+                    </h3>
+                    <input type="hidden" id="materialId">
+                    <div class="form-grid" style="display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr);">
+                        <div class="form-group">
+                            <label data-i18n="products_material_code">Code *</label>
+                            <input type="text" id="materialCode" placeholder="brass" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Color</label>
+                            <input type="color" id="materialColor" value="#d4a574" style="width: 100%; height: 38px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Name (日本語) *</label>
+                            <input type="text" id="materialNameJa" placeholder="真鍮" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Name (English)</label>
+                            <input type="text" id="materialNameEn" placeholder="Brass">
+                        </div>
+                        <div class="form-group">
+                            <label>Name (Tiếng Việt)</label>
+                            <input type="text" id="materialNameVi" placeholder="Đồng thau">
+                        </div>
+                        <div class="form-group">
+                            <label>Sort Order</label>
+                            <input type="number" id="materialSortOrder" value="0" min="0">
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <button type="button" class="btn btn-primary" onclick="saveMaterial()">
+                            <span data-i18n="products_btn_save">Save</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="resetMaterialForm()">
+                            <span data-i18n="products_btn_cancel">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Admin Translations -->
+    <script src="/admin/js/admin-translations.js"></script>
+
+    <script>
+        const token = localStorage.getItem('adminToken');
+        const currentUser = JSON.parse(localStorage.getItem('adminUser') || '{}');
+        let products = [];
+        let currentFilter = 'all';
+        let currentCustomerFilter = 'all';
+        let deleteProductId = null;
+        let permissions = {};
+
+        // Pagination
+        let currentPage = 1;
+        const itemsPerPage = 5; // 5 sản phẩm mỗi trang
+
+        // Customers
+        let customers = [];
+
+        // Search
+        let searchTerm = '';
+
+        // Materials
+        let materials = [];
+
+        if (!token) { window.location.href = '/admin/login'; }
+
+        async function handleImageUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const status = document.getElementById('uploadStatus');
+            const preview = document.getElementById('imagePreview');
+            const previewImg = document.getElementById('previewImg');
+            status.textContent = 'Uploading...';
+            status.style.color = 'var(--gray-500)';
+            const formData = new FormData();
+            formData.append('image', file);
+            try {
+                const res = await fetch('/api/upload', {
+                    method: 'POST', headers: { 'Authorization': 'Bearer ' + token }, body:
+                        formData
+                });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('image').value = data.data.url;
+                    previewImg.src = data.data.url.replace('./', '../');
+                    preview.style.display = 'block';
+                    status.textContent = '✓ Uploaded!';
+                    status.style.color = 'var(--success)';
+                } else {
+                    status.textContent = '✗ ' + data.message;
+                    status.style.color = 'var(--danger)';
+                }
+            } catch (e) {
+                status.textContent = '✗ Upload failed';
+                status.style.color = 'var(--danger)';
+            }
+        }
+
+        async function checkPermissions() {
+            try {
+                const res = await fetch('/api/users/permissions', { headers: { 'Authorization': 'Bearer ' + token } });
+                const data = await res.json();
+                permissions = data.permissions || {};
+                if (!permissions.products?.includes('create')) { document.getElementById('addProductBtn').style.display = 'none'; }
+                if (currentUser.role !== 'admin') {
+                    const usersNav = document.getElementById('usersNavItem'); if (usersNav)
+                        usersNav.style.display = 'none';
+                }
+                await loadCustomers();
+                await loadMaterialsDropdown();
+                loadProducts();
+            } catch (e) { console.error('Permission check failed:', e); loadProducts(); }
+        }
+
+        // Load danh sách vật liệu từ API
+        async function loadMaterialsDropdown() {
+            try {
+                const res = await fetch('/api/materials');
+                const data = await res.json();
+                if (data.success) {
+                    const select = document.getElementById('materialFilter');
+                    const lang = getAdminLanguage();
+                    select.innerHTML = `<option value="all" data-i18n="products_filter_all_materials">
+        ${t('products_filter_all_materials')}</option>`;
+                    data.data.forEach(m => {
+                        const option = document.createElement('option');
+                        option.value = m.code;
+                        option.textContent = lang === 'ja' ? m.name_ja : (lang === 'vi' ? m.name_vi : m.name_en) || m.name_ja;
+                        select.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading materials:', error);
+            }
+        }
+
+        // Filter theo vật liệu
+        function filterByMaterial(material) {
+            currentFilter = material;
+            currentPage = 1;
+            loadProducts();
+        }
+
+        // Load danh sách khách hàng từ API mới
+        async function loadCustomers() {
+            try {
+                const res = await fetch('/api/customers');
+                const data = await res.json();
+                if (data.success) {
+                    const select = document.getElementById('customerFilter');
+                    // Giữ lại option đầu tiên (All customers)
+                    select.innerHTML = `<option value="all" data-i18n="products_filter_all_customers">
+        ${t('products_filter_all_customers')}</option>`;
+                    data.data.forEach(customer => {
+                        const option = document.createElement('option');
+                        option.value = customer.name;
+                        option.textContent = customer.name;
+                        select.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading customers:', error);
+            }
+        }
+
+        // Filter theo khách hàng
+        function filterByCustomer(customer) {
+            currentCustomerFilter = customer;
+            currentPage = 1; // Reset về trang 1 khi filter
+            loadProducts();
+        }
+
+        // Populate customer dropdown trong form thêm/sửa sản phẩm
+        // Lấy unique customers từ bảng products
+        function populateCustomerSelect(selectedValue = '') {
+            const select = document.getElementById('customer');
+            select.innerHTML = `<option value="" data-i18n="products_select_customer">${t('products_select_customer')}</option>`;
+
+            // Lấy unique customers từ products
+            const uniqueCustomers = [...new Set(products.map(p => p.customer).filter(c => c && c.trim() !== ''))].sort();
+
+            uniqueCustomers.forEach(customerName => {
+                const option = document.createElement('option');
+                option.value = customerName;
+                option.textContent = customerName;
+                if (customerName === selectedValue) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+        }
+
+        async function loadProducts() {
+            try {
+                const params = new URLSearchParams();
+                if (currentFilter !== 'all') params.append('material', currentFilter);
+                if (currentCustomerFilter !== 'all') params.append('customer', currentCustomerFilter);
+                const queryString = params.toString() ? `?${params.toString()}` : '';
+                const res = await fetch(`/api/products${queryString}`);
+                const data = await res.json();
+                if (data.success) { products = data.data; renderProducts(); }
+            } catch (error) { showToast(t('products_msg_error'), 'error'); }
+        }
+
+        // Lấy tên sản phẩm theo ngôn ngữ
+        function getProductName(p) {
+            const lang = getAdminLanguage();
+            if (lang === 'vi' && p.name_vi) return p.name_vi;
+            if (lang === 'en' && p.name_en) return p.name_en;
+            return p.name_ja || p.name_en || p.name_vi || 'Untitled';
+        }
+
+        // Lấy label vật liệu theo ngôn ngữ
+        function getMaterialLabel(material) {
+            const lang = getAdminLanguage();
+            const materialMap = {
+                ja: { brass: '真鍮', stainless: 'ステンレス', aluminum: 'アルミ', steel: '鋼鉄', plastic: 'プラスチック' },
+                vi: { brass: 'Đồng thau', stainless: 'Inox', aluminum: 'Nhôm', steel: 'Thép', plastic: 'Nhựa' },
+                en: { brass: 'Brass', stainless: 'Stainless', aluminum: 'Aluminum', steel: 'Steel', plastic: 'Plastic' }
+            };
+            return materialMap[lang]?.[material] || material;
+        }
+
+        function renderProducts() {
+            const tbody = document.getElementById('productTableBody');
+            const emptyState = document.getElementById('emptyState');
+
+            // Filter by search term
+            let filteredProducts = products;
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filteredProducts = products.filter(p => {
+                    const name = (p.name_ja || '') + (p.name_en || '') + (p.name_vi || '');
+                    const material = p.material || '';
+                    const customer = p.customer || '';
+                    const size = p.size || '';
+                    return name.toLowerCase().includes(term) ||
+                        material.toLowerCase().includes(term) ||
+                        customer.toLowerCase().includes(term) ||
+                        size.toLowerCase().includes(term);
+                });
+            }
+
+            const totalItems = filteredProducts.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+            // Reset page if out of range
+            if (currentPage > totalPages) currentPage = 1;
+
+            document.getElementById('productCount').textContent = totalItems;
+
+            // Handle pagination visibility (only show if >= 5 items)
+            const paginationEl = document.getElementById('pagination');
+            if (totalItems >= 5) {
+                paginationEl.style.display = 'flex';
+                document.getElementById('pageInfo').textContent = `${currentPage} / ${totalPages}`;
+                document.getElementById('prevPage').disabled = currentPage <= 1;
+                document.getElementById('nextPage').disabled = currentPage >= totalPages;
+            } else {
+                paginationEl.style.display = 'none';
+            }
+
+            if (totalItems === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            // Paginate items
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+            const pageItems = filteredProducts.slice(startIndex, endIndex);
+
+            const canUpdate = permissions.products?.includes('update');
+            const canDelete = permissions.products?.includes('delete');
+            emptyState.style.display = 'none';
+            tbody.innerHTML = pageItems.map(p => {
+                const productName = getProductName(p);
+                const materialLabel = getMaterialLabel(p.material);
+                return '<tr>' +
+                    '<td><div class="product-cell"><img src="' + (p.image || './assets/images/products/product-01.png').replace('./', '../') + '" class="product-thumb" alt=""><div><div class="product-name">' + productName + '</div><div class="product-id">ID: ' + p.id + '</div></div></div></td>' +
+                    '<td><span class="badge badge-' + p.material + '">' + materialLabel + '</span></td>' +
+                    '<td>' + (p.size || '-') + '</td>' +
+                    '<td>' + (p.tolerance || '-') + '</td>' +
+                    '<td>' + (p.is_featured ? '<span class="badge badge-featured">' + t('products_th_featured') + '</span>' : '-') + '</td>' +
+                    '<td><div class="actions">' +
+                    (canUpdate ? '<button class="action-btn edit" onclick="editProduct(' + p.id + ')" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>' : '') +
+                    (canDelete ? '<button class="action-btn delete" onclick="deleteProduct(' + p.id + ', \'' + productName.replace(/'/g, "\\'") + '\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>' : '') +
+                    '</div></td>' +
+                    '</tr>';
+            }).join('');
+        }
+
+        // Change page
+        function changePage(direction) {
+            const totalPages = Math.ceil(products.length / itemsPerPage);
+
+            currentPage += direction;
+            if (currentPage < 1) currentPage = 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            renderProducts();
+        }
+
+        // Search functions
+        function handleSearch() {
+            const input = document.getElementById('searchInput');
+            searchTerm = input.value.trim();
+            currentPage = 1; // Reset về trang 1 khi search
+
+            // Show/hide clear button
+            document.getElementById('clearSearch').style.display = searchTerm ? 'block' : 'none';
+
+            renderProducts();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            searchTerm = '';
+            document.getElementById('clearSearch').style.display = 'none';
+            currentPage = 1;
+            renderProducts();
+        }
+
+        function openModal() {
+            document.getElementById('modalTitle').setAttribute('data-i18n', 'products_modal_add');
+            document.getElementById('modalTitle').textContent = t('products_modal_add');
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = '';
+            document.getElementById('productModal').classList.add('active');
+            // Populate customer dropdown and apply translations
+            populateCustomerSelect();
+            applyAdminTranslations();
+        }
+
+        function closeModal() { document.getElementById('productModal').classList.remove('active'); }
+
+        async function editProduct(id) {
+            try {
+                const res = await fetch(`/api/products/${id}`);
+                const data = await res.json();
+                if (data.success) {
+                    const p = data.data;
+                    document.getElementById('modalTitle').setAttribute('data-i18n', 'products_modal_edit');
+                    document.getElementById('modalTitle').textContent = t('products_modal_edit');
+                    document.getElementById('productId').value = p.id;
+                    document.getElementById('name_ja').value = p.name_ja || '';
+                    document.getElementById('name_en').value = p.name_en || '';
+                    document.getElementById('name_vi').value = p.name_vi || '';
+                    document.getElementById('material').value = p.material || 'brass';
+                    document.getElementById('material_ja').value = p.material_ja || '';
+                    document.getElementById('material_en').value = p.material_en || '';
+                    document.getElementById('size').value = p.size || '';
+                    document.getElementById('tolerance').value = p.tolerance || '';
+                    document.getElementById('surface_ja').value = p.surface_ja || '';
+                    document.getElementById('surface_en').value = p.surface_en || '';
+                    document.getElementById('surface_vi').value = p.surface_vi || '';
+                    document.getElementById('process_ja').value = p.process_ja || '';
+                    document.getElementById('process_en').value = p.process_en || '';
+                    document.getElementById('process_vi').value = p.process_vi || '';
+                    // Populate customer dropdown with selected value
+                    populateCustomerSelect(p.customer || '');
+                    document.getElementById('image').value = p.image || '';
+                    document.getElementById('sort_order').value = p.sort_order || 0;
+                    document.getElementById('is_featured').checked = p.is_featured === 1;
+                    document.getElementById('productModal').classList.add('active');
+                    // Apply translations to modal labels
+                    applyAdminTranslations();
+                }
+            } catch (error) { showToast(t('products_msg_error'), 'error'); }
+        }
+
+        async function saveProduct(e) {
+            e.preventDefault();
+            const id = document.getElementById('productId').value;
+            const productData = {
+                name_ja: document.getElementById('name_ja').value,
+                name_en: document.getElementById('name_en').value,
+                name_vi: document.getElementById('name_vi').value,
+                material: document.getElementById('material').value,
+                material_ja: document.getElementById('material_ja').value,
+                material_en: document.getElementById('material_en').value,
+                size: document.getElementById('size').value,
+                tolerance: document.getElementById('tolerance').value,
+                surface_ja: document.getElementById('surface_ja').value,
+                surface_en: document.getElementById('surface_en').value,
+                surface_vi: document.getElementById('surface_vi').value,
+                process_ja: document.getElementById('process_ja').value,
+                process_en: document.getElementById('process_en').value,
+                process_vi: document.getElementById('process_vi').value,
+                customer: document.getElementById('customer').value,
+                image: document.getElementById('image').value,
+                sort_order: parseInt(document.getElementById('sort_order').value) || 0,
+                is_featured: document.getElementById('is_featured').checked ? 1 : 0
+            };
+            try {
+                const url = id ? `/api/products/${id}` : '/api/products';
+                const method = id ? 'PUT' : 'POST';
+                const res = await fetch(url, {
+                    method, headers: {
+                        'Content-Type': 'application/json', 'Authorization': 'Bearer ' +
+                            token
+                    }, body: JSON.stringify(productData)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast(id ? t('products_msg_updated') : t('products_msg_created'), 'success');
+                    closeModal();
+                    loadProducts();
+                } else { showToast(data.message || t('products_msg_error'), 'error'); }
+            } catch (error) { showToast(t('products_msg_error'), 'error'); }
+        }
+
+        function deleteProduct(id, name) {
+            deleteProductId = id;
+            document.getElementById('deleteProductName').textContent = name;
+            document.getElementById('deleteModal').classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('active');
+            deleteProductId = null;
+        }
+
+        async function confirmDelete() {
+            if (!deleteProductId) return;
+            try {
+                const res = await fetch('/api/products/' + deleteProductId, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast(t('products_msg_deleted'), 'success');
+                    closeDeleteModal();
+                    loadProducts();
+                } else {
+                    showToast(data.message || t('products_msg_error'), 'error');
+                }
+            } catch (error) {
+                showToast(t('products_msg_error'), 'error');
+            }
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                currentPage = 1; // Reset về trang 1 khi filter
+                loadProducts();
+            });
+        });
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            toast.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">' + (type === 'success' ? '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>') + '</svg> ' + message;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.animation = 'slideIn 0.3s ease reverse'; setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            localStorage.removeItem('adminUser');
+            window.location.href = '/admin/login';
+        }
+
+        // Listen for language change to re-render products
+        window.addEventListener('adminLanguageChanged', () => {
+            if (products.length > 0) {
+                loadCustomers();
+                renderProducts();
+            }
+        });
+
+        // ===== CUSTOMER CRUD =====
+
+        async function loadCustomersList() {
+            try {
+                const res = await fetch('/api/customers', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    customers = data.data;
+                }
+            } catch (err) {
+                console.error('Error loading customers:', err);
+            }
+        }
+
+        function openCustomerManager() {
+            document.getElementById('customerModal').classList.add('active');
+            loadCustomersList().then(() => renderCustomerList());
+        }
+
+        function closeCustomerManager() {
+            document.getElementById('customerModal').classList.remove('active');
+            resetCustomerForm();
+        }
+
+        function renderCustomerList() {
+            const tbody = document.getElementById('customerTableBody');
+            if (customers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--gray-400);">No customers</td></tr>';
+                return;
+            }
+            tbody.innerHTML = customers.map(c => `<tr>
+                <td style="font-weight: 500;">${c.name}</td>
+                <td>${c.country || '-'}</td>
+                <td>
+                    <div class="actions">
+                        <button class="action-btn edit" onclick="editCustomer(${c.id})" title="Edit">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </button>
+                        <button class="action-btn delete" onclick="deleteCustomer(${c.id}, '${c.name.replace(/'/g, "\\'")}')" title="Delete">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                    </div>
+                </td>
+            </tr>`).join('');
+        }
+
+        function editCustomer(id) {
+            const c = customers.find(x => x.id === id);
+            if (!c) return;
+            document.getElementById('customerFormTitle').innerHTML = '<span>Edit Customer</span>';
+            document.getElementById('customerId').value = c.id;
+            document.getElementById('customerName').value = c.name || '';
+            document.getElementById('customerCountry').value = c.country || '';
+            document.getElementById('customerNameJa').value = c.name_ja || '';
+            document.getElementById('customerWebsite').value = c.website || '';
+        }
+
+        function resetCustomerForm() {
+            document.getElementById('customerFormTitle').innerHTML = '<span data-i18n="products_customer_add">Add Customer</span>';
+            document.getElementById('customerId').value = '';
+            document.getElementById('customerName').value = '';
+            document.getElementById('customerCountry').value = '';
+            document.getElementById('customerNameJa').value = '';
+            document.getElementById('customerWebsite').value = '';
+        }
+
+        async function saveCustomer() {
+            const id = document.getElementById('customerId').value;
+            const name = document.getElementById('customerName').value.trim();
+
+            if (!name) {
+                showToast('Customer name is required', 'error');
+                return;
+            }
+
+            const data = {
+                name: name,
+                name_ja: document.getElementById('customerNameJa').value.trim(),
+                country: document.getElementById('customerCountry').value.trim(),
+                website: document.getElementById('customerWebsite').value.trim(),
+                is_active: 1
+            };
+
+            const url = id ? '/api/customers/' + id : '/api/customers';
+            const method = id ? 'PUT' : 'POST';
+
+            try {
+                const res = await fetch(url, {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    showToast(id ? 'Customer updated!' : 'Customer created!', 'success');
+                    resetCustomerForm();
+                    await loadCustomersList();
+                    renderCustomerList();
+                    // Refresh dropdown
+                    await loadCustomers();
+                } else {
+                    showToast(result.message || 'Error', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Error saving customer', 'error');
+            }
+        }
+
+        async function deleteCustomer(id, name) {
+            if (!confirm(`Delete customer "${name}"?`)) return;
+
+            try {
+                const res = await fetch('/api/customers/' + id, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    showToast('Customer deleted!', 'success');
+                    await loadCustomersList();
+                    renderCustomerList();
+                    // Refresh dropdown
+                    await loadCustomers();
+                } else {
+                    showToast(result.message || 'Error', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Error deleting customer', 'error');
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('customerModal').addEventListener('click', function (e) {
+            if (e.target === this) closeCustomerManager();
+        });
+
+        // ===== MATERIAL CRUD =====
+
+        async function loadMaterialsList() {
+            try {
+                const res = await fetch('/api/materials', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    materials = data.data;
+                }
+            } catch (err) {
+                console.error('Error loading materials:', err);
+            }
+        }
+
+        function openMaterialManager() {
+            document.getElementById('materialModal').classList.add('active');
+            loadMaterialsList().then(() => renderMaterialList());
+        }
+
+        function closeMaterialManager() {
+            document.getElementById('materialModal').classList.remove('active');
+            resetMaterialForm();
+        }
+
+        function renderMaterialList() {
+            const tbody = document.getElementById('materialTableBody');
+            const lang = getAdminLanguage();
+
+            if (materials.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--gray-400);">No materials</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = materials.map(m => {
+                const name = lang === 'ja' ? m.name_ja : (lang === 'en' ? m.name_en : m.name_vi) || m.name_ja;
+                return `<tr>
+                    <td><div style="width: 24px; height: 24px; border-radius: 4px; background: ${m.color || '#6b7280'};"></div></td>
+                    <td><code style="background: var(--gray-100); padding: 0.25rem 0.5rem; border-radius: 4px;">${m.code}</code></td>
+                    <td style="font-weight: 500;">${name}</td>
+                    <td>
+                        <div class="actions">
+                            <button class="action-btn edit" onclick="editMaterial(${m.id})" title="Edit">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <button class="action-btn delete" onclick="deleteMaterial(${m.id}, '${name.replace(/'/g, "\\'")}', '${m.code}')" title="Delete">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        function editMaterial(id) {
+            const m = materials.find(x => x.id === id);
+            if (!m) return;
+            document.getElementById('materialFormTitle').innerHTML = '<span>Edit Material</span>';
+            document.getElementById('materialId').value = m.id;
+            document.getElementById('materialCode').value = m.code || '';
+            document.getElementById('materialColor').value = m.color || '#6b7280';
+            document.getElementById('materialNameJa').value = m.name_ja || '';
+            document.getElementById('materialNameEn').value = m.name_en || '';
+            document.getElementById('materialNameVi').value = m.name_vi || '';
+            document.getElementById('materialSortOrder').value = m.sort_order || 0;
+        }
+
+        function resetMaterialForm() {
+            document.getElementById('materialFormTitle').innerHTML = '<span data-i18n="products_material_add">Add Material</span>';
+            document.getElementById('materialId').value = '';
+            document.getElementById('materialCode').value = '';
+            document.getElementById('materialColor').value = '#d4a574';
+            document.getElementById('materialNameJa').value = '';
+            document.getElementById('materialNameEn').value = '';
+            document.getElementById('materialNameVi').value = '';
+            document.getElementById('materialSortOrder').value = '0';
+        }
+
+        async function saveMaterial() {
+            const id = document.getElementById('materialId').value;
+            const code = document.getElementById('materialCode').value.trim();
+            const nameJa = document.getElementById('materialNameJa').value.trim();
+
+            if (!code || !nameJa) {
+                showToast('Code and Japanese name are required', 'error');
+                return;
+            }
+
+            const data = {
+                code: code.toLowerCase(),
+                name_ja: nameJa,
+                name_en: document.getElementById('materialNameEn').value.trim(),
+                name_vi: document.getElementById('materialNameVi').value.trim(),
+                color: document.getElementById('materialColor').value,
+                sort_order: parseInt(document.getElementById('materialSortOrder').value) || 0,
+                is_active: 1
+            };
+
+            const url = id ? '/api/materials/' + id : '/api/materials';
+            const method = id ? 'PUT' : 'POST';
+
+            try {
+                const res = await fetch(url, {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    showToast(id ? 'Material updated!' : 'Material created!', 'success');
+                    resetMaterialForm();
+                    await loadMaterialsList();
+                    renderMaterialList();
+                    // Refresh dropdown
+                    await loadMaterialsDropdown();
+                } else {
+                    showToast(result.message || 'Error', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Error saving material', 'error');
+            }
+        }
+
+        async function deleteMaterial(id, name, code) {
+            if (!confirm(`Delete material "${name}" (${code})?`)) return;
+
+            try {
+                const res = await fetch('/api/materials/' + id, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    showToast('Material deleted!', 'success');
+                    await loadMaterialsList();
+                    renderMaterialList();
+                    // Refresh dropdown
+                    await loadMaterialsDropdown();
+                } else {
+                    showToast(result.message || 'Error', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Error deleting material', 'error');
+            }
+        }
+
+        // Close material modal when clicking outside
+        document.getElementById('materialModal').addEventListener('click', function (e) {
+            if (e.target === this) closeMaterialManager();
+        });
+
+        checkPermissions();
+    </script>
+</body>
+
+</html>

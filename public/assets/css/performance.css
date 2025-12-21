@@ -1,0 +1,259 @@
+/**
+ * O.N.Precision - Performance Styles
+ * Lazy loading, skeleton screens, and smooth transitions
+ */
+
+/* =============================================
+   Lazy Loading Images
+   ============================================= */
+
+/* Image loading state */
+img[data-src] {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+img.loading {
+    opacity: 0.3;
+    filter: blur(5px);
+}
+
+img.loaded {
+    opacity: 1;
+    filter: blur(0);
+}
+
+img.error {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+
+/* Native lazy loading support */
+img[loading="lazy"] {
+    opacity: 1;
+}
+
+/* =============================================
+   Skeleton Loading Screens
+   ============================================= */
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--color-gray-200) 25%,
+        var(--color-gray-100) 50%,
+        var(--color-gray-200) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-text {
+    height: 1em;
+    margin-bottom: 0.5em;
+}
+
+.skeleton-text:last-child {
+    width: 70%;
+}
+
+.skeleton-image {
+    aspect-ratio: 16/9;
+    width: 100%;
+}
+
+.skeleton-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* =============================================
+   Content Visibility Optimization
+   ============================================= */
+
+/* Lazy render off-screen content */
+.lazy-render {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 500px;
+}
+
+/* Footer - lazy render */
+.footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 400px;
+}
+
+/* =============================================
+   Smooth Page Transitions
+   ============================================= */
+
+.page-transition {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =============================================
+   Update Notification Toast
+   ============================================= */
+
+.update-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--color-gray-800);
+    color: white;
+    padding: 16px 24px;
+    border-radius: var(--radius-md);
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    z-index: 9999;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    animation: slideUp 0.3s ease;
+}
+
+.update-toast button {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.update-toast button:hover {
+    background: var(--color-primary-light);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =============================================
+   Reduced Motion Preferences
+   ============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .skeleton {
+        animation: none;
+        background: var(--color-gray-200);
+    }
+}
+
+/* =============================================
+   Print Styles
+   ============================================= */
+
+@media print {
+    .header,
+    .footer,
+    .mobile-menu-toggle,
+    .lang-switcher,
+    .header-contact-btn,
+    .update-toast {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: black;
+        background: white;
+    }
+    
+    a {
+        text-decoration: underline;
+        color: black;
+    }
+    
+    img {
+        max-width: 100%;
+        page-break-inside: avoid;
+    }
+    
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+}
+
+/* =============================================
+   Focus Visible for Accessibility
+   ============================================= */
+
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Remove outline for mouse users */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* =============================================
+   Skip Link for Accessibility
+   ============================================= */
+
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    z-index: 9999;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 10px;
+}

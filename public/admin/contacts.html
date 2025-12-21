@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts Management | O.N.P Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --accent: #8b1a1a;
+            --accent-hover: #6b1515;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --sidebar-width: 260px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 1.5rem;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+        }
+
+        .sidebar-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .sidebar-nav svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .stat-card.unread .value {
+            color: var(--accent);
+        }
+
+        .table-container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .table-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        th {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--gray-50);
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        tr.unread {
+            background: #fef3c7;
+        }
+
+        tr.unread:hover {
+            background: #fde68a;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .contact-email {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        .contact-message {
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--gray-600);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-unread {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-read {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .date {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .action-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .action-btn.view {
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .action-btn.view:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .action-btn.delete {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--gray-100);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .detail-row {
+            margin-bottom: 1.25rem;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            color: var(--gray-800);
+        }
+
+        .detail-value.message {
+            background: var(--gray-50);
+            padding: 1rem;
+            border-radius: 8px;
+            line-height: 1.7;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-500);
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1rem;
+            color: var(--gray-300);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.75rem;
+            border: 1px solid var(--gray-300);
+            background: #fff;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 0.25rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="./index.html" class="sidebar-logo">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="16" cy="16" r="14" />
+                <path d="M8 16h16M16 8v16" />
+            </svg>
+            O.N.P Admin
+        </a>
+
+        <nav>
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="./index.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                        <span data-i18n="sidebar_dashboard">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./products.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+                        </svg>
+                        <span data-i18n="sidebar_products">Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./equipment.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                            <rect x="9" y="9" width="6" height="6"></rect>
+                            <line x1="9" y1="1" x2="9" y2="4"></line>
+                            <line x1="15" y1="1" x2="15" y2="4"></line>
+                            <line x1="9" y1="20" x2="9" y2="23"></line>
+                            <line x1="15" y1="20" x2="15" y2="23"></line>
+                            <line x1="20" y1="9" x2="23" y2="9"></line>
+                            <line x1="20" y1="15" x2="23" y2="15"></line>
+                            <line x1="1" y1="9" x2="4" y2="9"></line>
+                            <line x1="1" y1="15" x2="4" y2="15"></line>
+                        </svg>
+                        <span data-i18n="nav_equipment">Equipment</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./news.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                        <span data-i18n="sidebar_news">News</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./contacts.html" class="active">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                        <span data-i18n="sidebar_contacts">Contacts</span>
+                    </a>
+                </li>
+                <li id="usersNavItem">
+                    <a href="./users.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                            <path d="M16 3.13a4 4 0 010 7.75" />
+                        </svg>
+                        <span data-i18n="sidebar_users">Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../index.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                        <span data-i18n="sidebar_view_site">View Site</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <h1 data-i18n="contacts_title">📬 Contacts Management</h1>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button class="lang-btn" data-lang="ja" onclick="setAdminLanguage('ja')">JP</button>
+                    <button class="lang-btn" data-lang="vi" onclick="setAdminLanguage('vi')">VN</button>
+                    <button class="lang-btn" data-lang="en" onclick="setAdminLanguage('en')">EN</button>
+                </div>
+                <button class="btn btn-secondary" onclick="logout()" style="padding:0.5rem 1rem;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    <span data-i18n="dashboard_logout">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3 data-i18n="contacts_total">Total Contacts</h3>
+                <div class="value" id="totalCount">0</div>
+            </div>
+            <div class="stat-card unread">
+                <h3 data-i18n="contacts_unread">Unread</h3>
+                <div class="value" id="unreadCount">0</div>
+            </div>
+            <div class="stat-card">
+                <h3 data-i18n="contacts_today">Today</h3>
+                <div class="value" id="todayCount">0</div>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <div class="table-header">
+                <h2 data-i18n="contacts_all">All Contact Submissions</h2>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th data-i18n="contacts_th_status">Status</th>
+                        <th data-i18n="contacts_th_contact">Contact Info</th>
+                        <th data-i18n="contacts_th_company">Company</th>
+                        <th data-i18n="contacts_th_subject">Subject</th>
+                        <th data-i18n="contacts_th_message">Message</th>
+                        <th data-i18n="contacts_th_date">Date</th>
+                        <th data-i18n="contacts_th_actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="contactsTable">
+                    <tr>
+                        <td colspan="7" class="empty-state" data-i18n="contacts_loading">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- View Modal -->
+    <div class="modal-overlay" id="viewModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 data-i18n="contacts_modal_title">Contact Details</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()" data-i18n="contacts_btn_close">Close</button>
+                <button class="btn btn-danger" id="deleteBtn" data-i18n="contacts_btn_delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Translations -->
+    <script src="/admin/js/admin-translations.js"></script>
+
+    <script>
+        let contacts = [];
+        let currentContactId = null;
+        let isAdmin = false;
+
+        // Check if user is admin
+        const adminUser = JSON.parse(localStorage.getItem('adminUser') || '{}');
+        isAdmin = adminUser.role === 'admin';
+
+        // Load contacts
+        async function loadContacts() {
+            try {
+                const response = await fetch('/api/contacts');
+                const result = await response.json();
+
+                if (result.success) {
+                    contacts = result.data;
+                    renderContacts();
+                    updateStats();
+                }
+            } catch (error) {
+                console.error('Error loading contacts:', error);
+                document.getElementById('contactsTable').innerHTML = `
+                    <tr><td colspan="7" class="empty-state">Error loading contacts</td></tr>
+                `;
+            }
+        }
+
+        // Render contacts table
+        function renderContacts() {
+            const tbody = document.getElementById('contactsTable');
+
+            if (contacts.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <p>${t('contacts_empty')}</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = contacts.map(contact => {
+                const statusText = contact.is_read ? t('contacts_status_read') : t('contacts_status_unread');
+                return '<tr class="' + (contact.is_read ? '' : 'unread') + '">' +
+                    '<td><span class="badge ' + (contact.is_read ? 'badge-read' : 'badge-unread') + '">' + statusText + '</span></td>' +
+                    '<td><div class="contact-name">' + escapeHtml(contact.name) + '</div><div class="contact-email">' + escapeHtml(contact.email) + '</div></td>' +
+                    '<td>' + escapeHtml(contact.company || '-') + '</td>' +
+                    '<td>' + escapeHtml(contact.subject || '-') + '</td>' +
+                    '<td class="contact-message">' + escapeHtml(contact.message) + '</td>' +
+                    '<td class="date">' + formatDate(contact.created_at) + '</td>' +
+                    '<td><div class="actions">' +
+                    '<button class="action-btn view" onclick="viewContact(' + contact.id + ')" title="View"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>' +
+                    (isAdmin ? '<button class="action-btn delete" onclick="deleteContact(' + contact.id + ')" title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>' : '') +
+                    '</div></td>' +
+                    '</tr>';
+            }).join('');
+        }
+
+        // Update stats
+        function updateStats() {
+            const total = contacts.length;
+            const unread = contacts.filter(c => !c.is_read).length;
+            const today = contacts.filter(c => isToday(c.created_at)).length;
+
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('unreadCount').textContent = unread;
+            document.getElementById('todayCount').textContent = today;
+        }
+
+        // View contact
+        async function viewContact(id) {
+            try {
+                const response = await fetch('/api/contacts/' + id);
+                const result = await response.json();
+
+                if (result.success) {
+                    const contact = result.data;
+                    currentContactId = id;
+
+                    // Build attachments HTML
+                    let attachmentsHtml = '-';
+                    if (contact.attachments) {
+                        const files = contact.attachments.split(',');
+                        attachmentsHtml = files.map(file => {
+                            const fileName = file.split('/').pop();
+                            return '<a href="' + file + '" target="_blank" style="display:inline-flex;align-items:center;gap:0.25rem;color:var(--primary);text-decoration:none;margin-right:0.75rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' + fileName + '</a>';
+                        }).join('');
+                    }
+
+                    document.getElementById('modalBody').innerHTML =
+                        '<div class="detail-row"><div class="detail-label">' + t('contacts_label_name') + '</div><div class="detail-value">' + escapeHtml(contact.name) + '</div></div>' +
+                        '<div class="detail-row"><div class="detail-label">' + t('contacts_label_email') + '</div><div class="detail-value"><a href="mailto:' + escapeHtml(contact.email) + '">' + escapeHtml(contact.email) + '</a></div></div>' +
+                        '<div class="detail-row"><div class="detail-label">' + t('contacts_label_phone') + '</div><div class="detail-value">' + escapeHtml(contact.phone || '-') + '</div></div>' +
+                        '<div class="detail-row"><div class="detail-label">' + t('contacts_label_company') + '</div><div class="detail-value">' + escapeHtml(contact.company || '-') + '</div></div>' +
+                        '<div class="detail-row"><div class="detail-label">' + t('contacts_label_subject') + '</div><div class="detail-value">' + escapeHtml(contact.subject || '-') + '</div></div>' +
+                        '<div class="detail-row"><div class="detail-label">' + t('contacts_label_message') + '</div><div class="detail-value message">' + escapeHtml(contact.message) + '</div></div>' +
+                        '<div class="detail-row"><div class="detail-label">' + t('contacts_label_attachments') + '</div><div class="detail-value">' + attachmentsHtml + '</div></div>' +
+                        '<div class="detail-row"><div class="detail-label">' + t('contacts_label_date') + '</div><div class="detail-value">' + formatDateTime(contact.created_at) + '</div></div>';
+
+                    document.getElementById('deleteBtn').onclick = () => deleteContact(id);
+                    document.getElementById('viewModal').classList.add('active');
+
+                    // Refresh to update read status
+                    loadContacts();
+                }
+            } catch (error) {
+                console.error('Error viewing contact:', error);
+            }
+        }
+
+        // Delete contact (Admin only)
+        async function deleteContact(id) {
+            // Kiểm tra token
+            const token = localStorage.getItem('adminToken');
+            if (!token) {
+                alert('Please login as admin to delete contacts');
+                window.location.href = './login.html';
+                return;
+            }
+
+            if (!confirm(t('contacts_confirm_delete'))) return;
+
+            try {
+                const response = await fetch(`/api/contacts/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const result = await response.json();
+
+                if (response.status === 401 || response.status === 403) {
+                    alert('Admin access required to delete contacts');
+                    return;
+                }
+
+                if (result.success) {
+                    closeModal();
+                    loadContacts();
+                } else {
+                    alert(result.message || 'Error deleting contact');
+                }
+            } catch (error) {
+                console.error('Error deleting contact:', error);
+                alert('Error deleting contact');
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('viewModal').classList.remove('active');
+            currentContactId = null;
+        }
+
+        // Helper functions
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function getLocale() {
+            const lang = getAdminLanguage();
+            if (lang === 'vi') return 'vi-VN';
+            if (lang === 'en') return 'en-US';
+            return 'ja-JP';
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            // SQLite lưu UTC, cần convert sang local
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) return dateStr;
+            return date.toLocaleDateString(getLocale());
+        }
+
+        function formatDateTime(dateStr) {
+            if (!dateStr) return '-';
+            // SQLite lưu UTC, JavaScript tự động convert sang local timezone của browser
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) return dateStr;
+            return date.toLocaleString(getLocale());
+        }
+
+        function isToday(dateStr) {
+            const date = new Date(dateStr);
+            const today = new Date();
+            return date.toDateString() === today.toDateString();
+        }
+
+        // Close modal on overlay click
+        document.getElementById('viewModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Listen for language change
+        window.addEventListener('adminLanguageChanged', () => {
+            if (contacts.length > 0) renderContacts();
+        });
+
+        // Hide Users nav if not admin
+        if (!isAdmin) {
+            const usersNav = document.getElementById('usersNavItem');
+            if (usersNav) usersNav.style.display = 'none';
+        }
+
+        // Initialize
+        loadContacts();
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('adminToken');
+            localStorage.removeItem('adminUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+
+</html>

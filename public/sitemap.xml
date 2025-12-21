@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://www.onprecision.com/</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/?lang=vi"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.onprecision.com/"/>
+        <lastmod>2024-12-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://www.onprecision.com/assets/images/og-image.jpg</image:loc>
+            <image:title>O.N.Precision - Precision Machining</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Works/Services Page -->
+    <url>
+        <loc>https://www.onprecision.com/works.html</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/works.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/works.html?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/works.html?lang=vi"/>
+        <lastmod>2024-12-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Products Page -->
+    <url>
+        <loc>https://www.onprecision.com/products.html</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/products.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/products.html?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/products.html?lang=vi"/>
+        <lastmod>2024-12-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Product Detail Page -->
+    <url>
+        <loc>https://www.onprecision.com/product-detail.html</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/product-detail.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/product-detail.html?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/product-detail.html?lang=vi"/>
+        <lastmod>2024-12-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Equipment Page -->
+    <url>
+        <loc>https://www.onprecision.com/equipment.html</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/equipment.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/equipment.html?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/equipment.html?lang=vi"/>
+        <lastmod>2024-12-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Company Page -->
+    <url>
+        <loc>https://www.onprecision.com/company.html</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/company.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/company.html?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/company.html?lang=vi"/>
+        <lastmod>2024-12-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Recruit Page -->
+    <url>
+        <loc>https://www.onprecision.com/recruit.html</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/recruit.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/recruit.html?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/recruit.html?lang=vi"/>
+        <lastmod>2024-12-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- News Page -->
+    <url>
+        <loc>https://www.onprecision.com/news.html</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/news.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/news.html?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/news.html?lang=vi"/>
+        <lastmod>2024-12-14</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- News Detail Pages -->
+    <url>
+        <loc>https://www.onprecision.com/news-detail.html?id=1</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/news-detail.html?id=1"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/news-detail.html?id=1&amp;lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/news-detail.html?id=1&amp;lang=vi"/>
+        <lastmod>2023-03-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.onprecision.com/news-detail.html?id=2</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/news-detail.html?id=2"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/news-detail.html?id=2&amp;lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/news-detail.html?id=2&amp;lang=vi"/>
+        <lastmod>2024-02-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.onprecision.com/news-detail.html?id=3</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/news-detail.html?id=3"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/news-detail.html?id=3&amp;lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/news-detail.html?id=3&amp;lang=vi"/>
+        <lastmod>2023-06-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Contact Page -->
+    <url>
+        <loc>https://www.onprecision.com/contact.html</loc>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://www.onprecision.com/contact.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.onprecision.com/contact.html?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="vi" href="https://www.onprecision.com/contact.html?lang=vi"/>
+        <lastmod>2024-12-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+</urlset>

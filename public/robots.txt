@@ -1,0 +1,30 @@
+# O.N.Precision - Robots.txt
+# https://www.onprecision.com/robots.txt
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin/private areas (if any)
+Disallow: /assets/js/
+Disallow: /*.json$
+Disallow: /includes/
+
+# Sitemap location
+Sitemap: https://www.onprecision.com/sitemap.xml
+
+# Crawl delay (optional - be careful with this)
+# Crawl-delay: 1
+
+# Googlebot specific
+User-agent: Googlebot
+Allow: /
+Disallow: /assets/js/
+
+# Bingbot specific
+User-agent: Bingbot
+Allow: /
+Disallow: /assets/js/
+
+# Host directive (for Yandex)
+Host: https://www.onprecision.com
