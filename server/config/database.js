@@ -185,6 +185,27 @@ db.serialize(() => {
         console.log('✅ Seeded ' + departments.length + ' departments');
     });
 
+    // ==============================================
+    // Seed Data - Default Admin User
+    // ==============================================
+    db.get("SELECT COUNT(*) as count FROM users", (err, row) => {
+        if (err || row.count > 0) return;
+
+        console.log('🌱 Seeding default admin user...');
+
+        // Default admin: admin / admin123
+        db.run(`
+            INSERT INTO users (fullname, username, email, password, role, is_active)
+            VALUES (?, ?, ?, ?, ?, ?)
+        `, ['Administrator', 'admin', 'admin@onprecision.com', 'admin123', 'admin', 1], (err) => {
+            if (err) {
+                console.error('❌ Error seeding admin:', err.message);
+            } else {
+                console.log('✅ Seeded default admin user (admin / admin123)');
+            }
+        });
+    });
+
     // Bảng Equipment (Thiết bị máy móc)
     db.run(`
         CREATE TABLE IF NOT EXISTS equipment (
