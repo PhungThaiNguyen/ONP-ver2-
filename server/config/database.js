@@ -6,6 +6,12 @@
 
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const crypto = require('crypto');
+
+// Hash password with SHA256 (same as authController)
+function hashPassword(password) {
+    return crypto.createHash('sha256').update(password).digest('hex');
+}
 
 const DB_PATH = path.join(__dirname, '../data/onp.sqlite');
 const db = new sqlite3.Database(DB_PATH, (err) => {
@@ -193,11 +199,12 @@ db.serialize(() => {
 
         console.log('🌱 Seeding default admin user...');
 
-        // Default admin: admin / admin123
+        // Default admin: admin / admin123 (password is hashed)
+        const hashedPassword = hashPassword('admin123');
         db.run(`
             INSERT INTO users (fullname, username, email, password, role, is_active)
             VALUES (?, ?, ?, ?, ?, ?)
-        `, ['Administrator', 'admin', 'admin@onprecision.com', 'admin123', 'admin', 1], (err) => {
+        `, ['Administrator', 'admin', 'admin@onprecision.com', hashedPassword, 'admin', 1], (err) => {
             if (err) {
                 console.error('❌ Error seeding admin:', err.message);
             } else {
