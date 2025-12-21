@@ -23,6 +23,7 @@ router.get('/equipment', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'equip
 router.get('/contact', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'contact.html')));
 router.get('/recruit', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'recruit.html')));
 router.get('/thank-you', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'thank-you.html')));
+router.get('/3d-tour', (req, res) => res.sendFile(path.join(PUBLIC_DIR, '3d-tour.html')));
 
 // Redirect .html -> clean URL
 router.get('/index.html', (req, res) => res.redirect('/'));
@@ -36,5 +37,6 @@ router.get('/equipment.html', (req, res) => res.redirect('/equipment'));
 router.get('/contact.html', (req, res) => res.redirect('/contact'));
 router.get('/recruit.html', (req, res) => res.redirect('/recruit'));
 router.get('/thank-you.html', (req, res) => res.redirect('/thank-you'));
+router.get('/3d-tour.html', (req, res) => res.redirect('/3d-tour'));
 
 module.exports = router;
